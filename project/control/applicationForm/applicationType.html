@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>申请单录入</title>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_972381_agjtwfoi687.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_972381_agjtwfoi687.css">
+    <link rel="stylesheet" href="../../css/application/applicationType.css">
+    <link rel="icon" href="../../img/logo2.png" type="image/x-icon"/>
+
+</head>
+<body>
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<div class="wrap">
+    <div class="top clearfix">
+        <div></div>
+        <span id="triggle"></span>
+        <div class="right layui-nav clearfix" lay-filter="top">
+            <div>
+                <div>
+                <p style="float: right;font-size: 23px!important;" id="laboratoryname"></p>
+                <p id="username" style="float: left ;font-size: 23px!important;margin-right: 16px"></p>
+            </div>  
+            </div>
+            <div class="layui-nav-item">
+                <a href="javascript:;"><i class="iconfont icon-gengduo-2"></i></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">切换用户</a></dd>
+                    <dd><a href="javascript:;">修改密码</a></dd>
+                    <dd><a href="../../log.html">退出</a></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!--切换用户-->
+    <div class="modal" style="display:none">
+            <div class="box">
+            <div class="log1">        
+                <div class="input01">
+                    <label>用户名</label></label><input type="text" placeholder="用户名" name='username' value="" id="username1">
+                </div>
+                <div class="input02">
+                    <label>密码</label><input type="password" placeholder="密码" name="password" value="" id="password">
+                </div>
+            </div>
+             <!--切换用户-->
+             <div class="log2" style="display: none;">
+                    <h1 style="text-align: center;margin-bottom: 30px;">选择检验室</h1>
+                    <form class="layui-form" action=""  style="width: 321px;margin-bottom: 70px">
+                        <select name="modules" lay-verify="required" lay-search="" id="unit1"
+                                lay-filter="num">
+                            <option value="">请选择</option>
+                        </select>
+                    </form>
+                    <span class="layui-btn btn2" ></span>
+                </div>
+                
+            </div>
+
+        </div>
+        <!--切换用户-->
+         <!--修改密码-->
+         <div class="pwdmodal" style="display:none">
+                <div class="box">        
+                    <div class="input01">
+                        <label>原始密码</label></label><input type="password" name='password' value="" id="old">
+                    </div>
+                    <div class="input02">
+                        <label>新密码</label><input type="password"  name="password" value="" id="new">
+                    </div>
+                     <div class="input01">
+                        <label>再次确认密码</label><input type="password" name="password" value="" id="renew">
+                    </div>
+                    
+                </div>
+            </div>
+            <!--修改密码-->
+    <div class="main">
+        <div class="slide">
+            <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" id="navbar">               
+            </ul>
+        </div>
+        <div class="container">
+            <div class="applicationType">
+                <div class="typemain">
+                    <div class="title">TR活性专项检验申请单</div>
+                    <form class="layui-form" action="" lay-filter="test1" id="subform">
+                        <div class="layui-form-item">
+                            <div class="layui-fluid">
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">送检单位</label>
+                                        <div class="layui-input-inline">
+                                            <select name="quiz" lay-verify="required" lay-search="" id="unit"  lay-filter="unit">
+                                                <option value="">请选择</option>
+                                            </select>
+                                        </div>
+                                        <span class="layui-btn" id="unitAdd">新增</span>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">抗凝剂</label>
+                                        <div class="layui-input-inline">
+                                            <select name="quiz" id="notsolid" lay-filter="notsolid">
+                                                <option value="">请选择</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">检测项目</label>
+                                        <div class="layui-input-block" id="checkitem">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-fluid">
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">姓名</label>
+                                        <div class="layui-input-inline">
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="phone" lay-verify="required" placeholder="姓名" autocomplete="off" class="layui-input" id="name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">性别</label>
+                                        <div class="layui-input-block" id="radio">
+                                            <input type="radio" name="sex" value="1" title="男">
+                                            <input type="radio" name="sex" value="0" title="女">
+                                            <input type="radio" name="sex" value="2" title="不详" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">年龄</label>
+                                        <div class="layui-input-inline">
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="phone" placeholder="年龄" lay-verify="required" autocomplete="off" class="layui-input" id="age">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form" lay-filter="test2" style="margin-left: 0;">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">科室</label>
+                                    <div class="layui-input-inline">
+                                        <select name="quiz" lay-verify="required" lay-search="" id="checkroom" lay-filter="checkroom">
+                                            <option value="">请选择</option>
+                                        </select>
+                                    </div>
+                                    <span class="layui-btn" id="officeadd">新增</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="layui-form-item">
+                            <div class="layui-fluid">
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label unit">送检单位编号</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="phone" lay-verify="required" placeholder="请输入送检单位编号" autocomplete="off" class="layui-input" id="checkroomNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">住院号</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="phone" lay-verify="required" placeholder="请输入住院号" autocomplete="off" class="layui-input" id="roomNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">床号</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="phone" lay-verify="required" placeholder="请输入床号" autocomplete="off" class="layui-input" id="bednumber">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">病区</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="phone" lay-verify="required" placeholder="请输入病区" autocomplete="off" class="layui-input" id="sickarea">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-fluid">
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">电话号码</label>
+                                        <div class="layui-input-inline">
+                                            <input type="tel" name="phone" lay-verify="required|phone" placeholder="请输入电话号码" autocomplete="off" class="layui-input" id="phone">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs8 layui-col-sm8 layui-col-md8">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">通讯地址</label>
+                                        <div class="layui-input-inline address">
+                                            <input type="text" name="phone" lay-verify="required" placeholder="请输入通讯地址" autocomplete="off" class="layui-input" id="address">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">临床诊断</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="phone" lay-verify="required" placeholder="请输入临床诊断" autocomplete="off" class="layui-input" id="clinical">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">临床分期</label>
+                                <div class="layui-input-inline">
+                                    <select name="quiz" id="cliniStage">
+                                        <option value="">请选择</option>
+                                        <option value="I期">I期</option>
+                                        <option value="II期">II期</option>
+                                        <option value="III期">III期</option>
+                                        <option value="IV期">IV期</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">当前治疗方法</label>
+                                <div class="layui-input-block" id="clinicMethod">
+                                    <input type="checkbox" name="like1[write]" value="未治疗" lay-skin="primary" title="未治疗">
+                                    <input type="checkbox" name="like1[read]" value="化疗" lay-skin="primary" title="化疗">
+                                    <input type="checkbox" name="like1[game]" value="手术" lay-skin="primary" title="手术">
+                                    <input type="checkbox" name="like1[read]" value="放疗" lay-skin="primary" title="放疗">
+                                    <input type="checkbox" name="like1[game]" value="其他" lay-skin="primary" title="其他">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">治疗阶段</label>
+                                <div class="layui-input-block" id="treatmentPeriod">
+                                    <input type="radio" name="period" value="初疗" title="初疗">
+                                    <input type="radio" name="period" value="第二次放疗" title="第二次放疗">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sick">
+                            疾病史
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-fluid">
+                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">囊肿</label>
+                                        <div class="layui-input-block" id="tumour">
+                                            <input type="checkbox" name="like1[write]" value="肝" lay-skin="primary" title="肝">
+                                            <input type="checkbox" name="like1[read]" value="胆" lay-skin="primary" title="胆">
+                                            <input type="checkbox" name="like1[read]" value="肾" lay-skin="primary" title="肾">
+                                            <input type="checkbox" name="like1[read]" value="妇科" lay-skin="primary" title="妇科">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">大小</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="phone" lay-verify="required" placeholder="请输入肿瘤大小" autocomplete="off" class="layui-input" id="tumoursize">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-fluid">
+                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">增生</label>
+                                        <span class="add">乳腺增生</span>
+                                        <div class="layui-input-block addspecial" id="breastAdd">
+                                            <input type="radio" name="breastAdd" value="轻度" title="轻度">
+                                            <input type="radio" name="breastAdd" value="中度" title="中度">
+                                            <input type="radio" name="breastAdd" value="重度" title="重度">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">前列腺增生</label>
+                                        <div class="layui-input-block" id="prostatitis">
+                                            <input type="radio" name="prostatitis" value="轻度" title="轻度">
+                                            <input type="radio" name="prostatitis" value="中度" title="中度">
+                                            <input type="radio" name="prostatitis" value="重度" title="重度">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">脂肪肝</label>
+                                <div class="layui-input-block" id="fat">
+                                    <input type="radio" name="fat" value="轻度" title="轻度">
+                                    <input type="radio" name="fat" value="中度" title="中度">
+                                    <input type="radio" name="fat" value="重度" title="重度">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-fluid">
+                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">结石</label>
+                                        <div class="layui-input-block" id="stone">
+                                            <input type="checkbox" name="like1[write]" value="胆管" lay-skin="primary" title="胆管">
+                                            <input type="checkbox" name="like1[read]" value="胆" lay-skin="primary" title="胆">
+                                            <input type="checkbox" name="like1[read]" value="肾" lay-skin="primary" title="肾">
+                                            <input type="checkbox" name="like1[read]" value="输尿管" lay-skin="primary" title="输尿管">
+                                            <input type="checkbox" name="like1[read]" value="膀胱" lay-skin="primary" title="膀胱">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">大小</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="phone" lay-verify="required" placeholder="请输入结石大小" autocomplete="off" class="layui-input" id="stoneSize">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-fluid">
+                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">息肉</label>
+                                        <div class="layui-input-block" id="polyp">
+                                            <input type="checkbox" name="like1[write]" value="胆囊" lay-skin="primary" title="胆囊">
+                                            <input type="checkbox" name="like1[read]" value="肠道" lay-skin="primary" title="肠道">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">大小</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="phone" lay-verify="required" placeholder="请输入息肉大小" autocomplete="off" class="layui-input" id="polypSize">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-fluid">
+                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">子宫肌瘤</label>
+                                        <div class="layui-input-block" id="myoma">
+                                            <input type="radio" name="myoma" value="有" title="有">
+                                            <input type="radio" name="myoma" value="无" title="无">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">大小</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="phone" lay-verify="required" placeholder="请输入子宫肌瘤大小" autocomplete="off" class="layui-input" id="myomaSize">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-fluid">
+                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">甲状腺</label>
+                                        <div class="layui-input-block" id="thyroid">
+                                            <input type="checkbox" name="like1[write]" value="肿大" lay-skin="primary" title="肿大">
+                                            <input type="checkbox" name="like1[read]" value="结节" lay-skin="primary" title="结节">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">程度及大小</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="phone" lay-verify="required" placeholder="请输入甲状腺程度及大小" autocomplete="off" class="layui-input" id="thyroidSize">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">其他</label>
+                                <div class="layui-input-inline address">
+                                    <input type="text" name="phone" lay-verify="required" placeholder="请输入其他疾病史" autocomplete="off" class="layui-input" id="others">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">客户来源</label>
+                                <div class="layui-input-inline address">
+                                    <input type="text" name="phone" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="client">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-fluid">
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">采血时间</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="phone" id='blood' lay-verify="required" placeholder="请选择采血时间" autocomplete="off" class="layui-input bloodtime" readonly>
+                                            <i class="iconfont icon-riqi"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">送检时间</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" id='send' name="phone" lay-verify="required" placeholder="请选择送检时间" autocomplete="off" class="layui-input bloodtime"  readonly>
+                                            <i class="iconfont icon-riqi"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">送检医生</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="phone" lay-verify="required" placeholder="请输入送检医生" autocomplete="off" class="layui-input" id="doctor">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="t_bottom">
+                            <span class="layui-btn layui-btn-fluid" id="submit">保存申请单</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--送检单位新增-->
+<div class="unitadd layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">送检单位</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" required  lay-verify="required" placeholder="请输入送检单位" autocomplete="off" id="unitinp" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所在省</label>
+        <div class="layui-input-block" >
+            <select name="interest" lay-filter="aihao" id="provin">
+                <option value="">请选择省</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所在市</label>
+        <div class="layui-input-block">
+            <select name="interest" id="city">
+                <option value="">请选择市</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">优先级</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" id="preve" class="layui-input">
+        </div>
+    </div>
+</div>
+<!--新增科室-->
+<div class="officeadd layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">科室名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" id="officename" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">优先级</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" required  lay-verify="required" autocomplete="off" id="prevname" class="layui-input">
+        </div>
+    </div>
+</div>
+<script src="../../js/jquery.js"></script>
+<script src="../../layui/layui.all.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/application/applicationType.js"></script>
+</body>
+</html>

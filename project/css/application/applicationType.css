@@ -1,0 +1,93 @@
+.applicationType {
+  height: 100%;
+  min-width: 1000px;
+  padding: 10px;
+  background-color: #f5f5fa;
+  box-sizing: border-box;
+}
+.applicationType .typemain {
+  background-color: white;
+}
+.applicationType .typemain .title {
+  height: 100px;
+  margin: 0 30px;
+  border-bottom: 1px dashed #dcdce1;
+  font-size: 23px;
+  text-align: center;
+  line-height: 100px;
+}
+.applicationType .typemain .title button {
+  float: right;
+  margin-top: 35px;
+}
+.applicationType .typemain .layui-form {
+  margin: 20px 10px;
+}
+.applicationType .typemain .layui-form .layui-btn {
+  padding: 0 4px;
+  font-size: 12px;
+}
+.applicationType .typemain .layui-form .address {
+  width: 543px;
+}
+.applicationType .typemain .layui-form .sick {
+  height: 70px;
+  border-bottom: 1px dashed #dcdce1;
+  line-height: 70px;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.applicationType .typemain .layui-form .add {
+  float: left;
+  vertical-align: middle;
+  padding-top: 7px;
+}
+.applicationType .typemain .layui-form .addspecial {
+  margin-left: 182px!important;
+}
+.applicationType .typemain .layui-form .line {
+  border: 1px dashed #dcdce1;
+  margin: 20px 0;
+}
+.applicationType .typemain .layui-form .t_bottom {
+  text-align: center;
+  height: 100px;
+  line-height: 80px;
+}
+.applicationType .typemain .layui-form .t_bottom .layui-btn-fluid {
+  width: 396px;
+}
+.layui-form-item .layui-inline {
+  margin-right: 0!important;
+}
+.layui-form-label {
+  padding: 9px 6px;
+  width: 97px;
+}
+.icon-riqi {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  font-size: 23px;
+}
+.unitadd {
+  margin-top: 43px;
+}
+.unitadd .layui-input-block {
+  margin-right: 62px;
+}
+.officeadd {
+  margin-top: 43px;
+}
+.officeadd .layui-input-block {
+  margin-right: 62px;
+}
+.bloodtime {
+  background-color: #fafaff!important;
+  cursor: pointer;
+}
+.layui-form-select .layui-input {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

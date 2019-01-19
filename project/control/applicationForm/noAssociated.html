@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>未关联</title>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_972381_agjtwfoi687.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/application/applicaitonSubmit.css">
+    <link rel="icon" href="../../img/logo2.png" type="image/x-icon"/>
+    <link rel="icon" href="../../img/logo2.png" type="image/x-icon"/>
+
+</head>
+<body>
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<div class="wrap">
+    <div class="top clearfix">
+        <div></div>
+        <span id="triggle"></span>
+        <div class="right layui-nav clearfix" lay-filter="top">
+            <div>
+                <div>
+                <p style="float: right;font-size: 23px!important;" id="laboratoryname"></p>
+                <p id="username" style="float: left ;font-size: 23px!important;margin-right: 16px"></p>
+            </div>  
+            </div>
+            <div class="layui-nav-item">
+                <a href="javascript:;"><i class="iconfont icon-gengduo-2"></i></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">切换用户</a></dd>
+                    <dd><a href="javascript:;">修改密码</a></dd>
+                    <dd><a href="../../log.html">退出</a></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!--切换用户-->
+    <div class="modal" style="display:none">
+            <div class="box">
+            <div class="log1">        
+                <div class="input01">
+                    <label>用户名</label></label><input type="text" placeholder="用户名" name='username' value="" id="username1">
+                </div>
+                <div class="input02">
+                    <label>密码</label><input type="password" placeholder="密码" name="password" value="" id="password">
+                </div>
+            </div>
+             <!--切换用户-->
+             <div class="log2" style="display: none;">
+                    <h1 style="text-align: center;margin-bottom: 30px;">选择检验室</h1>
+                    <form class="layui-form" action=""  style="width: 321px;margin-bottom: 70px">
+                        <select name="modules" lay-verify="required" lay-search="" id="unit1"
+                                lay-filter="num">
+                            <option value="">请选择</option>
+                        </select>
+                    </form>
+                    <span class="layui-btn btn2" ></span>
+                </div>
+                
+            </div>
+
+        </div>
+        <!--切换用户-->
+         <!--修改密码-->
+         <div class="pwdmodal" style="display:none">
+                <div class="box">        
+                    <div class="input01">
+                        <label>原始密码</label></label><input type="password" name='password' value="" id="old">
+                    </div>
+                    <div class="input02">
+                        <label>新密码</label><input type="password"  name="password" value="" id="new">
+                    </div>
+                     <div class="input01">
+                        <label>再次确认密码</label><input type="password" name="password" value="" id="renew">
+                    </div>
+                   
+                </div>
+            </div>
+            <!--修改密码-->
+    <div class="main">
+        <div class="slide">
+            <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" id="navbar">
+            </ul>
+        </div>
+        <div class="container">
+            <div class="a_submit">
+                <form  class="layui-form" action="">
+                    <div class="a_top">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">送检单位</label>
+                                <div class="layui-input-inline">
+                                    <select name="modules" lay-verify="required" lay-search="" id="unit"
+                                            lay-filter="num">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">开始时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="phone" id="starttime" placeholder="开始时间" lay-verify="required" autocomplete="off" class="layui-input" readonly>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">结束时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="phone" id="endtime" placeholder="结束时间" lay-verify="required" autocomplete="off" class="layui-input" readonly>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">姓名</label>
+                                <div class="layui-input-inline">
+                                    <input type="tel" name="phone" placeholder="姓名" lay-verify="required|phone" autocomplete="off" class="layui-input" id="testerName">
+                                </div>
+                            </div>
+                            <div class="layui-inline warn">
+                                <div class="layui-btn layui-btn-danger" data-type="delete" id="delete">批量删除</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="a_check_center clearfix">
+                        <div class="layui-form-item left">
+                            <div class="layui-inline">
+                                <label class="layui-form-label unit">送检单位编号</label>
+                                <div class="layui-input-inline">
+                                    <input type="tel" name="phone" placeholder="送检单位编号" lay-verify="required|phone" autocomplete="off" class="layui-input" id="inspectionUnitNumber">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">门诊号</label>
+                                <div class="layui-input-inline">
+                                    <input type="tel" name="phone" placeholder="门诊号" lay-verify="required|phone" autocomplete="off" class="layui-input" id="outpatientNumber">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">住院号</label>
+                                <div class="layui-input-inline">
+                                    <input type="tel" name="phone" placeholder="住院号" lay-verify="required|phone" autocomplete="off" class="layui-input" id="admissionNumber">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">批次号</label>
+                                <div class="layui-input-inline">
+                                    <input type="tel" name="phone" placeholder="批次号" lay-verify="required|phone" autocomplete="off" class="layui-input" id="batchNumber">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <span class="layui-btn" id="search" data-type="reload">搜索</span>
+                            </div>
+                            <div class="layui-inline">
+                                <button class="layui-btn">清空</button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item right">
+                            <div class="layui-inline">
+                                <!--<button class="layui-btn">按照批次号添加病运单号</button>-->
+                                <span class="layui-btn" id="add" data-type="addCourierNumber">批量添加运单号</span>
+                            </div>
+                            <div class="layui-inline">
+                                <div class="layui-btn" id="outSystemLog" data-type="outSystemLog">批量导出</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table">
+                        <table class="layui-hide" id="test" lay-filter="demo"></table>
+                        <script type="text/html" id="barDemo">
+                            <div class="layui-btn layui-btn-xs" lay-event="edit" >编辑</div>
+                        </script>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="officeadd layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 97px!important;">添加快递单号</label>
+        <div class="layui-input-block" style="margin-left: 140px;">
+            <input type="text" name="title" required  lay-verify="required" autocomplete="off" id="prevname" class="layui-input">
+        </div>
+    </div>
+</div>
+
+
+<script src="../../js/jquery.js"></script>
+<script src="../../layui/layui.all.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/medic/noAssociated.js"></script>
+
+</body>
+</html>

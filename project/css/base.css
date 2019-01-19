@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body,
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+li {
+  list-style: none;
+}
+.clearfix:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  overflow: hidden;
+}
+.layui-nav * {
+  font-size: 16px!important;
+}
+.layui-fluid {
+  padding: 0 !important;
+}
+.yellow {
+  background-color: #ffcc00 !important;
+}
+.layui-table-hover{
+  background-color: #C2D69A !important;
+}
+
+thead {
+  font-size: 12px;
+  color: black;
+}
+.wrap {
+  overflow: hidden;
+  height: 100%;
+}
+.wrap .top {
+  width: 100%;
+  min-width: 1366px;
+  height: 70px;
+  background: url("../img/nav_05.png") 30px center no-repeat;
+  background-color: #0e192a;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.wrap .top .right {
+  float: right;
+  height: 70px;
+  margin-right: 30px;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+.wrap .top .right div {
+  display: inline-block;
+  font-size: 14px;
+  vertical-align: middle;
+  margin-right: 32px;
+}
+.wrap .top .layui-nav {
+  background-color: #0e192a;
+}
+.wrap .top .layui-nav .layui-nav-item a .icon-gengduo-2 {
+  font-size: 20px!important;
+}
+.wrap .top .layui-nav .layui-nav-item .layui-nav-more {
+  display: none;
+}
+.wrap .top .layui-nav .layui-nav-bar {
+  display: none;
+}
+.wrap .top #triggle {
+  display: inline-block;
+  width: 60px;
+  height: 50px;
+  background: url("../img/icon_03.png") center center no-repeat;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.wrap .top > div:first-child {
+  display: inline-block;
+  vertical-align: middle;
+  width: 451px;
+}
+.wrap .main {
+  padding-top: 70px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.wrap .main .slide {
+  float: left;
+  width: 14.7%;
+  min-width: 278px;
+  height: 100%;
+  background: #1b2638;
+  overflow-y: auto;
+}
+.wrap .main .slide .layui-nav-tree {
+  width: 100%;
+  padding: 0 15px 0 0;
+}
+.wrap .main .slide .layui-nav {
+  background-color: #1b2638;
+}
+.wrap .main .container {
+  margin-left: 14.5%;
+  height: 100%;
+  background-color: #f5f5fa;
+  overflow: auto;
+}
+.modal {
+  margin-top: 43px;
+}
+.modal .layui-input-block {
+  margin-right: 62px;
+}
+.pwdmodal {
+  margin-top: 20px;
+}
+.pwdmodal .layui-input-block {
+  margin-right: 62px;
+}
+#slide {
+  float: left;
+  height: 100%;
+  background: #1b2638;
+  overflow-y: auto;
+}
+
+.box{
+  text-align: center;
+}
+.input01,.input02{
+  margin-bottom: 20px;
+  
+}
+.input01 label,.input02 label{
+  display: inline-block;
+  width: 120px;
+}
+.box input{
+  height: 35px;
+  line-height: 35px;
+  width: 70%;
+  padding-left:10px;
+
+}
+.btn{
+  
+  padding: 6px 20px;
+  background: #009688;
+  color: #fff;
+}
+/*# sourceMappingURL=base.css.map */

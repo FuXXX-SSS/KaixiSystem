@@ -1,0 +1,86 @@
+.wrap {
+  width: 100%;
+  height: 100%;
+  background: url("../img/beijing.png") center center no-repeat;
+  min-width: 1366px;
+  max-width: 1920px;
+  min-height: 768px;
+  position: relative;
+  background-size: cover;
+}
+.wrap .box {
+  width: 25%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-1%) translateY(-36%);
+  padding: 21px;
+}
+.wrap .box .title {
+  text-align: center;
+  font-size: 25px;
+  padding: 27px 0;
+}
+.wrap .box .input01 {
+  margin: 0 auto;
+  width: 342px;
+  height: 50px;
+  background: url("../img/zhanghao_01.png") center center no-repeat;
+  background-size: cover;
+}
+.wrap .box .input01 input {
+  margin-left: 69px;
+  width: 249px;
+  height: 30px;
+  margin-top: 10px;
+  padding-left: 5px;
+  border: none;
+  outline: none;
+  background: #f5f5fa;
+}
+.wrap .box .input03 {
+  margin: 0 auto;
+  width: 342px;
+  height: 50px;
+}
+.wrap .box .input02 {
+  margin: 15px auto;
+  width: 342px;
+  height: 50px;
+  background: url("../img/mima_01.png") center center no-repeat;
+  background-size: cover;
+}
+.wrap .box .input02 input {
+  margin-left: 69px;
+  width: 249px;
+  height: 30px;
+  margin-top: 10px;
+  padding-left: 5px;
+  border: none;
+  outline: none;
+  background: #f5f5fa;
+}
+.wrap .box .layui-input-inline {
+  width: 322px;
+}
+.wrap .box .layui-inline {
+  margin-left: 10px;
+}
+.wrap .box .btn {
+  margin: 15px auto;
+  width: 322px;
+  height: 39px;
+  background: url(../img/denglu.png) center center no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.wrap .box .btm {
+  margin: 74px auto 15px;
+  width: 322px;
+  height: 39px;
+  background: url(../img/denglu.png) center center no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  cursor: pointer;
+}

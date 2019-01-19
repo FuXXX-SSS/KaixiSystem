@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>肿瘤病例导入</title>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_972381_agjtwfoi687.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/application/applicaitonSubmit.css">
+    <link rel="icon" href="../../img/logo2.png" type="image/x-icon"/>
+
+</head>
+<body>
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<div class="wrap">
+    <div class="top clearfix">
+        <div></div>
+        <span id="triggle"></span>
+        <div class="right layui-nav clearfix" lay-filter="top">
+            <div>
+                <div>
+                <p style="float: right;font-size: 23px!important;" id="laboratoryname"></p>
+                <p id="username" style="float: left ;font-size: 23px!important;margin-right: 16px"></p>
+            </div>  
+            </div>
+            <div class="layui-nav-item">
+                <a href="javascript:;"><i class="iconfont icon-gengduo-2"></i></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">切换用户</a></dd>
+                    <dd><a href="javascript:;">修改密码</a></dd>
+                    <dd><a href="../../log.html">退出</a></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!--切换用户-->
+    <div class="modal" style="display:none">
+            <div class="box">
+            <div class="log1">        
+                <div class="input01">
+                    <label>用户名</label></label><input type="text" placeholder="用户名" name='username' value="" id="username1">
+                </div>
+                <div class="input02">
+                    <label>密码</label><input type="password" placeholder="密码" name="password" value="" id="password">
+                </div>
+            </div>
+             <!--切换用户-->
+             <div class="log2" style="display: none;">
+                    <h1 style="text-align: center;margin-bottom: 30px;">选择检验室</h1>
+                    <form class="layui-form" action=""  style="width: 321px;margin-bottom: 70px">
+                        <select name="modules" lay-verify="required" lay-search="" id="unit1"
+                                lay-filter="num">
+                            <option value="">请选择</option>
+                        </select>
+                    </form>
+                    <span class="layui-btn btn2" ></span>
+                </div>
+                
+            </div>
+
+        </div>
+        <!--切换用户-->
+         <!--修改密码-->
+         <div class="pwdmodal" style="display:none">
+                <div class="box">        
+                    <div class="input01">
+                        <label>原始密码</label></label><input type="password" name='password' value="" id="old">
+                    </div>
+                    <div class="input02">
+                        <label>新密码</label><input type="password"  name="password" value="" id="new">
+                    </div>
+                     <div class="input01">
+                        <label>再次确认密码</label><input type="password" name="password" value="" id="renew">
+                    </div>
+                   
+                </div>
+            </div>
+            <!--修改密码-->
+    <div class="main">
+        <div class="slide">
+            <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" id="navbar">
+                <li class="layui-nav-item">
+                    <a href="home.html" title="首页">
+                        <i class="iconfont icon-shouye"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="javascript:;" title="申请单录入">
+                        <i class="iconfont icon-bi"></i>
+                        <span>申请单录入</span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="applicationType.html">申请单录入</a></dd>
+                        <dd><a href="applicationSubmit.html">申请单提交</a></dd>
+                        <dd><a href="rejectApplication.html">驳回申请单</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;" title="申请单审核">
+                        <i class="iconfont icon-shenhe"></i>
+                        <span>申请单审核</span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="applicationCheck.html">申请单审核</a></dd>
+                        <dd><a href="sampleReject.html">样本拒绝管理</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="bloodConfirm.html" title="血样确认">
+                        <i class="iconfont icon-queren"></i>
+                        <span>血样确认</span>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;" title="血样检验">
+                        <i class="iconfont icon-icon"></i>
+                        <span>血样检验</span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="bloodTest.html">血样检验</a></dd>
+                        <dd><a href="bloodRetest.html">血样复测</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;" title="数据审核">
+                        <i class="iconfont icon-iconfontpaixingbang"></i>
+                        <span>数据审核</span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="dataCheck.html">数据审核</a></dd>
+                        <dd><a href="unapproved.html">未批准</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="dataApproval.html" title="数据批准">
+                        <i class="iconfont icon-shenhetongguo1"></i>
+                        <span>数据批准</span>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="report.html" title="生成报告">
+                        <i class="iconfont icon-baogao-copy"></i>
+                        <span>生成报告</span>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;" title="病例">
+                        <i class="iconfont icon-bingli"></i>
+                        <span>病例</span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="noAssociated.html">未关联</a></dd>
+                        <dd><a href="associated.html">已关联</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;" title="数据中心">
+                        <i class="iconfont icon-digital"></i>
+                        <span>数据中心</span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd class="layui-this"><a href="tumour.html">肿瘤病例</a></dd>
+                        <dd><a href="healthForm.html">体检病例</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="statistics.html" title="数据部统计">
+                        <i class="iconfont icon-mianxingtubiao_shujutongji"></i>
+                        <span>数据部统计</span>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="bloodReception.html" title="血样接收单">
+                        <i class="iconfont icon-baogao-copy"></i>
+                        <span>血样接收单</span>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="publicSearch.html" title="公共查询">
+                        <i class="iconfont icon-chaxun"></i>
+                        <span>公共查询</span>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;" title="系统配置">
+                        <i class="iconfont icon-xitongpeizhi"></i>
+                        <span>系统配置</span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" id="menu_three">信息配置</a>
+                            <ol class="layui-nav-child">
+                                <li><a href="inspectionUnit.html">送检单位配置</a></li>
+                                <li><a href="inspectionItem.html">检测项目配置</a></li>
+                                <li><a href="notSolid.html">抗凝剂配置</a></li>
+                                <li><a href="officeUnit.html">科室配置</a></li>
+                                <li><a href="checkoutRoom.html">检测室配置</a></li>
+                                <li><a href="bloodNote.html">血样备注配置</a></li>
+                            </ol>
+                        </dd>
+                        <dd><a href="authority.html">系统权限</a></dd>
+                        <dd><a href="dailyLog.html">系统日志</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <div class="container">
+            <div class="a_submit">
+                <form class="layui-form" action="">
+                    <div class="a_top">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">送检单位</label>
+                                <div class="layui-input-inline">
+                                    <select name="modules" lay-verify="required" lay-search="" id="unit"
+                                            lay-filter="num">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">送检时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="phone" id="starttime" placeholder="开始时间"
+                                           lay-verify="required" autocomplete="off" class="layui-input" readonly>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">结束时间:</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="phone" id="endtime" placeholder="结束时间"
+                                           lay-verify="required" autocomplete="off" class="layui-input" readonly>
+                                </div>
+                            </div>
+
+                            <div class="layui-inline">
+                                <label class="layui-form-label">姓名</label>
+                                <div class="layui-input-inline">
+                                    <input type="tel" name="phone" placeholder="姓名" lay-verify="required|phone"
+                                           autocomplete="off" class="layui-input" id="testerName">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <span class="layui-btn" id="search" data-type="reload">搜索</span>
+                            </div>
+                            <div class="layui-inline">
+                                <button class="layui-btn">清空</button>
+                            </div>
+                            <div class="back"  style="float: right">
+                                <div class="layui-inline">
+                                    <!--<button class="layui-btn">按照批次号添加病运单号</button>-->
+                                    <span class="layui-btn" id="add" data-type="addCourierNumber">返回</span>
+                                </div>
+                                <div class="layui-inline">
+                                    <div class="layui-btn" id="selectToDataCenter" data-type="selectToDataCenter">导入到数据中心</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="a_check_center clearfix">
+                        <!--<div class="layui-form-item right">-->
+                        <!--<div class="layui-inline">-->
+                        <!--&lt;!&ndash;<button class="layui-btn">按照批次号添加病运单号</button>&ndash;&gt;-->
+                        <!--<span class="layui-btn" id="add" data-type="addCourierNumber">返回</span>-->
+                        <!--</div>-->
+                        <!--<div class="layui-inline">-->
+                        <!--<button class="layui-btn">导入到数据中心</button>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="table">
+                        <table class="layui-hide" id="test" lay-filter="demo"></table>
+                        <script type="text/html" id="barDemo">
+                        </script>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<<script src="../../js/jquery.js"></script>
+<script src="../../layui/layui.all.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/queryBloodCase/queryBloodCase.js"></script>
+</body>
+</html>

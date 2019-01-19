@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>血样复测</title>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_972381_agjtwfoi687.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/application/applicaitonSubmit.css">
+    <link rel="icon" href="../../img/logo2.png" type="image/x-icon"/>
+
+</head>
+<style>
+    .layui-table-col-special .layui-table-cell{
+        height: auto;
+    }
+</style>
+<body>
+<body>
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<div class="wrap">
+    <div class="top clearfix">
+        <div></div>
+        <span id="triggle"></span>
+        <div class="right layui-nav clearfix" lay-filter="top">
+            <div>
+                <div>
+                <p style="float: right;font-size: 23px!important;" id="laboratoryname"></p>
+                <p id="username" style="float: left ;font-size: 23px!important;margin-right: 16px"></p>
+            </div>  
+            </div>
+            <div class="layui-nav-item">
+                <a href="javascript:;"><i class="iconfont icon-gengduo-2"></i></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">切换用户</a></dd>
+                    <dd><a href="javascript:;">修改密码</a></dd>
+                    <dd><a href="../../log.html">退出</a></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!--切换用户-->
+    <div class="modal" style="display:none">
+            <div class="box">
+            <div class="log1">        
+                <div class="input01">
+                    <label>用户名</label></label><input type="text" placeholder="用户名" name='username' value="" id="username1">
+                </div>
+                <div class="input02">
+                    <label>密码</label><input type="password" placeholder="密码" name="password" value="" id="password">
+                </div>
+            </div>
+             <!--切换用户-->
+             <div class="log2" style="display: none;">
+                    <h1 style="text-align: center;margin-bottom: 30px;">选择检验室</h1>
+                    <form class="layui-form" action=""  style="width: 321px;margin-bottom: 70px">
+                        <select name="modules" lay-verify="required" lay-search="" id="unit1"
+                                lay-filter="num">
+                            <option value="">请选择</option>
+                        </select>
+                    </form>
+                    <span class="layui-btn btn2" ></span>
+                </div>
+                
+            </div>
+
+        </div>
+        <!--切换用户-->
+         <!--修改密码-->
+         <div class="pwdmodal" style="display:none">
+                <div class="box">        
+                    <div class="input01">
+                        <label>原始密码</label></label><input type="password" name='password' value="" id="old">
+                    </div>
+                    <div class="input02">
+                        <label>新密码</label><input type="password"  name="password" value="" id="new">
+                    </div>
+                     <div class="input01">
+                        <label>再次确认密码</label><input type="password" name="password" value="" id="renew">
+                    </div>                    
+                </div>
+            </div>
+            <!--修改密码-->
+    <div class="main">
+        <div class="slide">
+            <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" id="navbar">
+           
+            </ul>
+        </div>
+        <div class="container">
+            <div class="a_submit">
+                <form  class="layui-form" action="">
+                    <div class="a_top">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">送检单位</label>
+                                <div class="layui-input-inline">
+                                    <select name="modules" lay-verify="required" lay-search="" id="unit" lay-filter="num">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">开始时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text"  name="phone" id="start" placeholder="开始时间" lay-verify="required" autocomplete="off" class="layui-input" readonly>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">结束时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="phone" id="end" placeholder="结束时间" lay-verify="required" autocomplete="off" class="layui-input" readonly>
+                                </div>
+                                </div>
+                                <div class="layui-inline">
+                                        <label class="layui-form-label">姓名</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="phone" id="name" placeholder="姓名" lay-verify="required" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline warn">
+                                        <span class="layui-btn layui-btn-danger" data-type="getCheckLength" id="all">批量删除</span>
+                                    </div>
+                            </div>
+                           
+                        </div>                   
+                    <div class="a_check_center clearfix">
+                        <div class="layui-form-item left">
+                            <div class="layui-inline">
+                                <label class="layui-form-label unit">送检单位编号</label>
+                                <div class="layui-input-inline">
+                                    <input type="tel" name="phone" id="number" placeholder="送检单位编号" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">检验状态</label>
+                                <div class="layui-input-inline">
+                                    <select name="modules" lay-verify="required" lay-search="" lay-filter="check" id="check">                                      
+                                        <option value="0">未检验</option> 
+                                        <option value="1">已检验</option>                                                                             
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <span class="layui-btn" id="search" data-type="reload">搜索</span>
+                            </div>
+                            <div class="layui-inline">
+                                <span class="layui-btn" id="clear">清空</span>
+                            </div>
+                        </div>
+                        <div class="layui-form-item right">
+                            <div class="layui-inline">
+                                <span class="layui-btn" data-type="toTest" id="toTest">标记已检验</span>
+                            </div>
+                            <div class="layui-inline">
+                                <span class="layui-btn" data-type="Unchecked" id="Unchecked" style="display:none">标记未检验</span>
+                            </div>
+                            <div class="layui-inline">
+                                    <span class="layui-btn" data-type="batchSubmit" id="batchSubmit" style="display:none">批量提交</span>
+                                </div>                           
+                            <div class="layui-inline">
+                                <span class="layui-btn" id="loader">下载模板</span>
+                            </div>
+                            <div class="layui-inline">                                
+                                <span class="layui-btn" id="allout" data-type="allout">批量导出</span>                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table">
+                        <table class="layui-table" id="test" lay-filter="demo"></table> 
+                        <script type="text/html" id="barDemo">
+                            {{#  if(d.isaddTestresult=='已检验'){ }}
+                            <a class="layui-btn  layui-btn-xs" lay-event="edit" >修改检验结果</a>
+                            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="Submission" >提交审核</a>
+                            {{#  } else if(d.isaddTestresult=='未检验'){ }}
+                            <a class="layui-btn layui-btn-xs" lay-event="detail">添加检验结果</a>
+                            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="xgnumber">修改检验所编号</a>
+                            {{#  } }}
+                        </script>                                              
+                    </div>                   
+                </form>
+                <!--添加检验结果-->
+                <div class="officeadd layui-form" style="display:none">    
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">TR值(U/ML)</label>
+                        <div class="layui-input-block" style="margin-left: 140px;">
+                            <input type="text" name="title" required  lay-verify="required" autocomplete="off" id="val1" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">OMA</label>
+                        <div class="layui-input-block" style="margin-left: 140px;">
+                            <input type="text" name="title" required  lay-verify="required" autocomplete="off" id="val2" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">仪器型号</label>
+                        <div class="layui-input-block" style="margin-left: 140px;">
+                            <input type="text" name="title" required  lay-verify="required" autocomplete="off" id="val3" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">检验日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  name="phone" id="start1" placeholder="开始时间" lay-verify="required" autocomplete="off" class="layui-input" readonly>
+                        </div>
+                    </div>        
+                </div>
+                <!--添加检验结果-->
+                <!--修改检验所编号-->
+                <div class="xgnumber layui-form" style="display:none">    
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">检验所编号</label>
+                        <div class="layui-input-block" style="margin-left: 140px;">
+                            <input type="text" name="title" required  lay-verify="required" autocomplete="off" id="val4" class="layui-input">
+                        </div>
+                    </div>                  
+                </div>
+                <!--修改检验所编号-->
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+<script src="../../js/jquery.js"></script>
+<script src="../../layui/layui.all.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/bloodTest/bloodRetest.js"></script>
+
+</body>
+</body>
+</html>

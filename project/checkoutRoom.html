@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>检验室登录</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+<body>
+<div class="wrap">
+    <div class="box">
+        <div class="title">
+            请选择检验室
+        </div>
+        <div class="input03 layui-form">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="quiz" id="selector" >
+                        <option value="检验室1">检验室1</option>
+                        <option value="检验室2">检验室2</option>
+                        <option value="检验室3">检验室3</option>
+                        <option value="检验室4">检验室4</option>
+                        <option value="检验室5">检验室5</option>
+                        <option value="检验室6">检验室6</option>
+                        <option value="检验室7">检验室7</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="btm"></div>
+    </div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="layui/layui.all.js"></script>
+<script>
+    $(function(){
+        function submit(){
+            var value=$("#selector").val();
+            console.log(value)
+        }
+        $(".btm").click(submit)
+        $(document).keydown(function(ev){
+            if(ev.keyCode==13){
+                submit()
+            }
+        })
+    })
+</script>
+</body>
+</html>

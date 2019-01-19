@@ -1,0 +1,96 @@
+.a_submit {
+  height: 100%;
+  min-width: 1000px;
+  padding: 10px;
+  background-color: #f5f5fa;
+  box-sizing: border-box;
+}
+.a_submit form .a_top .warn {
+  float: right;
+}
+.a_submit form .a_center .layui-inline {
+  float: right;
+}
+.a_submit form .a_check_center .layui-form-item {
+  margin-bottom: 0;
+  clear: unset;
+}
+.a_submit form .a_check_center .unit {
+  width: 104px!important;
+}
+.a_submit form .a_check_center .tumor {
+  width: 129px!important;
+}
+.a_submit form .a_check_center .left {
+  float: left;
+}
+.a_submit form .a_check_center .right {
+  float: right;
+}
+.a_submit form .table {
+  margin: 0 auto;
+}
+.layui-form-label {
+  /*width: 64px!important;*/
+}
+.layui-form-item .layui-input-inline {
+  width: 140px;
+}
+.layui-form-select .layui-input {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#start,
+#end {
+  background-color: #fafaff!important;
+  cursor: pointer;
+}
+#allinsert {
+ 
+  overflow: hidden;
+  position: relative;
+}
+#allinsert input[type='file'] {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.top dl.layui-nav-child {
+  z-index: 999999;
+}
+#adopt1{
+  display: none;
+}
+.layui-input-block{
+  margin-right: 30px!important;
+}
+
+/*.layui-layer-content{*/
+  /*min-height: 200px!important;*/
+  /*overflow: auto;*/
+/*}*/
+#layui-layer1{
+  /*height: 298px;*/
+}
+.layui-layer-btn{
+  padding-top: 0!important;
+}
+@media screen and (max-width: 1680px) {
+  .layui-form-label {
+      font-size: 14px;
+      width: 60px;
+      padding:9px 10px;
+  }
+  .layui-form-item .layui-input-inline{
+    width: 100px;
+  }
+  .layui-input, .layui-select, .layui-textarea{
+    font-size: 14px;
+  }
+ 
+}

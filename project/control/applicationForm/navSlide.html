@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>公共侧边栏</title>
+</head>
+<body>
+<div class="slide">
+    <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" id="navbar">
+        <li class="layui-nav-item">
+            <a href="home.html" title="首页">
+                <i class="iconfont icon-shouye"></i>
+                <span>首页</span>
+            </a>
+        </li>
+        <li class="layui-nav-item ">
+            <a href="javascript:;" title="申请单录入">
+                <i class="iconfont icon-bi"></i>
+                <span>申请单录入</span>
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="applicationType.html">申请单录入</a></dd>
+                <dd><a href="applicationSubmit.html">申请单提交</a></dd>
+                <dd><a href="rejectApplication.html">驳回申请单</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;" title="申请单审核">
+                <i class="iconfont icon-shenhe"></i>
+                <span>申请单审核</span>
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="applicationCheck.html">申请单审核</a></dd>
+                <dd><a href="sampleReject.html">样本拒绝管理</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="bloodConfirm.html" title="血样确认">
+                <i class="iconfont icon-queren"></i>
+                <span>血样确认</span>
+            </a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;" title="血样检验">
+                <i class="iconfont icon-icon"></i>
+                <span>血样检验</span>
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="bloodTest.html">血样检验</a></dd>
+                <dd><a href="bloodRetest.html">血样复测</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;" title="数据审核">
+                <i class="iconfont icon-iconfontpaixingbang"></i>
+                <span>数据审核</span>
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="dataCheck.html">数据审核</a></dd>
+                <dd><a href="unapproved.html">未批准</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="dataApproval.html" title="数据批准">
+                <i class="iconfont icon-shenhetongguo1"></i>
+                <span>数据批准</span>
+            </a>
+        </li>
+        <li class="layui-nav-item layui-this">
+            <a href="report.html" title="生成报告">
+                <i class="iconfont icon-baogao-copy"></i>
+                <span>生成报告</span>
+            </a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;" title="病例">
+                <i class="iconfont icon-bingli"></i>
+                <span>病例</span>
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="noAssociated.html">未关联</a></dd>
+                <dd><a href="associated.html">已关联</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;" title="数据中心">
+                <i class="iconfont icon-digital"></i>
+                <span>数据中心</span>
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="tumour.html">肿瘤病例</a></dd>
+                <dd><a href="healthForm.html">体检病例</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="statistics.html" title="数据部统计">
+                <i class="iconfont icon-mianxingtubiao_shujutongji"></i>
+                <span>数据部统计</span>
+            </a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="bloodReception.html" title="血样接收单">
+                <i class="iconfont icon-baogao-copy"></i>
+                <span>血样接收单</span>
+            </a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="publicSearch.html" title="公共查询">
+                <i class="iconfont icon-chaxun"></i>
+                <span>公共查询</span>
+            </a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;" title="系统配置">
+                <i class="iconfont icon-xitongpeizhi"></i>
+                <span>系统配置</span>
+            </a>
+            <dl class="layui-nav-child">
+                <dd>
+                    <a href="javascript:;" id="menu_three">信息配置</a>
+                    <ol class="layui-nav-child">
+                        <li><a href="inspectionUnit.html">送检单位配置</a></li>
+                        <li><a href="inspectionItem.html">检测项目配置</a></li>
+                        <li><a href="notSolid.html">抗凝剂配置</a></li>
+                        <li><a href="officeUnit.html">科室配置</a></li>
+                        <li><a href="checkoutRoom.html">检测室配置</a></li>
+                        <li><a href="bloodNote.html">血样备注配置</a></li>
+                    </ol>
+                </dd>
+                <dd><a href="authority.html">系统权限</a></dd>
+                <dd><a href="dailyLog.html">系统日志</a></dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+<script src="../../js/jquery.js"></script>
+<script src="../../layui/layui.all.js"></script>
+<script src="../../js/base.js"></script>
+<script>
+    var $ = layui.$
+    var form = layui.form;
+    var table = layui.table;
+    var ID = ''
+    var url = http.config.api
+    http.ajax({
+        url: "/login/getMenu",
+        type: 'POST',
+        json: false,
+        mask: true,
+    }).then(function (data) {
+        console.log(data);
+        //监听选中页签添加样式
+        layui.config({
+            base: '../../js/'  //navbar组件js所在目录
+        }).use('navbar', function () {
+            var navbar = layui.navbar();
+            navs = [
+                {
+                    "title": "首页",
+                    "icon": "icon-shouye",
+                    "spread": false,
+                    "href": "home.html"
+                },
+                {
+                    "title": "申请单录入",
+                    "icon": "icon-bi",
+                    "spread": false,
+                    "href": "javascript:;",
+                    "children": [
+                        {
+                            "title": "申请单录入",
+                            "icon": "",
+                            "href": "applicationType.html",
+                            "spread": false
+                        },
+                        {
+                            "title": "申请单提交",
+                            "icon": "",
+                            "href": "applicationSubmit.html",
+                            "spread": false,
+                        },
+                        {
+                            "title": "驳回申请单",
+                            "icon": "",
+                            "href": "rejectApplication.html",
+                            "spread": false,
+                        }
+                    ]
+                },
+                {
+                    "title": "申请单审核",
+                    "icon": "icon-shenhe",
+                    "href": "javascript:;",
+                    "spread": false,
+                    "children": [
+                        {
+                            "title": "申请单审核",
+                            "icon": "",
+                            "href": "applicationCheck.html",
+                            "spread": false,
+                        },
+                        {
+                            "title": "样本拒绝管理",
+                            "icon": "",
+                            "href": "sampleReject.html",
+                            "spread": false,
+                        }
+                    ]
+                },
+                {
+                    "title": "血样确认",
+                    "icon": "icon-queren",
+                    "spread": false,
+                    "href": "bloodConfirm.html"
+                },
+                {
+                    "title": "血样检验",
+                    "icon": "icon-icon",
+                    "href": "javascript:;",
+                    "spread": false,
+                    "children": [
+                        {
+                            "title": "血样检验",
+                            "icon": "",
+                            "href": "bloodTest.html",
+                            "spread": false,
+                        },
+                        {
+                            "title": "血样复测",
+                            "icon": "",
+                            "href": "bloodRetest.html",
+                            "spread": false,
+                        }
+                    ]
+                },
+                {
+                    "title": "数据审核",
+                    "icon": "icon-iconfontpaixingbang",
+                    "href": "javascript:;",
+                    "spread": false,
+                    "children": [
+                        {
+                            "title": "数据审核",
+                            "icon": "",
+                            "href": "dataCheck.html",
+                            "spread": false,
+                        },
+                        {
+                            "title": "未批准",
+                            "icon": "",
+                            "href": "unapproved.html",
+                            "spread": false,
+                        }
+                    ]
+                },
+                {
+                    "title": "数据批准",
+                    "icon": "icon-shenhetongguo1",
+                    "href": "dataApproval.html",
+                    "spread": false,
+                },
+                {
+                    "title": "生成报告",
+                    "icon": "icon-baogao-copy",
+                    "href": "report.html",
+                    "spread": false,
+                },
+                {
+                    "title": "病例",
+                    "icon": "icon-bingli",
+                    "href": "javascript:;",
+                    "spread": false,
+                    "children": [
+                        {
+                            "title": "未关联",
+                            "icon": "",
+                            "href": "noAssociated.html",
+                            "spread": false,
+                        },
+                        {
+                            "title": "已关联",
+                            "icon": "",
+                            "href": "associated.html",
+                            "spread": false,
+                        }
+                    ]
+                },
+                {
+                    "title": "数据中心",
+                    "icon": "icon-digital",
+                    "href": "javascript:;",
+                    "spread": false,
+                    "children": [
+                        {
+                            "title": "肿瘤病例",
+                            "icon": "",
+                            "href": "tumour.html",
+                            "spread": false,
+                        },
+                        {
+                            "title": "体检病例",
+                            "icon": "",
+                            "href": "healthForm.html",
+                            "spread": false,
+                        }
+                    ]
+                },
+                {
+                    "title": "数据部统计",
+                    "icon": "icon-mianxingtubiao_shujutongji",
+                    "href": "statistics.html",
+                    "spread": false,
+                },
+                {
+                    "title": "血样接收单",
+                    "icon": "icon-mianxingtubiao_shujutongji",
+                    "href": "bloodReception.html",
+                    "spread": false,
+                },
+                {
+                    "title": "公共查询",
+                    "icon": "icon-chaxun",
+                    "href": "publicSearch.html",
+                    "spread": false,
+                },
+                {
+                    "title": "系统配置",
+                    "icon": "icon-xitongpeizhi",
+                    "spread": false,
+                    "href": "javascript:;",
+                    "children": [
+                        {
+                            "title": "信息配置",
+                            "icon": "",
+                            "href": "javascript:;",
+                            "spread": false,
+                            "children": [
+                                {
+                                    "title": "送检单位配置",
+                                    "icon": "",
+                                    "href": "inspectionUnit.html",
+                                    "spread": false
+
+                                },
+                                {
+                                    "title": "检测项目配置",
+                                    "icon": "",
+                                    "href": "inspectionItem.html",
+                                    "spread": false,
+                                },
+                                {
+                                    "title": "抗凝剂配置",
+                                    "icon": "",
+                                    "href": "notSolid.html",
+                                    "spread": false,
+                                },
+                                {
+                                    "title": "科室配置",
+                                    "icon": "",
+                                    "href": "officeUnit.html",
+                                    "spread": false,
+                                },
+                                {
+                                    "title": "检测室配置",
+                                    "icon": "",
+                                    "href": "checkoutRoom.html",
+                                    "spread": false,
+                                },
+                                {
+                                    "title": "血样备注配置",
+                                    "icon": "",
+                                    "href": "bloodNote.html",
+                                    "spread": false,
+                                }
+                            ]
+                        },
+                        {
+                            "title": "系统权限",
+                            "icon": "",
+                            "href": "authority.html",
+                            "spread": false,
+                        },
+                        {
+                            "title": "系统日志",
+                            "icon": "",
+                            "href": "dailyLog.html",
+                            "spread": false,
+                        }
+                    ]
+                },
+            ];
+            navbar.set({
+                elem: '#navbar',
+                data: data
+            });
+            navbar.render();
+
+
+            //下面的部分不是必须的
+            navbar.on('click(demo)', function (data) {
+                console.log(data.field.title);//标题
+                console.log(data.field.icon);//图标
+                console.log(data.field.href);//调转地址
+                sessionStorage.setItem("aa", data.field.title)
+            });
+        });
+    }, function (err) {
+        console.log(err);
+    })
+</script>
+
+</body>
+</html>

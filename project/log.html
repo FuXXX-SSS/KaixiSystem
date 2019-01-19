@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>凯熙</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="icon" href="./img/logo2.png" type="image/x-icon"/>
+    <style>
+        .btn2{
+            margin: 15px auto;
+            width: 322px;
+            height: 39px;
+            background: url(./img/denglu.png) center center no-repeat;
+            background-size: cover;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="box">
+       <div class="log1">
+           <div class="title">
+               请输入登录信息
+           </div>
+           <div class="input01">
+               <input type="text" placeholder="用户名" name='username' value="" id="username">
+           </div>
+           <div class="input02">
+               <input type="password" placeholder="密码" name="password" value="" id="password">
+           </div>
+           <div class="btn"></div>
+       </div>
+       <div class="log2" style="display: none;">
+           <h1 style="text-align: center;margin-bottom: 30px;">选择检验室</h1>
+           <form class="layui-form" action=""  style="width: 321px;margin-bottom: 70px">
+               <select name="modules" lay-verify="required" lay-search="" id="unit"
+                       lay-filter="num">
+                   <option value="">请选择</option>
+               </select>
+           </form>
+           <span class="layui-btn btn2" ></span>
+       </div>
+
+    </div>
+
+</div>
+<script src="js/jquery.js"></script>
+<script src="layui/layui.all.js"></script>
+
+<script src="js/log.js"></script>
+
+</body>
+</html>
