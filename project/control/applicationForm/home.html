@@ -1,160 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>首页</title>
-  <link rel="stylesheet" href="http://at.alicdn.com/t/font_972381_agjtwfoi687.css">
-  <link rel="stylesheet" href="../../css/base.css">
-  <link rel="stylesheet" href="../../layui/css/layui.css">
-  <link rel="stylesheet" href="../../css/home.css">
-  <link rel="stylesheet" href="../../css/application/applicaitonSubmit.css">
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_972381_agjtwfoi687.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/application/applicaitonSubmit.css">
     <link rel="icon" href="../../img/logo2.png" type="image/x-icon"/>
+    <style>
 
+    </style>
 </head>
 
 <body>
 <div class="wrap">
-  <div class="top clearfix">
-    <div></div>
-    <span id="triggle"></span>
-    <div class="right layui-nav clearfix" lay-filter="top">
-        <div>
+    <div class="top clearfix">
+        <div></div>
+        <span id="triggle"></span>
+        <div class="right layui-nav clearfix" lay-filter="top" style="margin-right: 70px;">
             <div>
-            <p style="float: right;font-size: 23px!important;" id="laboratoryname"></p>
-            <p id="username" style="float: left ;font-size: 23px!important;margin-right: 16px"></p>
-        </div>  
-        </div>
-        <div class="layui-nav-item">
-            <a href="javascript:;"><i class="iconfont icon-gengduo-2"></i></a>
-            <dl class="layui-nav-child">
-                <dd><a href="javascript:;">切换用户</a></dd>
-                <dd><a href="javascript:;">修改密码</a></dd>
-                <dd><a href="../../log.html">退出</a></dd>
-            </dl>
+                <div class="clearfix">
+                    <p style="float: left;font-size: 20px!important;margin-right: -6px;margin-top: -22px;">你好，</p>
+                    <p id="username"
+                       style="    float: left;font-size: 20px!important;margin-right: 16px; margin-top: -22px;"></p>
+                </div>
+                <div style="font-size: 16px!important;position: absolute;top: 47px;left: 18px;" id="laboratoryname"></div>
+            </div>
+            <div class="layui-nav-item">
+                <a href="javascript:;"><i class="iconfont icon-gengduo-2"></i></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">切换用户</a></dd>
+                    <dd><a href="javascript:;">修改密码</a></dd>
+                    <dd><a href="../../log.html">退出</a></dd>
+                </dl>
+            </div>
         </div>
     </div>
-</div>
-<!--切换用户-->
-<div class="modal" style="display:none">
+    <!--切换用户-->
+    <div class="modal" style="display:none">
         <div class="box">
-        <div class="log1">        
-            <div class="input01">
-                <label>用户名</label></label><input type="text" placeholder="用户名" name='username' value="" id="username1">
+            <div class="log1">
+                <div class="layui-form-item">
+                    <div class="input01">
+                        <label>用户名</label></label>
+                        <input type="text" placeholder="用户名" name='username' value="" id="username1">
+                    </div>
+                </div>
+
+                <div class="input02">
+                    <label>密码</label><input type="password" placeholder="密码" name="password" value="" id="password">
+                </div>
             </div>
-            <div class="input02">
-                <label>密码</label><input type="password" placeholder="密码" name="password" value="" id="password">
-            </div>
-        </div>
-         <!--切换用户-->
-         <div class="log2" style="display: none;">
+            <!--切换用户-->
+            <div class="log2" style="display: none;">
                 <h1 style="text-align: center;margin-bottom: 30px;">选择检验室</h1>
-                <form class="layui-form" action=""  style="width: 321px;margin-bottom: 70px">
+                <form class="layui-form" action="" style="width: 321px;margin-bottom: 70px">
                     <select name="modules" lay-verify="required" lay-search="" id="unit1"
                             lay-filter="num">
                         <option value="">请选择</option>
                     </select>
                 </form>
-                <span class="layui-btn btn2" ></span>
+                <span class="layui-btn btn3" >确定</span>
             </div>
-            
+
         </div>
 
     </div>
     <!--切换用户-->
-     <!--修改密码-->
-     <div class="pwdmodal" style="display:none">
-            <div class="box">        
-                <div class="input01">
-                    <label>原始密码</label></label><input type="password" name='password' value="" id="old">
-                </div>
-                <div class="input02">
-                    <label>新密码</label><input type="password"  name="password" value="" id="new">
-                </div>
-                 <div class="input01">
-                    <label>再次确认密码</label><input type="password" name="password" value="" id="renew">
-                </div>              
+    <!--修改密码-->
+    <div class="pwdmodal" style="display:none">
+        <div class="box">
+            <div class="input01">
+                <label>原始密码</label></label><input type="password" name='password' value="" id="old">
+            </div>
+            <div class="input02">
+                <label>新密码</label><input type="password" name="password" value="" id="new">
+            </div>
+            <div class="input01">
+                <label>确认密码</label><input type="password" name="password" value="" id="renew">
             </div>
         </div>
-        <!--修改密码-->
-  <div class="main">
-    <div class="slide">
-      <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" id="navbar">
-      </ul>
     </div>
-    <div class="container">
-      <div class="contain">
-        <div class="medicHome">
-          <div class="title">样本检测流程动态</div>
-          <div class="pic clearfix">
-            <div>
-              <div>
-                申请单录入中
-              </div>
-              <div class="state0">
-                51
-              </div>
-            </div>
-            <div>
-              <div>
-                对接审核中
-              </div>
-              <div class="state1">
-                111
-              </div>
-            </div>
-            <div>
-              <div>
-                样本接受中
-              </div>
-              <div class="state2">
-                16
-              </div>
-            </div>
-            <div>
-              <div>
-                样本检测中
-              </div>
-              <div class="state3">
-                36
-              </div>
-            </div>
-            <div>
-              <div>
-                数据待审核
-              </div>
-              <div class="state4">
-                0
-              </div>
-            </div>
-            <div>
-              <div>
-                数据批准中
-              </div>
-              <div class="state5">
-                0
-              </div>
-            </div>
-            <div>
-              <div>
-                报告撰写中
-              </div>
-              <div class="state6">
-                20
-              </div>
-            </div>
-            <div>
-              <div>
-                报告已寄出
-              </div>
-              <div class="state7">
-                11
-              </div>
-            </div>
-          </div>
+    <!--修改密码-->
+    <div class="main">
+        <div class="slide">
+            <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" id="navbar">
+            </ul>
         </div>
-      </div>
+        <div class="container">
+            <div class="contain">
+                <div class="medicHome">
+                    <div class="title">样本检测流程动态</div>
+                    <div class="pic clearfix">
+                        <div>
+                            <div>
+                                申请单录入中
+                            </div>
+                            <div class="state0">
+                                51
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                对接审核中
+                            </div>
+                            <div class="state1">
+                                111
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                样本接受中
+                            </div>
+                            <div class="state2">
+                                16
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                样本检测中
+                            </div>
+                            <div class="state3">
+                                36
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                数据待审核
+                            </div>
+                            <div class="state4">
+                                0
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                数据批准中
+                            </div>
+                            <div class="state5">
+                                0
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                报告撰写中
+                            </div>
+                            <div class="state6">
+                                20
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                报告已寄出
+                            </div>
+                            <div class="state7">
+                                11
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <script src="../../js/jquery.js"></script>
@@ -162,16 +170,16 @@
 <script src="../../js/base.js"></script>
 
 <script>
-    $(function(){
-        var token=JSON.parse(sessionStorage.getItem('user')).token
+    $(function () {
+        var token = JSON.parse(sessionStorage.getItem('user')).token
         $.ajax({
-            url:"http://47.93.22.122:8104/SSM/login/testStateList",
-            type:"POST",
-            dataType:"JSON",
+            url: "http://192.168.1.109:9003/login/testStateList",
+            type: "POST",
+            dataType: "JSON",
             beforeSend: function (XMLHttpRequest) {
-                XMLHttpRequest.setRequestHeader('Authorization',token);
+                XMLHttpRequest.setRequestHeader('Authorization', token);
             },
-            success:function (data) {
+            success: function (data) {
                 $(".state0").html(data.data.state0);
                 $(".state1").html(data.data.state1);
                 $(".state2").html(data.data.state2);
@@ -183,10 +191,10 @@
                 $(".state8").html(data.data.state8);
             },
 
-            error:function(XMLHttpRequest,textStatus){
+            error: function (XMLHttpRequest, textStatus) {
                 layer.msg(textStatus);
-                if(XMLHttpRequest.status==500){
-                    window.location.href="../../log.html"
+                if (XMLHttpRequest.status == 500) {
+                    window.location.href = "../../log.html"
                 }
             }
         })
@@ -195,7 +203,7 @@
         var userId = '<%=((AccountInfo)session.getAttribute("AccountInfo")).getId()%>';
         var Realname = '<%=((AccountInfo)session.getAttribute("AccountInfo")).getAccountRealname()%> ';
     });
-    
+
     // $(function () {
     //     $("#top").load("navTop.html",function(){
     //         //var sc =  document.createElement("script");

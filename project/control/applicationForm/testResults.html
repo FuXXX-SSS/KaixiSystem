@@ -26,12 +26,14 @@
     <div class="top clearfix">
         <div></div>
         <span id="triggle"></span>
-        <div class="right layui-nav clearfix" lay-filter="top">
+        <div class="right layui-nav clearfix" lay-filter="top" style="margin-right: 70px;">
             <div>
-                <div>
-                <p style="float: right;font-size: 23px!important;" id="laboratoryname"></p>
-                <p id="username" style="float: left ;font-size: 23px!important;margin-right: 16px"></p>
-            </div>  
+                <div class="clearfix">
+                    <p style="float: left;font-size: 20px!important;margin-right: -6px;margin-top: -22px;">你好，</p>
+                    <p id="username"
+                       style="    float: left;font-size: 20px!important;margin-right: 16px; margin-top: -22px; padding-top:3px;"></p>
+                </div>
+                <div style="font-size: 16px!important;position: absolute;top: 47px;left: 18px;" id="laboratoryname"></div>
             </div>
             <div class="layui-nav-item">
                 <a href="javascript:;"><i class="iconfont icon-gengduo-2"></i></a>
@@ -46,7 +48,7 @@
     <!--切换用户-->
     <div class="modal" style="display:none">
             <div class="box">
-            <div class="log1">        
+            <div class="log1">
                 <div class="input01">
                     <label>用户名</label></label><input type="text" placeholder="用户名" name='username' value="" id="username1">
                 </div>
@@ -63,16 +65,16 @@
                             <option value="">请选择</option>
                         </select>
                     </form>
-                    <span class="layui-btn btn2" ></span>
+                 <span class="layui-btn btn3" >确定</span>
                 </div>
-                
+
             </div>
 
         </div>
         <!--切换用户-->
          <!--修改密码-->
          <div class="pwdmodal" style="display:none">
-                <div class="box">        
+                <div class="box">
                     <div class="input01">
                         <label>原始密码</label></label><input type="password" name='password' value="" id="old">
                     </div>
@@ -80,46 +82,46 @@
                         <label>新密码</label><input type="password"  name="password" value="" id="new">
                     </div>
                      <div class="input01">
-                        <label>再次确认密码</label><input type="password" name="password" value="" id="renew">
+                        <label>确认密码</label><input type="password" name="password" value="" id="renew">
                     </div>
-                    
+
                 </div>
             </div>
             <!--修改密码-->
     <div class="main">
         <div class="slide">
-            <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" id="navbar"> 
+            <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" id="navbar">
             </ul>
         </div>
         <div class="container">
             <div class="a_submit">
                 <div style="margin-bottom:20px; margin-top:20px; padding:0 10px; cursor:pointer" class="clearfix">
                     <div style="float:left">检验结果</div>
-                    <div class="shangyiji" style="float:right">返回上一级</div>                     
+                    <div class="shangyiji" style="float:right">返回上一级</div>
                 </div>
-                                             
-                <form  class="layui-form" action="">                                       
+
+                <form  class="layui-form" action="">
                     <div class="table">
-                        <table class="layui-table" id="test" lay-filter="demo"></table> 
-                        <script type="text/html" id="barDemo">                            
-                            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" >修改</a>                           
+                        <table class="layui-table" id="test" lay-filter="demo"></table>
+                        <script type="text/html" id="barDemo">
+                            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" >修改</a>
                             <a class="layui-btn layui-btn-xs" lay-event="del">删除</a>
-                           
-                        </script>                                              
-                    </div>                   
+
+                        </script>
+                    </div>
                 </form>
                 <!--添加检验结果-->
-                <div class="officeadd layui-form" style="display:none; margin-top:20px">    
+                <div class="officeadd layui-form" style="display:none; margin-top:20px">
                     <div class="layui-form-item">
                         <label class="layui-form-label">TR值(U/ML)</label>
                         <div class="layui-input-block" style="margin-left: 140px;">
-                            <input type="text" name="title" required  lay-verify="required" autocomplete="off" id="val1" class="layui-input">
+                            <input type="text" name="title" required  lay-verify="required" autocomplete="off" id="val1" class="layui-input" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">OMA</label>
                         <div class="layui-input-block" style="margin-left: 140px;">
-                            <input type="text" name="title" required  lay-verify="required" autocomplete="off" id="val2" class="layui-input">
+                            <input type="text" name="title" required  lay-verify="required" autocomplete="off" id="val2" class="layui-input" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -128,18 +130,18 @@
                             <input type="text" name="title" required  lay-verify="required" autocomplete="off" id="val3" class="layui-input">
                         </div>
                     </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">检验日期</label>
-                        <div class="layui-input-inline">
-                            <input type="text"  name="phone" id="start1" placeholder="开始时间" lay-verify="required" autocomplete="off" class="layui-input" readonly>
-                        </div>
-                    </div>        
+                    <!--<div class="layui-inline">-->
+                        <!--<label class="layui-form-label">检验日期</label>-->
+                        <!--<div class="layui-input-inline">-->
+                            <!--<input type="text"  name="phone" id="start1" placeholder="开始时间" lay-verify="required" autocomplete="off" class="layui-input" readonly>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
                 <!--添加检验结果-->
             </div>
         </div>
     </div>
-    
+
 </div>
 
 

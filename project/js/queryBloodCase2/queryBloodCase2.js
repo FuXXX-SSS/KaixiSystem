@@ -58,6 +58,16 @@ table.render({
             window.location.href = "../../log.html"
             console.log(res);
         }
+        if (res.code == 9999 ) {
+            layer.msg(res.msg);
+        }
+        if(res.code == 0){
+            var data = res.data
+            if(data.total==0){
+                $(".layui-table-header").css("overflow","visible")
+                $(".layui-table-box").css("overflow","auto")
+            }
+        }
         return {
             'code': res.code,
             "msg": res.msg,

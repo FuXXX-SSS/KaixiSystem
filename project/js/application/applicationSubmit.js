@@ -26,8 +26,8 @@ $(function () {
             console.log(err);
             // 错误回调，err是错误回调参数
             // 这里不处理错误也可以，上面都有集中处理错误，会tips
-        })       
-                 
+        })
+
 
 
     //批量导入
@@ -43,12 +43,12 @@ $(function () {
         }
         $.ajax({
             url: "http://47.93.22.122:8104/SSM/bloodSampleTest/importExExcle",
-            type: "POST",           
+            type: "POST",
             json: false,
             mask: true,
             beforeSend: function (XMLHttpRequest) {
                 XMLHttpRequest.setRequestHeader('Authorization', token);
-            }, 
+            },
             contentType: false,
             processData: false,
             data: formData,
@@ -77,8 +77,8 @@ $(function () {
             //     // 错误回调，err是错误回调参数
             //     // 这里不处理错误也可以，上面都有集中处理错误，会tips
             // })
-            
-           
+
+
 
     })
 
@@ -90,8 +90,18 @@ table.render({
     , method: 'post'
     , contentType: 'application/json'
     , parseData: function (res) {
+        if (res.code == 9999 ) {
+            layer.msg(res.msg);
+        }
         if (res.code == 500) {
             window.location.href = "../../log.html"
+        }
+        if(res.code == 0){
+            var data = res.data
+            if(data.total==0){
+                $(".layui-table-header").css("overflow","visible")
+                $(".layui-table-box").css("overflow","auto")
+            }
         }
         return {
             'code': res.code,
@@ -190,9 +200,9 @@ var active = {
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
                 }
             )
-            
-               
-            
+
+
+
         }
     },
     allsubmit: function () {//批量提交
@@ -233,13 +243,13 @@ var active = {
                 // 错误回调，err是错误回调参数
                 // 这里不处理错误也可以，上面都有集中处理错误，会tips
             })
-           
-            
+
+
         }
     },
     allout: function () {//批量导出
-        var finspectionUnitName = $("#unit").val();       
-        var testerName = $("#name").val();      
+        var finspectionUnitName = $("#unit").val();
+        var testerName = $("#name").val();
         var startTime = $("#start").val();
         var endTime = $("#end").val();
         var param = {}
@@ -264,9 +274,9 @@ var active = {
             data:  JSON.stringify(param),
         }).then(function (data) {
                 if (data.code == 0) {
-                    var url=http.config.api                    
-                    var url= url+"/"+data.data.filepath 
-                    console.log(url)                  
+                    var url=http.config.api
+                    var url= url+"/"+data.data.filepath
+                    console.log(url)
                     window.location.href = url;
                 } else if (data.code == 500) {
                  window.location.href = "../home.html"
@@ -276,8 +286,8 @@ var active = {
                 // 错误回调，err是错误回调参数
                 // 这里不处理错误也可以，上面都有集中处理错误，会tips
             })
-        
-           
+
+
     }
 };
 table.on('checkbox(demo)', function (obj) {//选中和批量选中
@@ -329,8 +339,8 @@ table.on('tool(demo)', function (obj) {
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
                 })
-               
-            
+
+
             layer.close(index);
         })
         // layer.msg('ID：'+ data.id + ' 的查看操作');
@@ -356,7 +366,7 @@ table.on('tool(demo)', function (obj) {
                     console.log(err);
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
-                })                            
+                })
             layer.close(index);
         });
     } else if (obj.event === 'edit') {

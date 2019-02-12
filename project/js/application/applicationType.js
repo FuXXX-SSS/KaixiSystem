@@ -1,259 +1,3 @@
-//监听选中页签添加样式
-layui.config({
-    base: '../../js/'  //navbar组件js所在目录
-}).use('navbar', function () {
-    var navbar = layui.navbar();
-    navs = [
-        {
-            "title": "首页",
-            "icon": "icon-shouye",
-            "spread": false,
-            "href": "home.html"
-        },
-        {
-            "title": "申请单录入",
-            "icon": "icon-bi",
-            "spread": false,
-            "href": "javascript:;",
-            "children": [
-                {
-                    "title": "申请单录入",
-                    "icon": "",
-                    "href": "applicationType.html",
-                    "spread": false
-                },
-                {
-                    "title": "申请单提交",
-                    "icon": "",
-                    "href": "applicationSubmit.html",
-                    "spread": false,
-                },
-                {
-                    "title": "驳回申请单",
-                    "icon": "",
-                    "href": "rejectApplication.html",
-                    "spread": false,
-                }
-            ]
-        },
-        {
-            "title": "申请单审核",
-            "icon": "icon-shenhe",
-            "href": "javascript:;",
-            "spread": false,
-            "children": [
-                {
-                    "title": "申请单审核",
-                    "icon": "",
-                    "href": "applicationCheck.html",
-                    "spread": false,
-                },
-                {
-                    "title": "样本拒绝管理",
-                    "icon": "",
-                    "href": "sampleReject.html",
-                    "spread": false,
-                }
-            ]
-        },
-        {
-            "title": "血样确认",
-            "icon": "icon-queren",
-            "spread": false,
-            "href": "bloodConfirm.html"
-        },
-        {
-            "title": "血样检验",
-            "icon": "icon-icon",
-            "href": "javascript:;",
-            "spread": false,
-            "children": [
-                {
-                    "title": "血样检验",
-                    "icon": "",
-                    "href": "bloodTest.html",
-                    "spread": false,
-                },
-                {
-                    "title": "血样复测",
-                    "icon": "",
-                    "href": "bloodRetest.html",
-                    "spread": false,
-                }
-            ]
-        },
-        {
-            "title": "数据审核",
-            "icon": "icon-iconfontpaixingbang",
-            "href": "javascript:;",
-            "spread": false,
-            "children": [
-                {
-                    "title": "数据审核",
-                    "icon": "",
-                    "href": "dataCheck.html",
-                    "spread": false,
-                },
-                {
-                    "title": "未批准",
-                    "icon": "",
-                    "href": "unapproved.html",
-                    "spread": false,
-                }
-            ]
-        },
-        {
-            "title": "数据批准",
-            "icon": "icon-shenhetongguo1",
-            "href": "dataApproval.html",
-            "spread": false,
-        },
-        {
-            "title": "生成报告",
-            "icon": "icon-baogao-copy",
-            "href": "report.html",
-            "spread": false,
-        },
-        {
-            "title": "病例",
-            "icon": "icon-bingli",
-            "href": "javascript:;",
-            "spread": false,
-            "children": [
-                {
-                    "title": "未关联",
-                    "icon": "",
-                    "href": "noAssociated.html",
-                    "spread": false,
-                },
-                {
-                    "title": "已关联",
-                    "icon": "",
-                    "href": "associated.html",
-                    "spread": false,
-                }
-            ]
-        },
-        {
-            "title": "数据中心",
-            "icon": "icon-digital",
-            "href": "javascript:;",
-            "spread": false,
-            "children": [
-                {
-                    "title": "肿瘤病例",
-                    "icon": "",
-                    "href": "tumour.html",
-                    "spread": false,
-                },
-                {
-                    "title": "体检病例",
-                    "icon": "",
-                    "href": "healthForm.html",
-                    "spread": false,
-                }
-            ]
-        },
-        {
-            "title": "数据部统计",
-            "icon": "icon-mianxingtubiao_shujutongji",
-            "href": "statistics.html",
-            "spread": false,
-        },
-        {
-            "title": "血样接收单",
-            "icon": "icon-mianxingtubiao_shujutongji",
-            "href": "bloodReception.html",
-            "spread": false,
-        },
-        {
-            "title": "公共查询",
-            "icon": "icon-chaxun",
-            "href": "publicSearch.html",
-            "spread": false,
-        },
-        {
-            "title": "系统配置",
-            "icon": "icon-xitongpeizhi",
-            "spread": false,
-            "href": "javascript:;",
-            "children": [
-                {
-                    "title": "信息配置",
-                    "icon": "",
-                    "href": "javascript:;",
-                    "spread": false,
-                    "children": [
-                        {
-                            "title": "送检单位配置",
-                            "icon": "",
-                            "href": "inspectionUnit.html",
-                            "spread": false
-
-                        },
-                        {
-                            "title": "检测项目配置",
-                            "icon": "",
-                            "href": "inspectionItem.html",
-                            "spread": false,
-                        },
-                        {
-                            "title": "抗凝剂配置",
-                            "icon": "",
-                            "href": "notSolid.html",
-                            "spread": false,
-                        },
-                        {
-                            "title": "科室配置",
-                            "icon": "",
-                            "href": "officeUnit.html",
-                            "spread": false,
-                        },
-                        {
-                            "title": "检测室配置",
-                            "icon": "",
-                            "href": "checkoutRoom.html",
-                            "spread": false,
-                        },
-                        {
-                            "title": "血样备注配置",
-                            "icon": "",
-                            "href": "bloodNote.html",
-                            "spread": false,
-                        }
-                    ]
-                },
-                {
-                    "title": "系统权限",
-                    "icon": "",
-                    "href": "authority.html",
-                    "spread": false,
-                },
-                {
-                    "title": "系统日志",
-                    "icon": "",
-                    "href": "dailyLog.html",
-                    "spread": false,
-                }
-            ]
-        },
-    ];
-    navbar.set({
-        elem: '#navbar',
-        data: navs
-    });
-    navbar.render();
-
-
-    //下面的部分不是必须的
-    navbar.on('click(demo)', function (data) {
-        console.log(data.field.title);//标题
-        console.log(data.field.icon);//图标
-        console.log(data.field.href);//调转地址
-        sessionStorage.setItem("aa", data.field.title)
-    });
-});
-
 
 $(function () {
     var form = layui.form;
@@ -355,7 +99,7 @@ $(function () {
         var blood = "";//采血时间
         var send = "";//送检时间
         var doctor = "";//医生
-
+        var outpatientNumber=""//门诊号
         if ($("#unit").val() !== '') {
             nuit = $("#unit").val();
             unitdata.forEach(function (item) {
@@ -399,13 +143,19 @@ $(function () {
             return false
         }
 
-        $("#radio").children('input[type="radio"]').each(function (index, item) {//性别
-            if (item.checked) {
-                sex = parseInt(item.value);
-            }
-        });
+            $("#radio").children('input[type="radio"]').each(function (index, item) {//性别
+                if (item.checked) {
+                    console.log(123);
+                    sex = parseInt(item.value);
+                }
+            });
+
+
+
         // if($("#age").val()!==""){
-        //     userage=parseInt($("#age").val());
+            userage=($("#age").val());
+        outpatientNumber=($("#outpatientNumber").val());
+
         // }else{
         //     layer.msg("请输入年龄")
         //     return false
@@ -422,6 +172,8 @@ $(function () {
             layer.msg("请选择科室")
             return false
         }
+        checkroomName=$('#checkroom option:selected').text()
+
         checkroomNumber = $("#checkroomNumber").val();
         roomNumber = $("#roomNumber").val();
         bednumber = $("#bednumber").val();
@@ -506,99 +258,106 @@ $(function () {
         send = $("#send").val();
         console.log(blood, send)
         doctor = $("#doctor").val();
+        if (sex == null) {
+            layer.msg("请选择性别")
+        }else{
 
-        http.ajax({
-            url: "/bloodSampleTest/saveBloodSampleTest",
-            type: "POST",
-            json: false,
-            mask: true,
-            beforeSend: function (XMLHttpRequest) {
-                XMLHttpRequest.setRequestHeader('Authorization', token);
-            },
-            data: {
-                finspectionUnitName: nuit,
-                finspectionUnitId: unitid,
-                fanticoagulantName: notsolid,
-                fanticoagulantId: notsolidid,
-                finspectionItemName: checkitemstr,
-                testerName: name,
-                testerSex: sex,
-                testerAge: userage,
-                fsectionName: checkroomName,
-                fsectionId: checkroomid,
-                inspectionUnitNumber: checkroomNumber,
-                admissionNumber: roomNumber,
-                bedNumber: bednumber,
-                infectedPatch: sickarea,
-                phoneNumber: phone,
-                Address: address,
-                clinicalDiagnosis: clinical,
-                clinicalStages: cliniStage,
-                therapeuticMethod: clinicMethod,
-                therapyStage: treatmentPeriod,
-                Hydatoncus: tumour,
-                hydatoncusSize: tumoursize,
-                mammaryGlands: breastAdd,
-                prostateGland: prostatitis,
-                fattyLiver: fat,
-                Calculus: stone,
-                calculusSize: stoneSize,
-                polyp: polyp,
-                polypSize: polypSize,
-                fibroid: myoma,
-                fibroidSize: myomaSize,
-                thyroid: thyroid,
-                thyroidSize: thyroidSize,
-                otherCases: others,
-                customerSource: client,
-                takebloodTimes: blood,
-                inspectionTimes: send,
-                inspectionDoctor: doctor
-            },
-        }).then(function (data) {
-            if (data.code == 0) {
-                layer.msg("提交成功")
-                if ($(".container").scrollTop()) {
-                    $('.container').animate({scrollTop: 0}, 800);
-                    document.getElementById("subform").reset();
-                    form.render();
-                    $("#unit").val(nuit);
-                    $("#notsolid").val(notsolid);
-                    $("#checkroom").val(checkroomName);
-                    $("#send").val(send);
-                    $("#blood").val(blood)
-                    console.log('检测项目', checkitem)
-                    $.each(checkitem, function (index, item) {
-                        $("#checkitem").children("input[type='checkbox']").each(function (inde, it) {
-                            if ($(this).val() == item) {
-                                $(this).prop("checked", true)
-                            }
+
+            http.ajax({
+                url: "/bloodSampleTest/saveBloodSampleTest",
+                type: "POST",
+                json: false,
+                mask: true,
+                beforeSend: function (XMLHttpRequest) {
+                    XMLHttpRequest.setRequestHeader('Authorization', token);
+                },
+                data: {
+                    finspectionUnitName: nuit,
+                    finspectionUnitId: unitid,
+                    fanticoagulantName: notsolid,
+                    fanticoagulantId: notsolidid,
+                    finspectionItemName: checkitemstr,
+                    testerName: name,
+                    testerSex: sex,
+                    testerAge: userage,
+                    fsectionName: checkroomName,
+                    fsectionId: checkroomid,
+                    inspectionUnitNumber: checkroomNumber,
+                    admissionNumber: roomNumber,
+                    bedNumber: bednumber,
+                    infectedPatch: sickarea,
+                    phoneNumber: phone,
+                    Address: address,
+                    clinicalDiagnosis: clinical,
+                    clinicalStages: cliniStage,
+                    therapeuticMethod: clinicMethod,
+                    therapyStage: treatmentPeriod,
+                    Hydatoncus: tumour,
+                    hydatoncusSize: tumoursize,
+                    mammaryGlands: breastAdd,
+                    prostateGland: prostatitis,
+                    fattyLiver: fat,
+                    Calculus: stone,
+                    calculusSize: stoneSize,
+                    polyp: polyp,
+                    polypSize: polypSize,
+                    fibroid: myoma,
+                    fibroidSize: myomaSize,
+                    thyroid: thyroid,
+                    thyroidSize: thyroidSize,
+                    otherCases: others,
+                    customerSource: client,
+                    takebloodTimes: blood,
+                    inspectionTimes: send,
+                    inspectionDoctor: doctor,
+                    outpatientNumber: outpatientNumber,
+                },
+            }).then(function (data) {
+                if (data.code == 0) {
+                    layer.msg("提交成功")
+                    if ($(".container").scrollTop()) {
+                        $('.container').animate({scrollTop: 0}, 800);
+                        document.getElementById("subform").reset();
+                        form.render();
+                        $("#unit").val(nuit);
+                        $("#notsolid").val(notsolid);
+                        $("#checkroom").val(checkroomName);
+                        $("#send").val(send);
+                        $("#blood").val(blood)
+                        console.log('检测项目', checkitem)
+                        $.each(checkitem, function (index, item) {
+                            $("#checkitem").children("input[type='checkbox']").each(function (inde, it) {
+                                if ($(this).val() == item) {
+                                    $(this).prop("checked", true)
+                                }
+                            })
                         })
-                    })
-                }else{
-                    document.getElementById("subform").reset();
-                    form.render();
-                    $("#unit").val(nuit);
-                    $("#notsolid").val(notsolid);
-                    $("#checkroom").val(checkroomName);
-                    $("#send").val(send);
-                    $("#blood").val(blood)
-                    console.log('检测项目', checkitem)
-                    $.each(checkitem, function (index, item) {
-                        $("#checkitem").children("input[type='checkbox']").each(function (inde, it) {
-                            if ($(this).val() == item) {
-                                $(this).prop("checked", true)
-                            }
+                    }else{
+                        document.getElementById("subform").reset();
+                        form.render();
+                        $("#unit").val(nuit);
+                        $("#notsolid").val(notsolid);
+                        $("#checkroom").val(checkroomName);
+                        $("#send").val(send);
+                        $("#blood").val(blood)
+                        console.log('检测项目', checkitem)
+                        $.each(checkitem, function (index, item) {
+                            $("#checkitem").children("input[type='checkbox']").each(function (inde, it) {
+                                if ($(this).val() == item) {
+                                    $(this).prop("checked", true)
+                                }
+                            })
                         })
-                    })
+                    }
                 }
-            }
-        }, function (xml, text) {
-            if (xml.status == 500) {
-                window.location.href = "../../log.html"
-            }
-            layer.msg(text)
-        })
+            }, function (xml, text) {
+                if (xml.status == 500) {
+                    window.location.href = "../../log.html"
+                }
+                layer.msg(text)
+            })
+        }
+
 
 
     }
@@ -683,39 +442,64 @@ $(function () {
                     return false
                 }
                 if ($("#preve").val()) {
-                    val04 = parseInt($("#preve").val());
+                    if (!isNaN(parseInt($("#preve").val()))) {
+                        val04 = parseInt($("#preve").val());
+                    }else {
+                        layer.msg("优先级必须为数字")
+                        return
+                    }
                 } else {
                     layer.msg("请选择优先级")
                     return false
                 }
-                http.ajax({
-                    url: "/information/addInspectionUnit",
+                const param={}
+                param.unitName=val01
+                param.provinceIndex=val02id
+                param.localProvince=val02
+                param.cityIndex=val03id
+                param.localCity=val03
+                param.priorityIndex=val04
+                $.ajax({
+                    url: "http://47.93.22.122:8104/SSM/information/addInspectionUnit",
                     type: "POST",
                     json: false,
                     mask: true,
+                    contentType: 'application/json',
                     beforeSend: function (XMLHttpRequest) {
                         XMLHttpRequest.setRequestHeader('Authorization', token);
                     },
-                    data: {
-                        unitName: val01,
-                        provinceIndex: val02id,
-                        localProvince: val02,
-                        cityIndex: val03id,
-                        localCity: val03,
-                        priorityIndex: val04
+                    data:JSON.stringify(param),
+                    success:function (data) {
+                        if (data.code == 0) {
+                            layer.msg("新增成功")
+                            var time =setTimeout(function () {
+                                window.location.reload()
+
+                            },1000)
+                        }else if (data.code == 9999) {
+                            layer.msg(data.msg)
+                        }
                     },
-                }).then(function (data) {
-                    if (data.code == 0) {
-                        layer.msg("新增成功")
-                        window.location.reload()
+                    error: function (xml, text) {
+                        if (xml.status == 500) {
+                            window.location.href = '../../log.html'
+                        }
+                        layer.msg(text)
+                        layer.close(index)
                     }
-                }, function (xml, text) {
-                    if (xml.status == 500) {
-                        window.location.href = '../../log.html'
-                    }
-                    layer.msg(text)
-                    layer.close(index)
                 })
+                //     .then(function (data) {
+                //     if (data.code == 0) {
+                //         layer.msg("新增成功")
+                //         window.location.reload()
+                //     }
+                // }, function (xml, text) {
+                //     if (xml.status == 500) {
+                //         window.location.href = '../../log.html'
+                //     }
+                //     layer.msg(text)
+                //     layer.close(index)
+                // })
             }
         });
     })
@@ -736,7 +520,12 @@ $(function () {
                     return false
                 }
                 if ($("#prevname").val()) {
-                    val02 = parseInt($("#prevname").val());
+                    if (!isNaN($("#prevname").val())){
+                        val02 = parseInt($("#prevname").val());
+                    } else{
+                        layer.msg("优先级必须为数字")
+                        return
+                    }
                 } else {
                     layer.msg("请输入优先级")
                     return false
@@ -756,24 +545,64 @@ $(function () {
                 }).then(function (data) {
                         if (data.code == 0) {
                             layer.msg("新增成功")
-                            window.location.reload()
+                            var time =setTimeout(function () {
+                                window.location.reload()
+
+                            },800)
                         }
                     },function (xml, text) {
                         layer.close(index)
                     })
-                   
-                   
 
-               
+
+
+
 
             }
         });
     })
-
-
 })
 
+ form.on('radio(fat)', function (data) {
+    var xuanzhong = $(this).attr('data-check');
+    if(xuanzhong == "false"){
+         $('#fat input').each(function (i, input) {
+            $(input).attr('data-check', "false");
+        })
 
+        $('#breastAdd input').each(function (i, input) {
+            $(input).attr('data-check', "false");
+        })
 
+        $('#prostatitis input').each(function (i, input) {
+            $(input).attr('data-check', "false");
+        })
+
+        $('#myoma input').each(function (i, input) {
+            $(input).attr('data-check', "false");
+        })
+        
+        $(this).attr('data-check', "true");
+         $(this).prop('checked', true);
+        layui.form.render(); 
+    } else{
+        $('#fat input').each(function (i,input) {
+            $(input).attr('data-check', "false");
+        })
+        $('#breastAdd input').each(function (i,input) {
+            $(input).attr('data-check', "false");
+        })
+        $('#prostatitis input').each(function (i, input) {
+            $(input).attr('data-check', "false");
+        })
+
+        $('#myoma input').each(function (i, input) {
+            $(input).attr('data-check', "false");
+        })
+         $(this).prop('checked', false);
+        layui.form.render(); 
+    }
+
+  }); 
 
 

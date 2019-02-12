@@ -5,12 +5,9 @@ var url = http.config.api
 
 table.render({
     elem: '#test'
-    , url: url+'/information/sectionList'
+    , url: url+'/information/selectTemplate'
     , method: 'post'
     , contentType: 'application/json'
-    , where: {
-        sectionName: ''
-    }
     , parseData: function (res) {
         if (res.code == 500) {
             window.location.href = "../../log.html"
@@ -18,13 +15,6 @@ table.render({
         }
         if (res.code == 9999 ) {
             layer.msg(res.msg);
-        }
-        if(res.code == 0){
-            var data = res.data
-            if(data.total==0){
-                $(".layui-table-header").css("overflow","visible")
-                $(".layui-table-box").css("overflow","auto")
-            }
         }
         return {
             'code': res.code,
@@ -46,37 +36,27 @@ table.render({
     , cols: [[
         {type: 'checkbox'}
         , {title: '序号', align: 'center', type: 'numbers'}
-        , {field: 'sectionName', title: '科室名称', align: 'center'}
-        , {field: 'priorityIndex', title: '优先级', align: 'center'}
-        , {field: 'createtime', title: '添加时间', align: 'center'}
+        , {field: 'name', title: '模板名称', align: 'center'}
+        , {field: 'createTime', title: '上传时间', align: 'center'}
         , {field: 'wealth', title: '操作', align: 'center', toolbar: '#barDemo', minWidth: 200, fixed: 'right'}
     ]]
 });
-// table.on('row(demo)', function (obj) {
-//     if (obj.tr.find("[type='checkbox']").attr('checked')) {
-//         obj.tr.find("[type='checkbox']").attr('checked', false);
-//         obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
-//         obj.tr.removeClass('layui-table-click');
-//     } else {
-//         obj.tr.find("[type='checkbox']").attr('checked', 'checked')
-//         obj.tr.find('.layui-unselect').addClass('layui-form-checked');
-//         obj.tr.addClass('layui-table-click');
-//     }
-//
-// });
 var active={
     reload: function () {
-        var sectionName = $("#sectionName").val();
+        var name = $("#name").val();
         //执行重载
         table.reload('idTest', {
             page: {
                 curr: 1
-            }
-            , where: {
-                sectionName:sectionName
+            },
+            where:{
+                name : name
             }
         });
     },
+    allsubmit:function () {
+
+    }
 }
 //监听工具条
 table.on('tool(demo)', function (obj) {
@@ -89,7 +69,7 @@ table.on('tool(demo)', function (obj) {
         }, function () {
             var ids=data.id
             http.ajax({
-                url: "/information/deleteSection",
+                url: "/information/delTemplate",
                 type: "POST",
                 dataType: "JSON",
                 beforeSend: function (XMLHttpRequest) {
@@ -119,7 +99,7 @@ table.on('tool(demo)', function (obj) {
         });
     } else if (obj.event === 'edit') {
         var id = data.id
-        $("#InspectionItemunitinp").val(data.sectionName)
+        $("#InspectionItemunitinp").val(data.itemName)
         $("#InspectionItempreve").val(data.priorityIndex)
         layer.open({
             title: '修改检测项目',
@@ -132,7 +112,7 @@ table.on('tool(demo)', function (obj) {
                 if ($("#InspectionItemunitinp").val()) {
                     unitName = $("#InspectionItemunitinp").val()
                 } else {
-                    layer.msg("请输入科室名称")
+                    layer.msg("请输入送检单位")
                     return false
                 }
                 if ($("#InspectionItempreve").val()) {
@@ -143,14 +123,14 @@ table.on('tool(demo)', function (obj) {
                 }
                 layer.close(index)
                 http.ajax({
-                    url: "/information/updateSection",
+                    url: "/information/updateInspectionItem",
                     type: "POST",
                     dataType: "JSON",
                     beforeSend: function (XMLHttpRequest) {
                         XMLHttpRequest.setRequestHeader('Authorization', token);
                     },
                     data: {
-                        sectionName: unitName,
+                        itemName: unitName,
                         priorityIndex:priorityIndex,
                         id: id,
                     },
@@ -192,74 +172,54 @@ $("#search").click(function () {
     var type = $(this).data('type');
     active[type] ? active[type].call(this) : '';
 });
-
-$(function () {
-    var form =layui.form
-    $("#unitAdd").click(function () {
-        layer.open({
-            title: '新增科室配置',
-            area: ['500px', '350px'],
-            btn: '确认',
-            type: 1,
-            content: $('.unitadd'),
-            yes: function (index, layero) {
-                var val01 = "", val02 = "", val03 = "", val04 = null;
-                var val02id = null, val03id = null;
-                if ($("#unitinp").val()) {
-                    val01 = $("#unitinp").val()
-                } else {
-                    layer.msg("请输入科室名称")
-                    return false
-                }
-                if ($("#preve").val()) {
-                    val04 = parseInt($("#preve").val());
-                } else {
-                    layer.msg("请输入优先级")
-                    return false
-                }
-                http.ajax({
-                    url: "/information/addSection",
-                    type: "POST",
-                    dataType: "JSON",
-                    beforeSend: function (XMLHttpRequest) {
-                        XMLHttpRequest.setRequestHeader('Authorization', token);
-                    },
-                    data: {
-                        sectionName:val01,
-                        priorityIndex:val04
-                    },
-                    // success: function (data) {
-                    //     if (data.code == 0) {
-                    //         layer.msg("新增成功")
-                    //         var time =setTimeout(function () {
-                    //             window.location.reload()
-                    //
-                    //         },1000)
-                    //     } else if (data.code == 9999) {
-                    //         layer.msg("已存在重复的科室名称")
-                    //     }
-                    // },
-                    // error: function (xml, text) {
-                    //     if (xml.status == 500) {
-                    //         window.location.href = '../../log.html'
-                    //     }
-                    //     layer.msg(text)
-                    //     layer.close(index)
-                    // }
-
-                }).then(function (data) {
-                    if (data.code == 0) {
-                        layer.msg("新增成功")
-                        var time =setTimeout(function () {
-                            window.location.reload()
-
-                        },1000)
-                    } else if (data.code == 9999) {
-                        layer.msg("已存在重复的科室名称")
-                    }
-                })
-
+$("#allsubmit").change(function (e) {
+    var formData = new FormData();
+    var File = e.target.files[0];
+    formData.append('file', File);
+    var filename = File.name;
+    var filetype = filename.substring(filename.lastIndexOf(".") + 1, filename.length);
+    if (filetype !== "ftl" ) {
+        layer.msg("请上传ftl文件！")
+        return false
+    }
+    $.ajax({
+        url: "http://192.168.31.212:9003/information/uploadFile",
+        type: "POST",
+        json: false,
+        mask: true,
+        beforeSend: function (XMLHttpRequest) {
+            XMLHttpRequest.setRequestHeader('Authorization', token);
+        },
+        contentType: false,
+        processData: false,
+        data: formData,
+        success:function (data) {
+            if (data.code == 0) {
+                layer.msg("导入成功")
+                $("#allsubmit").val('')
+                var time=setTimeout(function () {
+                    table.reload('idTest', {});
+                },1000)
+            } else if (data.code == 9999) {
+                layer.msg(data.msg)
+                $("#allsubmit").val('')
             }
-        });
+        }
     })
+    // }).then(function (data) {
+    //         if (data.code == 0) {
+    //             layer.msg("导入成功")
+    //             $('#allinput').val('')
+    //         } else if (data.code == 9999) {
+    //             layer.msg(data.msg)
+    //             $('#allinput').val('')
+    //         }
+    //     },function(err){
+    //         console.log(err);
+    //         // 错误回调，err是错误回调参数
+    //         // 这里不处理错误也可以，上面都有集中处理错误，会tips
+    //     })
+
+
+
 })

@@ -46,6 +46,16 @@ table.render({
             window.location.href = "../../log.html"
             console.log(res);
         }
+        if (res.code == 9999 ) {
+            layer.msg(res.msg);
+        }
+        if(res.code == 0){
+            var data = res.data
+            if(data.total==0){
+                $(".layui-table-header").css("overflow","visible")
+                $(".layui-table-box").css("overflow","auto")
+            }
+        }
         return {
             'code': res.code,
             "msg": res.msg,
@@ -190,18 +200,18 @@ $("#search").click(function () {
     var type = $(this).data('type');
     active[type] ? active[type].call(this) : '';
 });
-table.on('row(demo)', function (obj) {
-    if (obj.tr.find("[type='checkbox']").attr('checked')) {
-        obj.tr.find("[type='checkbox']").attr('checked', false);
-        obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
-        obj.tr.removeClass('layui-table-click');
-    } else {
-        obj.tr.find("[type='checkbox']").attr('checked', 'checked')
-        obj.tr.find('.layui-unselect').addClass('layui-form-checked');
-        obj.tr.addClass('layui-table-click');
-    }
-
-});
+// table.on('row(demo)', function (obj) {
+//     if (obj.tr.find("[type='checkbox']").attr('checked')) {
+//         obj.tr.find("[type='checkbox']").attr('checked', false);
+//         obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
+//         obj.tr.removeClass('layui-table-click');
+//     } else {
+//         obj.tr.find("[type='checkbox']").attr('checked', 'checked')
+//         obj.tr.find('.layui-unselect').addClass('layui-form-checked');
+//         obj.tr.addClass('layui-table-click');
+//     }
+//
+// });
 //监听工具条
 table.on('tool(demo)', function (obj) {
     var data = obj.data;

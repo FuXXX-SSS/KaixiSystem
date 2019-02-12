@@ -1,30 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="layui/css/layui.css">
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_972381_3xhmpciatmx.css">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .file input:hover{
+            cursor: pointer;
+        }
+    </style>
+
 </head>
 <body>
-<div class="layui-side layui-bg-black" id="admin-side"> <div class="layui-side-scroll" id="admin-navbar-side" lay-filter="side"> </div> </div>
-
-<div class="layui-body" style="bottom: 0;border-left: solid 2px #1AA094;" id="admin-body"> <div class="layui-tab admin-nav-card layui-tab-brief" lay-filter="admin-tab" lay-allowclose="true"> <ul class="layui-tab-title"> <!-- tab选项卡标题 --> <li class="layui-this"> <i class="fa fa-dashboard" aria-hidden="true"></i> <cite>控制面板</cite> </li> </ul> <div class="layui-tab-content" style="min-height: 150px; padding: 5px 0 0 0;"> <!-- tab选项卡内容 --> <div class="layui-tab-item layui-show"> <iframe src="main.html"></iframe> </div> </div> </div> </div>
+<div class="laytable-cell-2-1-6">
+    <input type="checkbox" name="res">2
+    <input type="checkbox" name="res">3
+    <input type="checkbox" name="res">4
+</div>
 <script src="js/jquery.js"></script>
-<script src="layui/layui.all.js"></script>
 <script>
-    var $ = layui.jquery,
-        element = layui.element,
-        form = layui.form;
-        var html = ''; //获取菜单
-     $.ajax({  type:"post", dataType:"json", data:{}, success:function(data){ var navs=data.result; $.each(navs,function(i,item){ html += '<dl>'; html += '<dt><a href="javascript:;" data-url="'+item.url+'" nav-id="'+item.id+'"><i class="'+item.icon+'"></i><cite>'+item.title+'</cite></a></dt>';
-      if(item.children !== undefined && item.children.length > 0){ $.each(item.children,function(j,item2){ html += '<dd>'; html += '<a href="javascript:;" data-url="'+item2.url+'" nav-id="'+item2.id+'"><i class="'+item2.icon+'"></i><cite>'+item2.title+'</cite></a>';
-      if(item2.children !== undefined && item2.children.length > 0){ html += '<ul>'; $.each(item2.children,function(k,item3){ html += '<li>'+ '<a href="javascript:;" data-url="'+item3.url+'" nav-id="'+item3.id+'">'+ '<i class="'+item3.icon+'"></i>'+ '<cite>'+item3.title+'</cite>'+ '</a>'+ '</li>'; }); html += '</ul>'; } html += '</dd>'; }); } html += '</dl>'; });
-        $('#admin-navbar-side').html(html);	} });
-      var active = { tabAdd: function(obj){
-           element.tabAdd('admin-tab', { title: $(this).html(),content: '<iframe src="'+$(this).attr('data-url')+'"></iframe>' }); element.tabChange("admin-tab", $('.layui-tab-title li').length - 1); }, tabDelete: function(index) { element.tabDelete('admin-tab', index); } ,tabChange: function(lay_id){
-           element.tabChange('admin-tab', lay_id);
-            } };  $(document).on('click','a',function(){ if(!$(this)[0].hasAttribute('data-url') || $(this).attr('data-url')==='')return; var title = $.trim($(this).text()); var tabs = $(".layui-tab-title").children(); for(var i = 0; i < tabs.length; i++) { if($(tabs).eq(i).children('cite').text() == title) { element.tabChange('admin-tab', i); return; } } active["tabAdd"].call(this); resize(); active.tabChange($(".layui-tab-title").children().length - 1); });  function resize(){ var $content = $('.admin-nav-card .layui-tab-content'); $content.height($(this).height() - 147); $content.find('iframe').each(function() { $(this).height($content.height()); }); } $(window).on('resize', function() { var $content = $('.admin-nav-card .layui-tab-content'); $content.height($(this).height() - 147); $content.find('iframe').each(function() { $(this).height($content.height()); }); }).resize();  $('.admin-side-toggle').on('click', function() { var sideWidth = $('#admin-side').width(); if(sideWidth === 200) { $('#admin-body').animate({ left: '0' });  $('#admin-footer').animate({ left: '0' }); $('#admin-side').animate({ width: '0' }); } else { $('#admin-body').animate({ left: '200px' }); $('#admin-footer').animate({ left: '200px' }); $('#admin-side').animate({ width: '200px' }); } }); $(document).on('click','dt',function(){ $(this).parent().find('dd').toggle(); }); $(document).on('click','dd a',function(){ $(this).next('ul').toggle(); });
+    $('.laytable-cell-2-1-6').find('input[type=checkbox]').bind('click', function(){
+        var id = $(this).attr("id");
+
+        //当前的checkbox是否选中
+        if(this.checked){
+            console.log(123);
+            //除当前的checkbox其他的都不选中
+            $(".laytable-cell-2-1-6").find('input[type=checkbox]').not(this).attr("checked", false);
+
+            //选中的checkbox数量
+            var selectleng = $("input[type='checkbox']:checked").length;
+            console.log("选中的checkbox数量"+selectleng);
+        }else{
+            //未选中的处理
+            console.log("未选中的处理");
+        }
+    });
 </script>
 </body>
 </html>

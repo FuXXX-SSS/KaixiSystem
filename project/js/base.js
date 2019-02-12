@@ -2,26 +2,33 @@
 var $ = layui.$;
 var form = layui.form;
 var table = layui.table;
-var token=JSON.parse(sessionStorage.getItem("user")).token;
-var username=JSON.parse(sessionStorage.getItem("user")).username;
-console.log(username);
-$("#username").html(username)
-if (JSON.parse(sessionStorage.getItem("user")).role==2){
-    var laboratoryname=JSON.parse(sessionStorage.getItem("user")).laboratoryname;
-    var accountName=JSON.parse(sessionStorage.getItem("user")).accountName;
+var token=""
+var username=""
+if (sessionStorage.getItem("user")) {
+   token=JSON.parse(sessionStorage.getItem("user")).token;
+   username=JSON.parse(sessionStorage.getItem("user")).username;
 
-    $("#laboratoryname").show()
-    $("#laboratoryname").html(laboratoryname)
-    $("#username").html(accountName)
-}else{
-    $("#laboratoryname").hide()
 }
+$("#username").html(username)
+if (sessionStorage.getItem("user")){
+    if (JSON.parse(sessionStorage.getItem("user")).role==2){
+        var laboratoryname=JSON.parse(sessionStorage.getItem("user")).laboratoryname;
+        var accountName=JSON.parse(sessionStorage.getItem("user")).accountName;
+
+        $("#laboratoryname").show()
+        $("#laboratoryname").html(laboratoryname)
+        $("#username").html(accountName)
+    }else{
+        $("#laboratoryname").hide()
+    }
+}
+
 
 var http;
 http = {
     config: {
-        api: 'http://47.93.22.122:8104/SSM',
-        // api: 'http://192.168.31.212:9003',
+        // api: 'http://47.93.22.122:8104/SSM',
+        api: 'http://192.168.1.109:9003',
         token: token
     },
     /** url: 请求接口地址,
@@ -41,7 +48,7 @@ http = {
             });
         }
         $.ajax({
-            url: 'http://47.93.22.122:8104/SSM' + options.url,
+            url: 'http://192.168.1.109:9003' + options.url,
             data: options.data,
             type: options.type,
             headers: {
@@ -53,6 +60,11 @@ http = {
             // contentType: options.json ? 'application/json;charset=utf-8' : 'text/html;charset=utf-8'
             // text/json;charset=utf-8
         }).then(function (rsp) {
+            if (rsp.code==9999){
+                layer.msg('系统错误，请联系管理员', {
+                    icon: 5
+                })
+            }
             def.resolve(rsp);
             setTimeout(function () {
                 layer.close(loading);
@@ -69,6 +81,9 @@ http = {
                 var err = JSON.parse(error.responseText);
                 var code = err.code; // 错误码
                 var emsg = err.message; // 错误内容提示（字符串）
+                layer.msg(emsg, {
+                    icon: 5
+                })
                 switch (code) {
                     case 2022: // 2022 掉线，重新登录
                         layer.msg(emsg, {
@@ -104,7 +119,6 @@ var url=http.config.api
 $(function() {
     var tab = true;
     $("#triggle").click(function () {
-        console.log(123);
         if (tab) {
             $("#navbar").children("li").find('span').hide(500);
             $("#navbar").children("li").removeClass('layui-nav-itemed');
@@ -124,7 +138,6 @@ $(function() {
         }
     })
     // $("#triggle").on('click',function () {
-    //     console.log(123);
     //     if (tab) {
     //         $("#navbar").children("li").find('span').hide(500);
     //         $("#navbar").children("li").removeClass('layui-nav-itemed');
@@ -164,12 +177,11 @@ $(function() {
                     area: ['500px','280px'],
                     btn:'确定',
                     type: 1,
-                    content: $('.modal'),                   
+                    content: $('.modal'),
                     yes: function(index, layero){
                         var username = "", password = "";
                         if ($("#username1").val()) {
                             username = $.trim($("#username1").val())
-                            console.log(username)
                         } else {
                             layer.open({
                                 type: 1,
@@ -190,7 +202,7 @@ $(function() {
                                 time: 700
                             })
                             return false
-                        } 
+                        }
                         var md5RandomKey = "7F4g3kHies";
                         password = MD5(password + md5RandomKey);
                        $.ajax({
@@ -200,7 +212,7 @@ $(function() {
                             data: {'username': username, 'password': password},
                             success: function (data) {
 
-                                if (data.code == 0) {                                    
+                                if (data.code == 0) {
                                     //data=JSON.parse(data.data)
                                     data=data.data
                                     console.log(data);
@@ -208,11 +220,20 @@ $(function() {
                                         type: 1,
                                         shade: 0,
                                         content: "<p style='text-align:center;margin-top: 13px'>登陆成功</p>",
-                                        area: ['200px', '100px'],
+                                        area: ['200px', '100px!important'],
                                         time: 700
                                     })
+                                    console.log($(".layui-layer-content p ").html());
+                                    if ($(".layui-layer-content p ").html()=="登录成功") {
+                                        form.render()
+                                        $(this).parents(".layui-layer").css("height","92px")
+                                    }
                                     if (data.accountInfo.role == 2) {
                                         $(".log1").hide()
+                                        $(".log2").parents(".layui-layer-page").css("height","402px")
+                                        $(".log2").parents(".layui-layer-page").css("min-height","358px")
+                                        $(".layui-layer-btn0").hide()
+                                        form.render()
                                         var token = data.token
                                         $.ajax({
                                             url: "http://47.93.22.122:8104/SSM/login/laboratory",
@@ -222,9 +243,9 @@ $(function() {
                                                 XMLHttpRequest.setRequestHeader('Authorization', token);
                                             },
                                             success: function (data) {
-                
+
                                                 if (data.code == 0) {
-                                                    var nuitdata = data;
+                                                    var nuitdata = data.data;
                                                     for (var i = 0; i < nuitdata.length; i++) {
                                                         $("#unit1").append('<option value="' + nuitdata[i].id + '">' + nuitdata[i].laboratoryName + '</option>')
                                                     }
@@ -234,8 +255,51 @@ $(function() {
                                                         value = data.value
                                                         console.log(value);
                                                         if (value >= 1) {
-                                                            $(".btn2").click(function () {
-                                                                console.log(123);
+                                                            $(document).keydown(function (event) { //监听键盘按下时的事件
+                                                                if (event.keyCode == 32) {
+                                                                    $(".btn").unbind()
+                                                                    $.ajax({
+                                                                        url: "http://47.93.22.122:8104/SSM/login/selectLaboratory",
+                                                                        type: 'POST',
+                                                                        dataType: 'JSON',
+                                                                        beforeSend: function (XMLHttpRequest) {
+                                                                            XMLHttpRequest.setRequestHeader('Authorization', token);
+                                                                        },
+                                                                        data: {
+                                                                            laboratory: value
+                                                                        },
+                                                                        success: function (data) {
+                                                                            var accountName = data.data.account.accountName
+                                                                            var role = data.data.account.role
+                                                                            var laboratoryname = data.data.laboratoryname
+                                                                            var token = data.data.token
+                                                                            var user = {}
+                                                                            user.accountName = accountName
+                                                                            user.laboratoryname = laboratoryname
+                                                                            user.token = token
+                                                                            user.role = role
+                                                                            // sessionStorage.clear()
+                                                                            sessionStorage.setItem('user', JSON.stringify(user));
+                                                                            layer.open({
+                                                                                type: 1,
+                                                                                shade: 0,
+                                                                                content: "<p style='text-align:center;margin-top: 13px'>登陆成功</p>",
+                                                                                area: ['200px', '100px'],
+                                                                                time: 700
+                                                                            })
+                                                                            if ($(".layui-layer-content p ").html()=="登录成功") {
+                                                                                form.render()
+                                                                                $(this).parents(".layui-layer").css("height","92px")
+                                                                            }
+                                                                            var time = setTimeout(function () {
+                                                                                window.location.href = '../../control/applicationForm/home.html'
+                                                                            }, 1000)
+                                                                        }
+                                                                    })
+
+                                                                }
+                                                            })
+                                                            $(".btn3").click(function () {
                                                                 $.ajax({
                                                                     url: "http://47.93.22.122:8104/SSM/login/selectLaboratory",
                                                                     type: 'POST',
@@ -247,16 +311,16 @@ $(function() {
                                                                         laboratory: value
                                                                     },
                                                                     success: function (data) {
-                                                                        var accountName=data.data.account.accountName
-                                                                        var role=data.data.account.role
-                                                                        var laboratoryname=data.data.laboratoryname
-                                                                        var token=data.data.token
-                                                                        var user={}
-                                                                        user.accountName=accountName
-                                                                        user.laboratoryname=laboratoryname
-                                                                        user.token=token
-                                                                        user.role=role
-                                                                        sessionStorage.clear()
+                                                                        var accountName = data.data.account.accountName
+                                                                        var role = data.data.account.role
+                                                                        var laboratoryname = data.data.laboratoryname
+                                                                        var token = data.data.token
+                                                                        var user = {}
+                                                                        user.accountName = accountName
+                                                                        user.laboratoryname = laboratoryname
+                                                                        user.token = token
+                                                                        user.role = role
+                                                                        // sessionStorage.clear()
                                                                         sessionStorage.setItem('user', JSON.stringify(user));
                                                                         layer.open({
                                                                             type: 1,
@@ -265,15 +329,19 @@ $(function() {
                                                                             area: ['200px', '100px'],
                                                                             time: 700
                                                                         })
-                                                                        var time=setTimeout(function () {
-                                                                            window.location.href = 'control/applicationForm/home.html'
-                                                                        },1000)
+                                                                        if ($(".layui-layer-content p ").html()=="登录成功") {
+                                                                            form.render()
+                                                                            $(this).parents(".layui-layer").css("height","92px")
+                                                                        }
+                                                                        var time = setTimeout(function () {
+                                                                            window.location.href = '../../control/applicationForm/home.html'
+                                                                        }, 1000)
                                                                     }
                                                                 })
                                                             })
                                                         }
                                                     });
-                
+
                                                 } else if (data.code == 500) {
                                                     window.location.href = "../../log.html"
                                                 }
@@ -281,18 +349,18 @@ $(function() {
                                         });
                                         $(".log2").show()
                                     } else {
-                                        var user={}
-                                        user.username=username
-                                        user.password=password
+                                        var user = {}
+                                        user.username = username
+                                        user.password = password
                                         // console.log(data);
-                                        user.token=data.token
-                                        user.role=data.accountInfo.role
-                                        console.log(user);
-                                        sessionStorage.setItem("user", JSON.stringify(user))
-                                        window.location.href = 'home.html'
-                                    }
-                
+                                        user.token = data.token
 
+                                        user.role = data.accountInfo.role
+                                        console.log(user);
+
+                                        sessionStorage.setItem("user", JSON.stringify(user))
+                                        window.location.href = '../../control/applicationForm/home.html'
+                                    }
                                 }else {
                                     layer.open({
                                         type: 1,
@@ -303,10 +371,18 @@ $(function() {
                                     })
                                 }
                     }
-                })                                               
+                })
             }
             })
-            
+                if ($(".modal").is(":visible")) {
+                    console.log(  $(".modal").parent().parent(".layui-layer-page").css("height"));
+                    let height =$(".modal").parent().parent(".layui-layer-page").css("height")
+                    $(".modal").parent(".layui-layer-content").css("min-height","135px","!important")
+                    if($(window).width() > 991) {
+                        $(".modal").parent().parent(".layui-layer-page").css("min-height","248px","!important")
+                        $(".layui-layer-page").css("","")
+                    }
+                }
             }else if(elem.text()=='修改密码'){
                 layer.open({
                     title:'修改密码',
@@ -338,8 +414,7 @@ $(function() {
                             layer.msg("两次密码不一致")
                             return false
                         }else{
-                            console.log(token)
- 
+
                             $.ajax({
                                 url:"http://47.93.22.122:8104/SSM/authority/updatePassword",
                                 type:"POST",
@@ -553,7 +628,6 @@ http.ajax({
     json: false,
     mask: true,
 }).then(function (data) {
-    console.log(data);
     //监听选中页签添加样式
     layui.config({
         base: '../../js/'  //navbar组件js所在目录
@@ -570,14 +644,10 @@ http.ajax({
 
         //下面的部分不是必须的
         navbar.on('click(demo)', function (data) {
-            console.log(data.field.title);//标题
-            console.log(data.field.icon);//图标
-            console.log(data.field.href);//调转地址
             sessionStorage.setItem("aa", data.field.title)
         });
     });
 }, function (err) {
-    console.log(err);
 })
 var time2 = setTimeout(function () {
     var HREF=window.location.href
@@ -587,6 +657,7 @@ var time2 = setTimeout(function () {
     var windowindex = windowaddr.lastIndexOf("\/");
     var windowaddrLast = decodeURI(windowaddr.substring(windowindex + 1, windowaddr.length));
     var str = decodeURI(windowaddr.substring(0, windowindex));
+    console.log(str);
     var li = $("#navbar li a");
     li.each(function (index1, item) {
         var htmlHref = item.href;
@@ -594,20 +665,53 @@ var time2 = setTimeout(function () {
         var addr = htmlHref.substr(htmlHref.lastIndexOf('/', htmlHref.lastIndexOf('/') - 1) + 1);
         var index = addr.lastIndexOf("\/");
         var addrLast = decodeURI(addr.substring(index + 1, addr.length));
+        // console.log(windowaddrLast);
         var str = decodeURI(addr.substring(0, index));
         if (windowaddrLast==addrLast) {
             if (li[index1].href==HREF) {
                 console.log($(li[index1]).parent().addClass("layui-this"));
+                console.log($(li[index1]).parent("dd").addClass("layui-this"));
                 console.log($(li[index1]).parents(".layui-nav-item").addClass("layui-nav-itemed"));
+                console.log($(li[index1]).parents("dd").addClass("layui-nav-itemed"));
+
+
+
+
             }
         }
     })
 }, 800)
 $(document).keydown(function (ev) {
     if (ev.keyCode == 13) {
+        event.cancleBubble = true;
+        event.returnValue = false;
         $("#search").click()
+
     }
 })
 
 
 
+// 电话判断
+$("#phone").blur(function(){
+    const phoneNum = $(this).val()
+    if (phoneNum !== ""){
+        if(!(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/.test(phoneNum))){
+            layer.msg(("手机号码有误，请重填"));
+            return false;
+        }
+    }
+});
+
+table.on('row(demo)', function (obj) {
+    if (obj.tr.find("[type='checkbox']").attr('checked')) {
+        // obj.tr.find("[type='checkbox']").attr('checked', false);
+        // obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
+        // obj.tr.removeClass('layui-table-click');
+    } else {
+        // obj.tr.find("[type='checkbox']").attr('checked', 'checked')
+        // obj.tr.find('.layui-unselect').addClass('layui-form-checked');
+        // obj.tr.addClass('layui-table-click');
+    }
+
+});

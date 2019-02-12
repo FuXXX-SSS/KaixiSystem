@@ -47,6 +47,16 @@ table.render({
             window.location.href = "../../log.html"
             console.log(res);
         }
+        if (res.code == 9999) {
+            layer.msg(res.msg);
+        }
+        if (res.code == 0) {
+            var data = res.data
+            if (data.total == 0) {
+                $(".layui-table-header").css("overflow", "visible")
+                $(".layui-table-box").css("overflow", "auto")
+            }
+        }
         return {
             'code': res.code,
             "msg": res.msg,
@@ -71,22 +81,23 @@ table.render({
         , {field: 'localProvince', title: '单位所在省', minWidth: 140, align: 'center'}
         , {field: 'localCity', title: '单位所在市', align: 'center', minWidth: 140}
         , {field: 'priorityIndex', title: '优先级', align: 'center'}
-        , {field: 'Createtime', title: '添加时间', align: 'center'}
+        , {field: 'tName', title: '模板名称', align: 'center'}
+        , {field: 'createtime', title: '添加时间', align: 'center'}
         , {field: 'wealth', title: '操作', align: 'center', toolbar: '#barDemo', minWidth: 200, fixed: 'right'}
     ]]
 });
-table.on('row(demo)', function (obj) {
-    if (obj.tr.find("[type='checkbox']").attr('checked')) {
-        obj.tr.find("[type='checkbox']").attr('checked', false);
-        obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
-        obj.tr.removeClass('layui-table-click');
-    } else {
-        obj.tr.find("[type='checkbox']").attr('checked', 'checked')
-        obj.tr.find('.layui-unselect').addClass('layui-form-checked');
-        obj.tr.addClass('layui-table-click');
-    }
-
-});
+// table.on('row(demo)', function (obj) {
+//     if (obj.tr.find("[type='checkbox']").attr('checked')) {
+//         obj.tr.find("[type='checkbox']").attr('checked', false);
+//         obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
+//         obj.tr.removeClass('layui-table-click');
+//     } else {
+//         obj.tr.find("[type='checkbox']").attr('checked', 'checked')
+//         obj.tr.find('.layui-unselect').addClass('layui-form-checked');
+//         obj.tr.addClass('layui-table-click');
+//     }
+//
+// });
 //监听工具条
 table.on('tool(demo)', function (obj) {
     var form = layui.form;
@@ -108,17 +119,7 @@ table.on('tool(demo)', function (obj) {
                 beforeSend: function (XMLHttpRequest) {
                     XMLHttpRequest.setRequestHeader('Authorization', token);
                 },
-                data:{id:data.id},
-                // success: function (data) {
-                //     if (data.code == 0) {
-                //         layer.msg('删除成功');
-                //         var timeout = setTimeout(function () {
-                //             table.reload('idTest', {});
-                //         }, 1000)
-                //     } else if (data.code == 500) {
-                //         window.location.href = '../home.html'
-                //     }
-                // }
+                data: {id: data.id},
             }).then(function (data) {
                 if (data.code == 0) {
                     layer.msg('删除成功');
@@ -133,13 +134,14 @@ table.on('tool(demo)', function (obj) {
 
 
     } else if (obj.event === 'edit') {
+        console.log(data);
         var id = data.id
         var unitName = $('#selectInspectionUnitunitinp').val(data.unitName)
         var localCity = $('#selectInspectionUnitcity').val(data.localCity)
         var priorityIndex = $('#selectInspectionUnitpreve').val(data.priorityIndex)
         var provinceIndex = data.provinceIndex
         var cityIndex = data.cityIndex
-
+        var tId = ""
         $("#selectInspectionUnitprovin").append('<option value="' + data.localProvince + '">' + data.localProvince + '</option>')
         if (data.localProvince) {//省
             form.render()
@@ -150,7 +152,6 @@ table.on('tool(demo)', function (obj) {
                 }
             })
         }
-
         $("#selectInspectionUnitcity").append('<option value="' + data.localCity + '">' + data.localCity + '</option>')
         if (data.localProvince) {//省
             form.render()
@@ -161,6 +162,35 @@ table.on('tool(demo)', function (obj) {
                 }
             })
         }
+        // 选择模板
+        http.ajax({
+            url: "/information/geTemplates",
+            type: "POST",
+            dataType: "JSON",
+            beforeSend: function (XMLHttpRequest) {
+                XMLHttpRequest.setRequestHeader('Authorization', token);
+            },
+        }).then(function (dataAjax) {
+            var nuitdata = dataAjax;
+            for (var i = 0; i < nuitdata.length; i++) {
+                $("#tId").append('<option value="' + nuitdata[i].id + '">' + nuitdata[i].name + '</option>')
+                // $("#tId").append('<option value="' + data.tId + '">' + data.tName + '</option>')
+                if (data.tId) {//选择模板
+                    form.render()
+                    $("#tId").children("option").each(function (index, item) {
+                        if ($(this).val() == data.tId) {
+                            $(this).prop('selected', true)
+                            form.render('select')
+                            tId= data.tId
+
+                        }
+                    })
+                }
+            }
+            form.render()
+        }, function (err) {
+            layer.close(index)
+        })
 
         //新增送检单位
         $.ajax({
@@ -178,6 +208,8 @@ table.on('tool(demo)', function (obj) {
                 layer.msg(text)
             }
         })
+
+
         //监听选择省份的事件
         form.on('select(aihao2)', function (data) {
             $("#selectInspectionUnitcity option").eq(0).nextAll().remove();
@@ -189,11 +221,12 @@ table.on('tool(demo)', function (obj) {
                     })
                 }
             })
-        });
+        })
+
 
         layer.open({
             title: '修改送检单位',
-            area: ['500px', '280px'],
+            area: ['500px', '480px'],
             btn: ['确认', '取消'],
             type: 1,
             content: $('.selectInspectionUnit'),
@@ -211,12 +244,19 @@ table.on('tool(demo)', function (obj) {
                     layer.msg("请选择所在省")
                     return false
                 }
+                if ($("#tId").val()) {
+                    tId = $("#tId").val();
+                } else {
+                    layer.msg("请选择所在省")
+                    return false
+                }
                 if ($("#selectInspectionUnitcity").val()) {
                     localCity = $("#selectInspectionUnitcity").val();
                 } else {
                     layer.msg("请选择所在市")
                     return false
                 }
+
                 if ($("#selectInspectionUnitpreve").val()) {
                     priorityIndex = parseInt($("#selectInspectionUnitpreve").val());
                 } else {
@@ -224,8 +264,10 @@ table.on('tool(demo)', function (obj) {
                     return false
                 }
                 layer.close(index)
+                console.log(tId);
+
                 http.ajax({
-                    url: "/information/selectInspectionUnit",
+                    url: "/information/updateInspectionUnit",
                     type: "POST",
                     dataType: "JSON",
                     beforeSend: function (XMLHttpRequest) {
@@ -239,6 +281,7 @@ table.on('tool(demo)', function (obj) {
                         provinceIndex: provinceIndex,
                         cityIndex: cityIndex,
                         id: id,
+                        tId: tId,
                     },
                     // success: function (data) {
                     //     if (data.code == 0) {
@@ -255,7 +298,7 @@ table.on('tool(demo)', function (obj) {
 
                 }).then(function (data) {
                     if (data.code == 0) {
-                        layer.msg("生成报告成功")
+                        layer.msg("修改成功")
                         var timeout = setTimeout(function () {
                             window.location.reload()
                         }, 1000)
@@ -312,19 +355,44 @@ $(function () {
         })
     });
     $("#unitAdd").click(function () {
+        // 选择模板
+        http.ajax({
+            url: "/information/geTemplates",
+            type: "POST",
+            dataType: "JSON",
+            beforeSend: function (XMLHttpRequest) {
+                XMLHttpRequest.setRequestHeader('Authorization', token);
+            },
+        }).then(function (data) {
+            console.log(data);
+            var nuitdata = data;
+            for (var i = 0; i < nuitdata.length; i++) {
+                $("#geTemplates").append('<option value="' + nuitdata[i].id + '">' + nuitdata[i].name + '</option>')
+            }
+            form.render()
+        }, function (err) {
+            layer.close(index)
+        })
         layer.open({
             title: '新增送检单位',
-            area: ['500px', '350px'],
+            area: ['500px', '480px'],
             btn: '确认',
             type: 1,
             content: $('.unitadd'),
             yes: function (index, layero) {
                 var val01 = "", val02 = "", val03 = "", val04 = null;
                 var val02id = null, val03id = null;
+                tId = ""
                 if ($("#unitinp").val()) {
                     val01 = $("#unitinp").val()
                 } else {
                     layer.msg("请输入送检单位")
+                    return false
+                }
+                if ($("#geTemplates").val()) {
+                    tId = $("#geTemplates").val()
+                } else {
+                    layer.msg("请选择模板")
                     return false
                 }
                 if ($("#provin").val()) {//省份
@@ -354,6 +422,7 @@ $(function () {
                     return false
                 }
                 if ($("#preve").val()) {
+
                     val04 = parseInt($("#preve").val());
                 } else {
                     layer.msg("请选择优先级")
@@ -366,8 +435,9 @@ $(function () {
                 param.cityIndex = val03id
                 param.priorityIndex = val04
                 param.localCity = val03
+                param.tId = tId
                 $.ajax({
-                    url: "http://47.93.22.122:8104/SSM/information/addInspectionUnit",
+                    url: "http://192.168.31.212:9003/information/addInspectionUnit",
                     type: "POST",
                     dataType: "JSON",
                     contentType: 'application/json',
@@ -375,20 +445,13 @@ $(function () {
                         XMLHttpRequest.setRequestHeader('Authorization', token);
                     },
                     data: JSON.stringify(param),
-                    // data: {
-                    //     unitName: val01,
-                    //     provinceIndex: val02id,
-                    //     localProvince: val02,
-                    //     cityIndex: val03id,
-                    //     localCity: val03,
-                    //     priorityIndex: val04
-                    // },
                     success: function (data) {
+                        console.log(data);
                         if (data.code == 0) {
                             layer.msg("新增成功")
-                            var time=setTimeout(function () {
+                            var time = setTimeout(function () {
                                 window.location.reload()
-                            },1000)
+                            }, 1000)
                         } else if (data.code == 9999) {
                             layer.msg("已存在重复送检单位")
                         }

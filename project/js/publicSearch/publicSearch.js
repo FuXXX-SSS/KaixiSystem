@@ -2,41 +2,54 @@ var table = layui.table;
 var form = layui.form;
 var $ = layui.$
 var url = http.config.api
-
+var role = ""
+if (sessionStorage.getItem("user")) {
+    role = JSON.parse(sessionStorage.getItem("user")).role;
+}
+console.log(role);
 $(function () {
-    http.ajax({
-        url: "/bloodSampleTest/queryInspectionUnit",
-        type: "POST",
-        dataType: "JSON",
-        beforeSend: function (XMLHttpRequest) {
-            XMLHttpRequest.setRequestHeader('Authorization', token);
-        },
-        // success: function (data) {
-        //     if (data.code == 0) {
-        //         var nuitdata = data.data.rows;
-        //         for (var i = 0; i < nuitdata.length; i++) {
-        //             $("#unit").append('<option value="' + nuitdata[i].unit_name + '">' + nuitdata[i].unit_name + '</option>')
-        //         }
-        //         form.render()
-        //     } else if (data.code == 500) {
-        //         window.location.href = "../../log.html"
-        //     }
-        // }
-    }).then(function (data) {
-        if (data.code == 0) {
-            var nuitdata = data.data.rows;
-            for (var i = 0; i < nuitdata.length; i++) {
-                $("#unit").append('<option value="' + nuitdata[i].unit_name + '">' + nuitdata[i].unit_name + '</option>')
+    if (role == 1 || role == 2) {
+        console.log(123);
+        $("#nuit2").show()
+        form.render()
+        http.ajax({
+            url: "/bloodSampleTest/queryInspectionUnit",
+            type: "POST",
+            dataType: "JSON",
+            beforeSend: function (XMLHttpRequest) {
+                XMLHttpRequest.setRequestHeader('Authorization', token);
+            },
+            // success: function (data) {
+            //     if (data.code == 0) {
+            //         var nuitdata = data.data.rows;
+            //         for (var i = 0; i < nuitdata.length; i++) {
+            //             $("#unit").append('<option value="' + nuitdata[i].unit_name + '">' + nuitdata[i].unit_name + '</option>')
+            //         }
+            //         form.render()
+            //     } else if (data.code == 500) {
+            //         window.location.href = "../../log.html"
+            //     }
+            // }
+        }).then(function (data) {
+            if (data.code == 0) {
+                var nuitdata = data.data.rows;
+                for (var i = 0; i < nuitdata.length; i++) {
+                    $("#unit").append('<option value="' + nuitdata[i].unit_name + '">' + nuitdata[i].unit_name + '</option>')
+                }
+                form.render()
+            } else if (data.code == 500) {
+                window.location.href = "../../log.html"
             }
-            form.render()
-        } else if (data.code == 500) {
-            window.location.href = "../../log.html"
-        }
-    })
+        })
+    } else {
+        console.log(4545);
+        $("#nuit2").hide()
+        form.render()
+    }
 })
 table.render({
     elem: '#test'
-    , url: url+'/public/bloodSampleTestList'
+    , url: url + '/public/bloodSampleTestList'
     , method: 'post'
     , contentType: 'application/json'
     , where: {
@@ -48,12 +61,22 @@ table.render({
         flaboratoryName: '',
         inspectionOfficeNumber: '',
         fsectionName: '',
-        rows:0
+        rows: 0
     }
     , parseData: function (res) {
         if (res.code == 500) {
             window.location.href = "../../log.html"
             console.log(res);
+        }
+        if (res.code == 9999) {
+            layer.msg(res.msg);
+        }
+        if (res.code == 0) {
+            var data = res.data
+            if (data.total == 0) {
+                $(".layui-table-header").css("overflow", "visible")
+                $(".layui-table-box").css("overflow", "auto")
+            }
         }
         return {
             'code': res.code,
@@ -95,18 +118,18 @@ table.render({
     ]]
 
 });
-table.on('row(demo)', function (obj) {
-    if (obj.tr.find("[type='checkbox']").attr('checked')) {
-        obj.tr.find("[type='checkbox']").attr('checked', false);
-        obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
-        obj.tr.removeClass('layui-table-click');
-    } else {
-        obj.tr.find("[type='checkbox']").attr('checked', 'checked')
-        obj.tr.find('.layui-unselect').addClass('layui-form-checked');
-        obj.tr.addClass('layui-table-click');
-    }
-
-});
+// table.on('row(demo)', function (obj) {
+//     if (obj.tr.find("[type='checkbox']").attr('checked')) {
+//         obj.tr.find("[type='checkbox']").attr('checked', false);
+//         obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
+//         obj.tr.removeClass('layui-table-click');
+//     } else {
+//         obj.tr.find("[type='checkbox']").attr('checked', 'checked')
+//         obj.tr.find('.layui-unselect').addClass('layui-form-checked');
+//         obj.tr.addClass('layui-table-click');
+//     }
+//
+// });
 var active = {
     reload: function () {
         var finspectionUnitName = $("#unit").val();
@@ -153,7 +176,7 @@ var active = {
         param.fsectionName = fsectionName
         // console.log(JSON.parse(param));
         $.ajax({
-            url: "http://47.93.22.122:8104/SSM/public/beachOutAll",
+            url: url+"/public/beachOutAll",
             type: "POST",
             dataType: "JSON",
             contentType: 'application/json',
@@ -166,7 +189,7 @@ var active = {
                 if (data.code == 0) {
                     var url = http.config.api
 
-                    var urls=url+"/"+data.data
+                    var urls = url + "/" + data.data
                     console.log(urls);
                     window.location.href = urls;
                 } else if (data.code == 500) {

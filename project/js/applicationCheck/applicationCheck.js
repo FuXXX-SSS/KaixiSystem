@@ -4,14 +4,14 @@ var table = layui.table;
 function GetUrlParam(paraName) {
     　　　　var url = document.location.toString();
     　　　　var arrObj = url.split("?");
-    
+
     　　　　if (arrObj.length > 1) {
     　　　　　　var arrPara = arrObj[1].split("&");
     　　　　　　var arr;
-    
+
     　　　　　　for (var i = 0; i < arrPara.length; i++) {
     　　　　　　　　arr = arrPara[i].split("=");
-    
+
     　　　　　　　　if (arr != null && arr[0] == paraName) {
     　　　　　　　　　　return arr[1];
     　　　　　　　　}
@@ -22,7 +22,7 @@ function GetUrlParam(paraName) {
     　　　　　　return "";
     　　　　}
     　　}
-    
+
 console.log(GetUrlParam("status"))
 
 $(function(){
@@ -30,7 +30,7 @@ $(function(){
         console.log(111)
         $("#check").val(1)
         $("#adopt1").css("display","inline-block")
-        $("#allsubmit1").css("display","none")     
+        $("#allsubmit1").css("display","none")
         http.ajax({
             url: "/bloodSampleTest/queryLaboratory",
             type:"POST",
@@ -38,23 +38,23 @@ $(function(){
             mask: true,
             beforeSend: function (XMLHttpRequest) {
                 XMLHttpRequest.setRequestHeader('Authorization',token);
-            }, 
+            },
         }).then(function (data) {
                 if(data.code==0){
-                    var nuitdata=data.data.rows;                                      
+                    var nuitdata=data.data.rows;
                     for(var i=0;i<nuitdata.length;i++){
                         $("#room").append('<option value="'+nuitdata[i].id+'">'+nuitdata[i].laboratoryName+'</option>')
-                    }                    
-                    form.render()                              
+                    }
+                    form.render()
                 }else if(data.code==500){
                     window.location.href="../../log.html"
                 }
-            })                              
+            })
 
     }else if(GetUrlParam("status")==0){
         $("#check").val(0)
-        $("#adopt1").css("display","none") 
-        $("#allsubmit1").css("display","inline-block")        
+        $("#adopt1").css("display","none")
+        $("#allsubmit1").css("display","inline-block")
         http.ajax({
             url: "/bloodSampleTest/queryLaboratory",
             type:"POST",
@@ -62,20 +62,20 @@ $(function(){
             mask: true,
             beforeSend: function (XMLHttpRequest) {
                 XMLHttpRequest.setRequestHeader('Authorization',token);
-            }, 
+            },
         }).then(function (data) {
                 if(data.code==0){
-                    var nuitdata=data.data.rows;                                      
+                    var nuitdata=data.data.rows;
                     for(var i=0;i<nuitdata.length;i++){
                         $("#room").empty()
-                    }                    
-                    form.render()                              
+                    }
+                    form.render()
                 }else if(data.code==500){
                     window.location.href="../../log.html"
                 }
-            })                              
+            })
     }
-    
+
     http.ajax({
         url:'/bloodSampleTest/queryInspectionUnit',
         type:"POST",
@@ -100,7 +100,7 @@ $(function(){
             // 错误回调，err是错误回调参数
             // 这里不处理错误也可以，上面都有集中处理错误，会tips
         })
-    
+
 })
 var laydate = layui.laydate;
 laydate.render({
@@ -119,21 +119,30 @@ laydate.render({
             ,contentType:'application/json'
             , where: {
                 finspectionUnitName: '',
-                inspectionUnitNumber: '',        
+                inspectionUnitNumber: '',
                 testerName: '',
                 flaboratoryId:1,
                 startTime: '',
                 endTime: '',
                 chooesStatus: 1,
-                
+
             }
             ,parseData:function(res){
                 if(res.code==500){
                     window.location.href="../../log.html"
                 }
-        
-            
-               
+                if (res.code == 9999 ) {
+                    layer.msg(res.msg);
+                }
+                if(res.code == 0){
+                    var data = res.data
+                    if(data.total==0){
+                        $(".layui-table-header").css("overflow","visible")
+                        $(".layui-table-box").css("overflow","auto")
+                    }
+                }
+
+
                 return{
                     'code':res.code,
                     "msg":res.msg,
@@ -182,21 +191,26 @@ laydate.render({
             ,contentType:'application/json'
             , where: {
                 finspectionUnitName: '',
-                inspectionUnitNumber: '',        
+                inspectionUnitNumber: '',
                 testerName: '',
                 flaboratoryId:0,
                 startTime: '',
                 endTime: '',
                 chooesStatus: 0,
-                
+
             }
             ,parseData:function(res){
                 if(res.code==500){
                     window.location.href="../../log.html"
                 }
-        
-            
-               
+                if(res.code == 0){
+                    var data = res.data
+                    if(data.total==0){
+                        $(".layui-table-header").css("overflow","visible")
+                        $(".layui-table-box").css("overflow","auto")
+                    }
+                }
+
                 return{
                     'code':res.code,
                     "msg":res.msg,
@@ -246,11 +260,11 @@ var active = {
         var endtime=$("#end").val();
         var name =$("#name").val();
         var unit =$("#unit").val();
-        var number =$("#number").val(); 
-        var check =$("#check").val(); 
-        var room =$("#room").val(); 
-        
-               
+        var number =$("#number").val();
+        var check =$("#check").val();
+        var room =$("#room").val();
+
+
 
         //执行重载
         table.reload('idTest', {
@@ -306,8 +320,8 @@ var active = {
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
                 })
-            
-           
+
+
        }
     },
    allsubmit:function(){
@@ -347,8 +361,8 @@ var active = {
                 // 错误回调，err是错误回调参数
                 // 这里不处理错误也可以，上面都有集中处理错误，会tips
             })
-              
-          
+
+
        }
    },
    adopt:function(){//批量通过
@@ -391,19 +405,19 @@ var active = {
                 // 错误回调，err是错误回调参数
                 // 这里不处理错误也可以，上面都有集中处理错误，会tips
             })
-           
-        
+
+
     }
 },
 outApplicationReviewAll: function () {//批量导出
-    var finspectionUnitName = $("#unit").val();       
-    var testerName = $("#name").val();      
+    var finspectionUnitName = $("#unit").val();
+    var testerName = $("#name").val();
     var startTime = $("#start").val();
     var endTime = $("#end").val();
     var inspectionUnitNumber = $("#number").val();
     var flaboratoryId = $("#room").val();//检验室id
     var chooesStatus = $("#check").val();//选入状态
-   
+
     var param = {}
     param.finspectionUnitName = finspectionUnitName
     param.inspectionUnitNumber = inspectionUnitNumber
@@ -439,7 +453,7 @@ outApplicationReviewAll: function () {//批量导出
             }
         }
     })
-        
+
 }
 };
 
@@ -447,7 +461,7 @@ outApplicationReviewAll: function () {//批量导出
 table.on('tool(demo)', function(obj){
     var data = obj.data;
     obj.tr.css('background-color','white')
-    if(obj.event === 'choose'){       
+    if(obj.event === 'choose'){
         http.ajax({
             url:"/bloodAudit/selectedInto",
             type:"POST",
@@ -471,7 +485,7 @@ table.on('tool(demo)', function(obj){
                 // 错误回调，err是错误回调参数
                 // 这里不处理错误也可以，上面都有集中处理错误，会tips
             })
-                  
+
     } else if(obj.event === 'del'){//删除
         layer.confirm('确定删除吗',{icon: 3, title:'提示'}, function(index){
             http.ajax({
@@ -497,8 +511,8 @@ table.on('tool(demo)', function(obj){
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
                 })
-                
-            
+
+
         });
     } else if(obj.event === 'tongguo'){//通过
         layer.confirm('确定通过吗',{icon: 3, title:'提示'}, function(index){
@@ -524,16 +538,16 @@ table.on('tool(demo)', function(obj){
                     console.log(err);
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
-                })                              
+                })
         });
-    }else if(obj.event === 'jujue'){//拒绝               
+    }else if(obj.event === 'jujue'){//拒绝
         layer.open({
             title: '拒绝原因',
             area: ['500px', '280px'],
             btn: ['确认', '取消'],
             type: 1,
             content: $('.refuse'),
-            yes: function (index, layero) {               
+            yes: function (index, layero) {
                 layer.close(index)
                 http.ajax({
                     url: "/bloodAudit/formRejectReason",
@@ -544,46 +558,46 @@ table.on('tool(demo)', function(obj){
                         XMLHttpRequest.setRequestHeader('Authorization', token);
                     },
                     data: {
-                        id:data.id,                        
-                        resultsApproveReason:$("#refuse").val(),                                                                     
+                        id:data.id,
+                        resultsApproveReason:$("#refuse").val(),
                     },
                 }).then(function (data) {
-                        if (data.code == 0) {                            
+                        if (data.code == 0) {
                             layer.msg('已拒绝');
-                            table.reload('idTest',{});                        
+                            table.reload('idTest',{});
                         }
                     },function (err) {
-                        console.log(err);                        
-                    })                                                       
+                        console.log(err);
+                    })
             },
             btn2: function(){
             layer.closeAll();
         },
         });
-        
+
     }else if(obj.event === 'pch'){//修改批次号
         var id=data.id
-        var  batchNumber = data.batchNumber            
+        var  batchNumber = data.batchNumber
         http.ajax({
             url: "/bloodAudit/findBatchNumber",
             type: "POST",
-            json: false,            
+            json: false,
             beforeSend: function (XMLHttpRequest) {
                 XMLHttpRequest.setRequestHeader('Authorization', token);
             },
             data: {id:id,batchNumber:data.batchNumber},
         }).then(function (data) {
                 $("#val4").val(batchNumber)
-                if (data.code == 0) {                                                                     
+                if (data.code == 0) {
                 }
-            })                                                                                                                                                          
-        layer.open({            
+            })
+        layer.open({
             title: '修改批次号',
             area: ['500px', '280px'],
             btn: ['确认', '取消'],
             type: 1,
             content: $('.xgnumber'),
-            yes: function (index, layero) {               
+            yes: function (index, layero) {
                 layer.close(index)
                 http.ajax({
                     url: "/bloodAudit/updateBatchNumber",
@@ -592,13 +606,13 @@ table.on('tool(demo)', function(obj){
                     beforeSend: function (XMLHttpRequest) {
                         XMLHttpRequest.setRequestHeader('Authorization', token);
                     },
-                    data: {                                          
-                        id:data.id,batchNumber:$("#val4").val(),                                               
-                    }, 
+                    data: {
+                        id:data.id,batchNumber:$("#val4").val(),
+                    },
                 }).then(function (data) {
-                        if (data.code == 0) {                            
+                        if (data.code == 0) {
                             layer.msg('修改成功');
-                            table.reload('idTest',{});                        
+                            table.reload('idTest',{});
                         }
                     },function (xml, text) {
                         layer.close(index)
@@ -617,7 +631,7 @@ table.on('tool(demo)', function(obj){
     }else if(obj.event=='detail'){//关联信息
         var status=$("#check").val()
         console.log(status)
-        window.location.href="related.html?id="+obj.data.id+"&status="+status;       
+        window.location.href="related.html?id="+obj.data.id+"&status="+status;
     }
 });
 
@@ -655,7 +669,7 @@ $("#clear").click(function(){
     form.render()
 });
 //搜索
-$("#search").click(function(){    
+$("#search").click(function(){
     var type = $(this).data('type');
     active[type] ? active[type].call(this) : '';
 });
@@ -686,7 +700,7 @@ form.on('select(check)', function(data){
     sessionStorage.setItem("chooesStatus", JSON.stringify(chooesStatus))
     if(chooesStatus == 1){
         $("#adopt1").css("display","inline-block")
-        $("#allsubmit1").css("display","none")       
+        $("#allsubmit1").css("display","none")
         http.ajax({
             url: "/bloodSampleTest/queryLaboratory",
             type:"POST",
@@ -694,18 +708,18 @@ form.on('select(check)', function(data){
             mask: true,
             beforeSend: function (XMLHttpRequest) {
                 XMLHttpRequest.setRequestHeader('Authorization',token);
-            }, 
+            },
         }).then(function (data) {
                 if(data.code==0){
-                    var nuitdata=data.data.rows;                                      
+                    var nuitdata=data.data.rows;
                     for(var i=0;i<nuitdata.length;i++){
                         $("#room").append('<option value="'+nuitdata[i].id+'">'+nuitdata[i].laboratoryName+'</option>')
-                    }                    
-                    form.render()                              
+                    }
+                    form.render()
                 }else if(data.code==500){
                     window.location.href="../../log.html"
                 }
-            })                                     
+            })
     }else if(chooesStatus ==0){
         http.ajax({
             url: "/bloodSampleTest/queryLaboratory",
@@ -714,34 +728,34 @@ form.on('select(check)', function(data){
             mask: true,
             beforeSend: function (XMLHttpRequest) {
                 XMLHttpRequest.setRequestHeader('Authorization',token);
-            }, 
+            },
         }).then(function (data) {
                 if(data.code==0){
-                    var nuitdata=data.data.rows;                                      
+                    var nuitdata=data.data.rows;
                     for(var i=0;i<nuitdata.length;i++){
                         $("#room").empty()
-                    }                    
-                    form.render()                              
+                    }
+                    form.render()
                 }else if(data.code==500){
                     window.location.href="../../log.html"
                 }
-            })                                
-                  
-        $("#adopt1").css("display","none") 
+            })
+
+        $("#adopt1").css("display","none")
         $("#allsubmit1").css("display","inline-block")
-        
-    };    
+
+    };
 
 });
 
 
 
-       
-           
-          
-        
-        
-        
+
+
+
+
+
+
 //document.getElementById('check').value='<%=request.getParameter("check")%>';
 
  //document.getElementById("check").options.selectedIndex = 1; //回到初始状态

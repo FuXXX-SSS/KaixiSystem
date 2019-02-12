@@ -48,7 +48,7 @@ $(function () {
             return false
         }
         http.ajax({
-            url: "http://192.168.31.212:9003/bloodSampleTest/importExExcle",
+            url: url+"/bloodSampleTest/importExExcle",
             type: "POST",
             beforeSend: function (XMLHttpRequest) {
                 XMLHttpRequest.setRequestHeader('Authorization', token);
@@ -89,6 +89,16 @@ table.render({
             window.location.href = "../../log.html"
             console.log(res);
         }
+        if (res.code == 9999 ) {
+            layer.msg(res.msg);
+        }
+        if(res.code == 0){
+            var data = res.data
+            if(data.total==0){
+                $(".layui-table-header").css("overflow","visible")
+                $(".layui-table-box").css("overflow","auto")
+            }
+        }
         return {
             'code': res.code,
             "msg": res.msg,
@@ -127,18 +137,18 @@ table.render({
         , {field: 'omaTrValue', title: 'OMA/TR', align: 'center'}
     ]]
 });
-table.on('row(demo)', function (obj) {
-    if (obj.tr.find("[type='checkbox']").attr('checked')) {
-        obj.tr.find("[type='checkbox']").attr('checked', false);
-        obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
-        obj.tr.removeClass('layui-table-click');
-    } else {
-        obj.tr.find("[type='checkbox']").attr('checked', 'checked')
-        obj.tr.find('.layui-unselect').addClass('layui-form-checked');
-        obj.tr.addClass('layui-table-click');
-    }
-
-});
+// table.on('row(demo)', function (obj) {
+//     if (obj.tr.find("[type='checkbox']").attr('checked')) {
+//         obj.tr.find("[type='checkbox']").attr('checked', false);
+//         obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
+//         obj.tr.removeClass('layui-table-click');
+//     } else {
+//         obj.tr.find("[type='checkbox']").attr('checked', 'checked')
+//         obj.tr.find('.layui-unselect').addClass('layui-form-checked');
+//         obj.tr.addClass('layui-table-click');
+//     }
+//
+// });
 //监听工具条
 table.on('tool(demo)', function (obj) {
     var data = obj.data;
@@ -181,7 +191,7 @@ var active = {
         param.starttime = starttime
         param.endTime = endTime
         $.ajax({
-            url: "http://47.93.22.122:8104/SSM/statistic/outInspectionUnitListAll",
+            url: url+"/statistic/outInspectionUnitListAll",
             type: "POST",
             dataType: "JSON",
             contentType: 'application/json',
@@ -193,9 +203,8 @@ var active = {
             success: function (data) {
                 if (data.code == 0) {
                     console.log(data);
-                    var url="http://47.93.22.122:8104/SSM/"
-                    var urls=url+data.data.filepath
-                    console.log(urls)
+                    var urls=url+"/"+data.data
+                    console.log(urls);
                     window.location.href = urls;
                 } else if (data.code == 500) {
                     window.location.href = "../home.html"

@@ -2,6 +2,7 @@ var $ = layui.$
 var form = layui.form;
 var table = layui.table;
 $(function(){//下拉框
+
     http.ajax({
         url:'/bloodSampleTest/queryInspectionUnit',
         type:"POST",
@@ -25,17 +26,32 @@ $(function(){//下拉框
             console.log(err);
             // 错误回调，err是错误回调参数
             // 这里不处理错误也可以，上面都有集中处理错误，会tips
-        })       
- 
+        })
+
 })
 table.render({
-    elem: '#test'    
+    elem: '#test'
     ,url: url + '/bloodApprove/queryBloodApprove'
     ,method:'post'
     ,contentType:'application/json'
     ,parseData:function(res){
         if(res.code==500){
             window.location.href="../../log.html"
+        }
+        if (res.code == 9999 ) {
+            layer.msg(res.msg);
+        }
+        // if(res.code==0){
+        //     console.log(123);
+        //     $('.layui-none').width($('.layui-table-header table').width()+'px');
+        //     $('.empty-data').width($('.layui-table-body').width()+'px');
+        // }
+        if(res.code == 0){
+            var data = res.data
+            if(data.total==0){
+                $(".layui-table-header").css("overflow","visible")
+                $(".layui-table-box").css("overflow","auto")
+            }
         }
         return{
             'code':res.code,
@@ -46,7 +62,7 @@ table.render({
     }
     ,request:{
         limitName: 'rows'
-    }    
+    }
     ,headers:{Authorization:token}
     ,height:'full-250'
     ,cellMinWidth:100
@@ -83,7 +99,7 @@ table.render({
                 return tr;
            }
         },
-             
+
         { title: 'OMA',align:'center',templet : function (rows){
             var oma ='';
             for(var i=0;i<rows.length;i++){
@@ -94,7 +110,7 @@ table.render({
             }
             return oma;
        }},
-       
+
       { title: 'OMA/TR',align:'center',templet : function (rows){
         var omatr ='';
         for(var i=0;i<rows.length;i++){
@@ -103,13 +119,13 @@ table.render({
                 omatr += "<hr/>";
             }
         }
-        return omatr;			        	  
+        return omatr;
     }
 },
 { title: '检验日期',align:'center',
             templet : function (rows){
                 var testTime = '';
-                for(var i=0;i<rows.length;i++){ 
+                for(var i=0;i<rows.length;i++){
                     testTime += rows.beforResult[i].testTime;
                     if(rows.beforResult.length - i !=1){
                         testTime += "<hr/>";
@@ -117,9 +133,9 @@ table.render({
                 }
                 return testTime;
             } },
-           
 
-            {field:"trValue" ,title: 'TR值(U/mL)',align : 'center', style:'height:auto;', 
+
+            {field:"trValue" ,title: 'TR值(U/mL)',align : 'center', style:'height:auto;',
         //     templet : function (rows){
         //         var tr ='';
         //         for(var i=0;i<rows.length;i++){
@@ -131,7 +147,7 @@ table.render({
         //         return tr;
         //    }
         },
-            
+
         { field:'omaTrValue',title: 'OMA/TR',align:'center',
         // templet : function (rows){
         //     var omatr ='';
@@ -141,23 +157,23 @@ table.render({
         //             omatr += "<hr/>";
         //         }
         //     }
-        //     return omatr;			        	  
+        //     return omatr;
         // }
     },
     {field:'testTime', title: '检验日期',align:'center',
     // templet : function (rows){
     //     var testTime = '';
-    //     for(var i=0;i<rows.length;i++){ 
+    //     for(var i=0;i<rows.length;i++){
     //         testTime += rows.beforResult[i].testTime;
     //         if(rows.beforResult.length - i !=1){
     //             testTime += "<hr/>";
     //             }
     //     }
     //     return testTime;
-    // } 
+    // }
 },
 
-        ]]   
+        ]]
     ,page: true //是否显示分页
     ,limit: 15
     ,limits:[15]
@@ -167,18 +183,18 @@ table.render({
     }
 });
 
-table.on('row(demo)', function(obj){
-    if(obj.tr.find("[type='checkbox']").attr('checked')){
-        obj.tr.find("[type='checkbox']").attr('checked',false);
-        obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
-        obj.tr.removeClass('layui-table-click');
-    }else{
-        obj.tr.find("[type='checkbox']").attr('checked','checked')
-        obj.tr.find('.layui-unselect').addClass('layui-form-checked');
-        obj.tr.addClass('layui-table-click');
-    }
-
-});
+// table.on('row(demo)', function(obj){
+//     if(obj.tr.find("[type='checkbox']").attr('checked')){
+//         obj.tr.find("[type='checkbox']").attr('checked',false);
+//         obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
+//         obj.tr.removeClass('layui-table-click');
+//     }else{
+//         obj.tr.find("[type='checkbox']").attr('checked','checked')
+//         obj.tr.find('.layui-unselect').addClass('layui-form-checked');
+//         obj.tr.addClass('layui-table-click');
+//     }
+//
+// });
 
 //批量
 var active = {
@@ -188,9 +204,9 @@ var active = {
         var name =$("#name").val();
         var unit =$("#unit").val();
         var number =$("#number").val();
-        var number1 =$("#number1").val();        
-        var check =$("#check").val(); 
-               
+        var number1 =$("#number1").val();
+        var check =$("#check").val();
+
 
         //执行重载
         table.reload('idTest', {
@@ -247,7 +263,7 @@ var active = {
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
                 })
-               
+
 
        }
     },
@@ -258,10 +274,10 @@ var active = {
                 type:1,
                 shade:0,
                 content:"<p style='text-align:center;margin-top: 13px'>请选择序号</p>",
-                area:['200px','100px'],               
+                area:['200px','100px'],
             })
             return false
-        }else{            
+        }else{
             var str=[];
             for(var i=0;i<data.length;i++){
                 str.push(data[i].id)
@@ -273,7 +289,7 @@ var active = {
                 btn: ['确认', '取消'],
                 type: 1,
                 content: '',
-                yes: function (index, layero) {               
+                yes: function (index, layero) {
                     layer.close(index)
                     http.ajax({
                         url: "/bloodApprove/batchApprove",
@@ -283,22 +299,22 @@ var active = {
                         beforeSend: function (XMLHttpRequest) {
                             XMLHttpRequest.setRequestHeader('Authorization', token);
                         },
-                        data:{ids:ids},  
+                        data:{ids:ids},
                     }).then(function (data) {
-                            if (data.code == 0) {                            
+                            if (data.code == 0) {
                                 layer.msg('已通过');
-                                table.reload('idTest',{});                        
+                                table.reload('idTest',{});
                             }
                         },function(err){
                             console.log(err);
                             // 错误回调，err是错误回调参数
                             // 这里不处理错误也可以，上面都有集中处理错误，会tips
                         })
-                                                
-                       
-    
 
-    
+
+
+
+
                 },
                 btn2: function(){
                 layer.closeAll();
@@ -307,22 +323,22 @@ var active = {
        }
     },
     allout: function () {//批量导出
-        var finspectionUnitName = $("#unit").val();       
-        var testerName = $("#name").val();      
+        var finspectionUnitName = $("#unit").val();
+        var testerName = $("#name").val();
         //var startTime = $("#start").val();
         var inspectionOfficeNumber = $("#number").val();//检验所编号
-        var inspectionUnitNumber = $("#number1").val();       
+        var inspectionUnitNumber = $("#number1").val();
         //var isaddFinalTestResults = $("#check").val();//选入状态
-       // var check =$("#check").val(); 
-        //var room =$("#room").val(); 
+       // var check =$("#check").val();
+        //var room =$("#room").val();
 
         var param = {}
         param.finspectionUnitName = finspectionUnitName
         param.inspectionUnitNumber = inspectionUnitNumber
         param.testerName = testerName
-      
+
        // param.startTime = startTime
-        //param.endTime = endTime        
+        //param.endTime = endTime
         param.inspectionOfficeNumber = inspectionOfficeNumber
         //param.batchNumber = batchNumber
         //param.testState = 0
@@ -338,9 +354,9 @@ var active = {
             data:  JSON.stringify(param),
         }).then(function (data) {
                 if (data.code == 0) {
-                    var url=http.config.api                    
-                    var url= url+"/"+data.data.filepath 
-                    console.log(url)       
+                    var url=http.config.api
+                    var url= url+"/"+data.data.filepath
+                    console.log(url)
                     window.location.href = url;
                 } else if (data.code == 500) {
                     window.location.href = "../home.html"
@@ -350,9 +366,9 @@ var active = {
                 // 错误回调，err是错误回调参数
                 // 这里不处理错误也可以，上面都有集中处理错误，会tips
             })
-    
-           
-        
+
+
+
     },
     batchRefuse: function(){ //批量拒绝
         var checkStatus = table.checkStatus('idTest') ,data = checkStatus.data;
@@ -361,8 +377,8 @@ var active = {
                 type:1,
                 shade:0,
                 content:"<p style='text-align:center;margin-top: 13px'>请选择序号</p>",
-                area:['200px','100px'],               
-            })          
+                area:['200px','100px'],
+            })
             return false
         }else{
             var str=[];
@@ -376,7 +392,7 @@ var active = {
                 btn: ['确认', '取消'],
                 type: 1,
                 content: $('.refuse'),
-                yes: function (index, layero) {               
+                yes: function (index, layero) {
                     layer.close(index)
                     http.ajax({
                         url: "/bloodApprove/batchRejectApprove",
@@ -388,22 +404,22 @@ var active = {
                         },
                         data:{ids:ids},
                     }) .then(function (data) {
-                            if (data.code == 0) {                            
+                            if (data.code == 0) {
                                 layer.msg('已拒绝');
-                                table.reload('idTest',{});                        
+                                table.reload('idTest',{});
                             }
                         },function(err){
                             console.log(err);
                             // 错误回调，err是错误回调参数
                             // 这里不处理错误也可以，上面都有集中处理错误，会tips
-                        })                                
+                        })
                 },
                 btn2: function(){
                 layer.closeAll();
             },
             })
        }
-    },      
+    },
 };
 //清空
 $("#clear").click(function(){
@@ -415,7 +431,7 @@ $("#clear").click(function(){
     form.render()
 });
 //搜索
-$("#search").click(function(){    
+$("#search").click(function(){
     var type = $(this).data('type');
     active[type] ? active[type].call(this) : '';
 });
@@ -449,7 +465,7 @@ table.on('tool(demo)', function(obj){
             btn: ['确认', '取消'],
             type: 1,
             content: '',
-            yes: function (index, layero) {               
+            yes: function (index, layero) {
                 layer.close(index)
                 http.ajax({
                     url: "/bloodApprove/passApprove",
@@ -460,12 +476,12 @@ table.on('tool(demo)', function(obj){
                         XMLHttpRequest.setRequestHeader('Authorization', token);
                     },
                     data: {
-                        id:data.id,                                                                                                                 
-                    }, 
+                        id:data.id,
+                    },
                 }) .then(function (data) {
-                        if (data.code == 0) {                            
+                        if (data.code == 0) {
                             layer.msg('已通过');
-                            table.reload('idTest',{});                        
+                            table.reload('idTest',{});
                         }
                     },function(err){
                         console.log(err);
@@ -485,7 +501,7 @@ table.on('tool(demo)', function(obj){
             btn: ['确认', '取消'],
             type: 1,
             content: $('.refuse'),
-            yes: function (index, layero) {               
+            yes: function (index, layero) {
                 layer.close(index)
                 http.ajax({
                     url: "/bloodApprove/rejectApprove",
@@ -496,23 +512,23 @@ table.on('tool(demo)', function(obj){
                         XMLHttpRequest.setRequestHeader('Authorization', token);
                     },
                     data: {
-                        id:data.id,                        
-                        resultsApproveReason:$("#refuse").val(),                                                                     
-                    },   
+                        id:data.id,
+                        resultsApproveReason:$("#refuse").val(),
+                    },
                 }) .then(function (data) {
-                        if (data.code == 0) {                            
+                        if (data.code == 0) {
                             layer.msg('已拒绝');
-                            table.reload('idTest',{});                        
+                            table.reload('idTest',{});
                         }
                     },function(err){
                         console.log(err);
                         // 错误回调，err是错误回调参数
                         // 这里不处理错误也可以，上面都有集中处理错误，会tips
-                    })                                    
+                    })
             },
             btn2: function(){
             layer.closeAll();
         },
         });
-    } 
+    }
 });

@@ -31,10 +31,6 @@ li {
 .yellow {
   background-color: #ffcc00 !important;
 }
-.layui-table-hover{
-  background-color: #C2D69A !important;
-}
-
 thead {
   font-size: 12px;
   color: black;
@@ -136,29 +132,63 @@ thead {
   background: #1b2638;
   overflow-y: auto;
 }
-
-.box{
-  text-align: center;
+.main .slide .layui-inline .layui-nav-item span {
+  margin-left: 15px;
+  font-size: 19px!important;
 }
-.input01,.input02{
-  margin-bottom: 20px;
-  
+.main .slide .layui-inline .layui-nav-item dd a {
+  margin-left: 46px;
 }
-.input01 label,.input02 label{
-  display: inline-block;
-  width: 120px;
+.main .slide .layui-inline .layui-nav-item a {
+  line-height: 44px;
 }
-.box input{
-  height: 35px;
-  line-height: 35px;
-  width: 70%;
-  padding-left:10px;
-
+.main .slide .layui-inline .layui-nav-item .layui-nav-child .layui-nav-child dd {
+  margin-left: 16px;
 }
-.btn{
-  
-  padding: 6px 20px;
-  background: #009688;
-  color: #fff;
+.wrap .layui-layer-content .modal .box {
+  padding: 0 15px 12px;
+}
+.wrap .layui-layer-content .modal .box .log1 .input01 input {
+  margin-left: 30px;
+  width: 41%;
+}
+.wrap .layui-layer-content .modal .box .log1 .input01 {
+  margin-bottom: 24px;
+}
+.wrap .layui-layer-content .modal .box .log1 .input02 input {
+  margin-left: 47px;
+  width: 41%;
+}
+.wrap .layui-layer-content .pwdmodal .box .input01 #old {
+  margin-left: 30px;
+  width: 41%;
+}
+.wrap .layui-layer-content .pwdmodal .box .input02 #new {
+  margin-left: 47px;
+  width: 41%;
+}
+.wrap .layui-layer-content .pwdmodal .box .input01 #renew {
+  margin-left: 31px;
+}
+.wrap .layui-layer-content .pwdmodal .box .input01,
+.input02 {
+  margin-bottom: 10px;
+}
+@media screen and (min-width: 1920px) {
+  .layui-layer-page {
+    min-height: 36px;
+  }
+  .layui-layer-page .layui-layer-content {
+    min-height: 14px;
+  }
+}
+.log2 .layui-form .layui-form-selected .layui-anim-upbit {
+  height: 122px;
+}
+.btn3 {
+  background-color: #00a0e9;
+  border-color: #00a0e9;
+  color: white;
+  float: right;
 }
 /*# sourceMappingURL=base.css.map */

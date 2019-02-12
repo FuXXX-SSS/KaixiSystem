@@ -9,10 +9,19 @@
     <link rel="stylesheet" href="../../css/application/applicaitonSubmit.css">
     <link rel="stylesheet" href="../../css/bloodConfirm.css">
     <link rel="icon" href="../../img/logo2.png" type="image/x-icon"/>
+    <style>
+        .a_top .layui-form-item .layui-inline .layui-input-inline {
+            margin-top: 5px;
+        }
 
+        .a_check_center .layui-form-item .layui-inline .layui-input-inline {
+            margin-top: 5px;
+        }
+
+    </style>
 </head>
 <style>
-    .layui-table-cell{
+    .layui-table-cell {
         overflow: unset;
     }
 </style>
@@ -29,10 +38,13 @@
         <span id="triggle"></span>
         <div class="right layui-nav clearfix" lay-filter="top">
             <div>
-                <div>
-                <p style="float: right;font-size: 23px!important;" id="laboratoryname"></p>
-                <p id="username" style="float: left ;font-size: 23px!important;margin-right: 16px"></p>
-            </div>  
+                <div class="clearfix">
+                    <p style="float: left;font-size: 20px!important;margin-right: -6px;margin-top: -22px;">你好，</p>
+                    <p id="username"
+                       style="    float: left;font-size: 20px!important;margin-right: 16px; margin-top: -22px; padding-top:3px;"></p>
+                </div>
+                <div style="font-size: 16px!important;position: absolute;top: 47px;left: 18px;"
+                     id="laboratoryname"></div>
             </div>
             <div class="layui-nav-item">
                 <a href="javascript:;"><i class="iconfont icon-gengduo-2"></i></a>
@@ -46,62 +58,64 @@
     </div>
     <!--切换用户-->
     <div class="modal" style="display:none">
-            <div class="box">
-            <div class="log1">        
+        <div class="box">
+            <div class="log1">
                 <div class="input01">
-                    <label>用户名</label></label><input type="text" placeholder="用户名" name='username' value="" id="username1">
+                    <label>用户名</label></label><input type="text" placeholder="用户名" name='username' value=""
+                                                     id="username1">
                 </div>
                 <div class="input02">
                     <label>密码</label><input type="password" placeholder="密码" name="password" value="" id="password">
                 </div>
             </div>
-             <!--切换用户-->
-             <div class="log2" style="display: none;">
-                    <h1 style="text-align: center;margin-bottom: 30px;">选择检验室</h1>
-                    <form class="layui-form" action=""  style="width: 321px;margin-bottom: 70px">
-                        <select name="modules" lay-verify="required" lay-search="" id="unit1"
-                                lay-filter="num">
-                            <option value="">请选择</option>
-                        </select>
-                    </form>
-                    <span class="layui-btn btn2" ></span>
-                </div>
-                
+            <!--切换用户-->
+            <div class="log2" style="display: none;">
+                <h1 style="text-align: center;margin-bottom: 30px;">选择检验室</h1>
+                <form class="layui-form" action="" style="width: 321px;margin-bottom: 70px">
+                    <select name="modules" lay-verify="required" lay-search="" id="unit1"
+                            lay-filter="num">
+                        <option value="">请选择</option>
+                    </select>
+                </form>
+                <span class="layui-btn btn3">确定</span>
             </div>
 
         </div>
-        <!--切换用户-->
-         <!--修改密码-->
-         <div class="pwdmodal" style="display:none">
-                <div class="box">        
-                    <div class="input01">
-                        <label>原始密码</label></label><input type="password" name='password' value="" id="old">
-                    </div>
-                    <div class="input02">
-                        <label>新密码</label><input type="password"  name="password" value="" id="new">
-                    </div>
-                     <div class="input01">
-                        <label>再次确认密码</label><input type="password" name="password" value="" id="renew">
-                    </div>
-                   
-                </div>
+
+    </div>
+    <!--切换用户-->
+    <!--修改密码-->
+    <div class="pwdmodal" style="display:none">
+        <div class="box">
+            <div class="input01">
+                <label>原始密码</label></label><input type="password" name='password' value="" id="old">
             </div>
-            <!--修改密码-->
+            <div class="input02">
+                <label>新密码</label><input type="password" name="password" value="" id="new">
+            </div>
+            <div class="input01">
+                <label>确认密码</label><input type="password" name="password" value="" id="renew">
+            </div>
+
+        </div>
+    </div>
+    <!--修改密码-->
     <div class="main">
         <div class="slide">
             <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" id="navbar">
-              
+
             </ul>
         </div>
         <div class="container">
             <div class="a_submit">
-                <form  class="layui-form" action="">
+                <form class="layui-form" action="">
                     <div class="a_top">
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">送检单位</label>
                                 <div class="layui-input-inline">
-                                    <select name="modules" lay-verify="required" lay-search="" id="unit" lay-filter="num">
+                                    <select name="modules" lay-verify="required" lay-search="" id="unit"
+                                            lay-filter="num">
                                         <option value="">请选择</option>
                                     </select>
                                 </div>
@@ -109,23 +123,26 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">开始时间</label>
                                 <div class="layui-input-inline">
-                                    <input type="text"  name="phone" id="start" placeholder="开始时间" lay-verify="required" autocomplete="off" class="layui-input" readonly>
+                                    <input type="text" name="phone" id="start" placeholder="开始时间" lay-verify="required"
+                                           autocomplete="off" class="layui-input" readonly>
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label">结束时间</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="phone" id="end" placeholder="结束时间" lay-verify="required" autocomplete="off" class="layui-input" readonly>
+                                    <input type="text" name="phone" id="end" placeholder="结束时间" lay-verify="required"
+                                           autocomplete="off" class="layui-input" readonly>
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label">姓名</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="phone" id="name" placeholder="姓名" lay-verify="required" autocomplete="off" class="layui-input">
+                                    <input type="text" name="phone" id="name" placeholder="姓名" lay-verify="required"
+                                           autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline warn">
-                                <button class="layui-btn layui-btn-danger" data-type="getCheckLength" id="all">批量删除</button>
+                                <span class="layui-btn layui-btn-danger" data-type="getCheckLength" id="all">批量删除</span>
                             </div>
                         </div>
                     </div>
@@ -134,15 +151,17 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label unit">送检单位编号</label>
                                 <div class="layui-input-inline">
-                                    <input type="tel" name="phone" id="number" placeholder="送检单位编号" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                                    <input type="tel" name="phone" id="number" placeholder="送检单位编号"
+                                           lay-verify="required|phone" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label">样本状态</label>
                                 <div class="layui-input-inline">
-                                    <select name="check" lay-verify="required" lay-search="" lay-filter="check" id="check">                                        
+                                    <select name="check" lay-verify="required" lay-search="" lay-filter="check"
+                                            id="check">
                                         <option value="0">未添加</option>
-                                        <option value="1">已添加</option>                                       
+                                        <option value="1">已添加</option>
                                     </select>
                                 </div>
                             </div>
@@ -158,57 +177,61 @@
                                 <span class="layui-btn" id="allsub" data-type="allsub">全部提交</span>
                             </div> -->
                             <div class="layui-inline">
-                                <span class="layui-btn" id="addition" data-method="notice" data-type="addition">批量添加</span>
+                                <span class="layui-btn" id="addition" data-method="notice"
+                                      data-type="addition">批量添加</span>
                             </div>
                             <div class="layui-inline">
-                                <span class="layui-btn" id="pladopt" data-type="pladopt" style="display:none">批量通过</span>
+                                <span class="layui-btn" id="pladopt" data-type="pladopt"
+                                      style="display:none">批量通过</span>
                             </div>
                             <div class="layui-inline">
                                 <div class="layui-inline">
                                     <span class="layui-btn" id="allout" data-type="allout">批量导出</span>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="table">
-                        <table class="layui-hide" id="test" lay-filter="demo"></table>                                             
+                        <table class="layui-hide" id="test" lay-filter="demo"></table>
                         <script type="text/html" id="barDemo">
-                            {{#  if(d.isaddBloodInformationtype== 0){ }}                              
-                            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="saveBloodVerify">添加</a>                            
+                            {{#  if(d.isaddBloodInformationtype== 0){ }}
+                            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="saveBloodVerify">添加</a>
                             <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-                            {{#  } else if(d.isaddBloodInformationtype == 1){ }} 
+                            {{#  } else if(d.isaddBloodInformationtype == 1){ }}
                             <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="confirm">通过</a>
                             <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="rejectBloodVerify">拒绝</a>
-                            <!-- <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="rejectBloodVerify">修改温度</a>                             -->
+                            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="bloodVerify"
+                               style="background-color: #009688;color: white">修改血样</a>
                             <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
                             {{#  } }}
                         </script>
                         <!-- <script type="text/html" id="switchTpl">
-                           
+
                             <select  name="modules" lay-verify="required" lay-search="" id="Remarks1" lay-filter="Remarks1">
-                                 <option value=''>请选择</option>                                
+                                 <option value=''>请选择</option>
                             </select>
                           </script>                                          -->
                     </div>
                 </form>
-            </form>
-            <!--修改检验所编号-->
-            <div class="refuse layui-form" style="display:none; margin-top:20px">    
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">拒绝原因</label>
-                    <div class="layui-input-block">
-                      <textarea placeholder="请输入内容" class="layui-textarea" id="refuse"></textarea>
+                </form>
+                <!--修改检验所编号-->
+                <div class="refuse layui-form" style="display:none; margin-top:20px">
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">拒绝原因</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入内容" class="layui-textarea" id="refuse"></textarea>
+                        </div>
                     </div>
-                  </div>          
-            </div>
-            <!--修改检验所编号-->
+                </div>
+                <!--修改检验所编号-->
                 <!--批量添加-->
-                <div class="result layui-form" style="display:none; margin-top:20px">    
+                <div class="result layui-form" style="display:none; margin-top:20px">
                     <div class="layui-form-item">
                         <label class="layui-form-label">样本温度</label>
-                        <div class="layui-input-block" style="margin-left: 140px;">                            
-                            <input type='text' id='dh' placeholder='样本温度' value='' class='layui-input'>
+                        <div class="layui-input-block" style="margin-left: 140px;">
+                            <input type='text' id='dh' placeholder='样本温度' value='' class='layui-input'
+                                   style="background-color: white">
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -219,14 +242,35 @@
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">血样备注</label>
-                        <div class="layui-input-block xlk" style="margin-left: 140px;" >
-                        <select  name="modules" lay-verify="required" lay-search="" id="Remarks" lay-filter="num">
-                            <option value=''>请选择</option>
-                        </select>
+                        <div class="layui-input-block xlk" style="margin-left: 140px;">
+                            <select name="modules" lay-verify="required" lay-search="" id="Remarks" lay-filter="num">
+                                <option value=''>请选择</option>
+                            </select>
                         </div>
-                    </div>                  
+                    </div>
                 </div>
-                <!--批量添加-->               
+                <!--修改血样-->
+                <div class="bloodVerify layui-form" style="display:none; margin-top:20px">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">样本温度</label>
+                        <div class="layui-input-block" style="margin-left: 140px;">
+                            <input type='text' id='sampleTemperature' placeholder='样本温度' value='' class='layui-input'
+                                   style="background-color: white" name="value">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">样本量</label>
+                        <div class="layui-input-block" style="margin-left: 140px;">
+                            <input type='text' placeholder='样本量' id='sampleSize' class='layui-input'>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">血样备注</label>
+                        <div class="layui-input-block xlk" style="margin-left: 140px;">
+                            <input type='text' placeholder='血样备注' id='bloodSamplePreparation' class='layui-input'>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -237,7 +281,7 @@
 <script src="../../js/base.js"></script>
 <script src="../../js/bloodConfirm/bloodConfirm.js"></script>
 <!-- <script>
-        $(function () {    
+        $(function () {
         $("#top").load("../../navTop.html",function(){
             var sc =  document.createElement("script");
             var sc2 =  document.createElement("script");
@@ -247,12 +291,12 @@
             sc4.src= "../../layui/layui.all.js"
             sc2.src= "../../js/base.js"
             sc3.src= "../../js/log.js"
-                              
+
             $("body").append(sc);
             $("body").append(sc4);
             $("body").append(sc3);
             $("body").append(sc2);
-                      
+
     })
     })
 </script> -->

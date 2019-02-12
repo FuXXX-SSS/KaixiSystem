@@ -29,8 +29,8 @@ $(function() {
 			console.log(err);
 			// 错误回调，err是错误回调参数
 			// 这里不处理错误也可以，上面都有集中处理错误，会tips
-		})	
-		
+		})
+
 });
 var laydate = layui.laydate;
 laydate.render({
@@ -50,16 +50,25 @@ table.render({
 	parseData: function(res) {
 		if (res.code == 500) {
 			window.location.href = '../../log.html';
-        }       
-        
-		
+        }
+        if (res.code == 9999 ) {
+            layer.msg(res.msg);
+		}
+		if(res.code == 0){
+            var data = res.data
+            if(data.total==0){
+                $(".layui-table-header").css("overflow","visible")
+                $(".layui-table-box").css("overflow","auto")
+            }
+        }
+
 		return {
 			code: res.code,
 			msg: res.msg,
 			count: res.data.total,
 			data: res.data.rows
         };
-    
+
 	},
 	request: {
 		limitName: 'rows'
@@ -177,23 +186,23 @@ table.render({
 			},
 			{title: '添加检验结果',align: 'center',//templet: '#switchTpl',
 					templet:(
-						function (data){							
+						function (data){
 							if(data.isaddFinalTestResult == 1){
 							var testername ="";
 								for(var i=0;i<data.testResult.length;i++){
-									testername +='<input type="checkbox" lay-skin="primary" name="result" value="'+data.testResult[i].testResultId+'">'									
+									testername +='<input type="checkbox" lay-skin="primary" name="result" value="'+data.testResult[i].testResultId+'">'
 									if(data.testResult.length - i !=1){
 										testername += "<hr/>";
 										}
 								}
 								return testername;
-												
-											}								
+
+											}
 										})
 			},
-				
-				
-			
+
+
+
 			//本次检验结果
 			{ field: 'trValue', title: 'TR值(U/mL)', align: 'center' },
 			{ field: 'omaTrValue', title: 'OMA/TR', align: 'center' },
@@ -211,7 +220,7 @@ table.render({
 	limit: 15,
 	limits: [ 15 ],
 	id: 'idTest',
-	done: function(res, curr, count) {					
+	done: function(res, curr, count) {
 		}
 });
 
@@ -293,19 +302,19 @@ var active = {
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
                 })
-				
+
 
 		}
 	},
-	addResult: function() {//批量添加结果	
-        var checkStatus = table.checkStatus('idTest'),      
+	addResult: function() {//批量添加结果
+        var checkStatus = table.checkStatus('idTest'),
 		data = checkStatus.data;
-		console.log(data)									
-			var chk_value =[];//定义一个数组      
-				$('input[name="result"]:checked').each(function(){//遍历每一个名字为nodes的复选框，其中选中的执行函数   
+		console.log(data)
+			var chk_value =[];//定义一个数组
+				$('input[name="result"]:checked').each(function(){//遍历每一个名字为nodes的复选框，其中选中的执行函数
 					chk_value.push($(this).val());
-					//将选中的值添加到数组chk_value中      
-				});			
+					//将选中的值添加到数组chk_value中
+				});
 			if(resultId.trim() == ""){
 				layer.msg("请选择一项");
 				return;
@@ -337,9 +346,9 @@ var active = {
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
                 })
-				
 
-			}	
+
+			}
 	},
 	batchSubmit: function() {
 		//批量提交
@@ -380,8 +389,8 @@ var active = {
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
                 })
-				
-	
+
+
 		}
 	},
 	batchMarkAudited: function() {
@@ -424,25 +433,25 @@ var active = {
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
                 })
-				
+
 		}
 	},
 	allout: function () {//批量导出
-        var finspectionUnitName = $("#unit").val();       
-        var testerName = $("#name").val();      
+        var finspectionUnitName = $("#unit").val();
+        var testerName = $("#name").val();
         var startTime = $("#start").val();
         var endTime = $("#end").val();
-        var inspectionUnitNumber = $("#number").val();       
+        var inspectionUnitNumber = $("#number").val();
         var isaddFinalTestResults = $("#check").val();//选入状态
 
-    
+
         var param = {}
         param.finspectionUnitName = finspectionUnitName
         param.inspectionUnitNumber = inspectionUnitNumber
         param.testerName = testerName
-      
+
         param.startTime = startTime
-        param.endTime = endTime        
+        param.endTime = endTime
         param.isaddFinalTestResults = isaddFinalTestResults
         //param.batchNumber = batchNumber
         //param.testState = 0
@@ -469,8 +478,8 @@ var active = {
 				console.log(err);
 				// 错误回调，err是错误回调参数
 				// 这里不处理错误也可以，上面都有集中处理错误，会tips
-			})    
-           
+			})
+
     },
 	Unchecked: function() {
 		//批量标记未审核
@@ -521,8 +530,8 @@ var active = {
                 type:1,
                 shade:0,
                 content:"<p style='text-align:center;margin-top: 13px'>请选择序号</p>",
-                area:['200px','100px'],               
-            })          
+                area:['200px','100px'],
+            })
             return false
         }else{
             var str=[];
@@ -536,7 +545,7 @@ var active = {
                 btn: ['确认', '取消'],
                 type: 1,
                 content: $('.refuse'),
-                yes: function (index, layero) {               
+                yes: function (index, layero) {
                     layer.close(index)
                     http.ajax({
                         url: "/bloodAuduting/approveAgainTest",
@@ -548,9 +557,9 @@ var active = {
                         },
 						data:{ids:ids,againTestReason:$('#refuse').val()},
 					}).then(function (data) {
-                            if (data.code == 0) {                            
+                            if (data.code == 0) {
                                 layer.msg('已复测');
-                                table.reload('idTest',{});                        
+                                table.reload('idTest',{});
                             }
                         },function(err){
 							console.log(err);
@@ -564,11 +573,11 @@ var active = {
             },
             })
        }
-    },      
-    
+    },
+
 };
 
-	
+
 //监听工具条
 table.on('tool(demo)', function(obj) {
 	var data = obj.data;
@@ -579,7 +588,7 @@ table.on('tool(demo)', function(obj) {
             btn: ['确认', '取消'],
             type: 1,
             content: '',
-            yes: function (index, layero) {               
+            yes: function (index, layero) {
                 layer.close(index)
                 http.ajax({
                     url: "/bloodAuduting/yetAudutings",
@@ -590,26 +599,26 @@ table.on('tool(demo)', function(obj) {
                         XMLHttpRequest.setRequestHeader('Authorization', token);
                     },
                     data: {
-                        id:data.id,                                                                                                                 
-					},    
+                        id:data.id,
+					},
 				}).then(function (data) {
-                        if (data.code == 0) {                            
+                        if (data.code == 0) {
                             layer.msg('已审核');
-                            table.reload('idTest',{});                        
+                            table.reload('idTest',{});
                         }
                     },function(err){
 						console.log(err);
 						// 错误回调，err是错误回调参数
 						// 这里不处理错误也可以，上面都有集中处理错误，会tips
 					})
- 
+
 
             },
             btn2: function(){
             layer.closeAll();
         },
         })
-		
+
     }else if(obj.event === 'Retest'){//复测
         layer.open({
         title: '复测原因',
@@ -617,7 +626,7 @@ table.on('tool(demo)', function(obj) {
         btn: ['确认', '取消'],
         type: 1,
         content: $('.refuse'),
-        yes: function (index, layero) {               
+        yes: function (index, layero) {
             layer.close(index)
             http.ajax({
                 url: "/bloodAuduting/againTest",
@@ -628,26 +637,26 @@ table.on('tool(demo)', function(obj) {
                     XMLHttpRequest.setRequestHeader('Authorization', token);
                 },
                 data: {
-                    id:data.id,                        
-                    againTestReason:$("#refuse").val(),                                                                     
-				},  
+                    id:data.id,
+                    againTestReason:$("#refuse").val(),
+				},
 			}).then(function (data) {
-                    if (data.code == 0) {                            
+                    if (data.code == 0) {
                         layer.msg('已提交');
-                        table.reload('idTest',{});                        
+                        table.reload('idTest',{});
                     }
                 },function(err){
                     console.log(err);
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
-                })                                     
+                })
 
         },
         btn2: function(){
         layer.closeAll();
     },
     });
-}else if(obj.event === 'result'){//修改最终检验结果              
+}else if(obj.event === 'result'){//修改最终检验结果
     http.ajax({
         url: "/bloodAuduting/getResultById",
         type: "POST",
@@ -656,26 +665,26 @@ table.on('tool(demo)', function(obj) {
         beforeSend: function (XMLHttpRequest) {
             XMLHttpRequest.setRequestHeader('Authorization', token);
         },
-		data: {id:data.id}, 
+		data: {id:data.id},
 	}).then(function (data) {
             $("#val1").val(trValue)
             $("#val2").val(omaValue)
             $("#val3").val(omaTrValue)
-            if (data.code == 0) {                                                                     
+            if (data.code == 0) {
             }
         },function(err){
 			console.log(err);
 			// 错误回调，err是错误回调参数
 			// 这里不处理错误也可以，上面都有集中处理错误，会tips
-		})                                                                                                                                  
-           
+		})
+
     layer.open({
     title: '修改最终检验结果',
     area: ['500px', '280px'],
     btn: ['确认', '取消'],
     type: 1,
     content: $('.result'),
-    yes: function (index, layero) {               
+    yes: function (index, layero) {
         layer.close(index)
         http.ajax({
             url: "/bloodAuduting/updateResult",
@@ -686,14 +695,14 @@ table.on('tool(demo)', function(obj) {
                 XMLHttpRequest.setRequestHeader('Authorization', token);
             },
             data: {
-                id:data.id,                        
-                trValue:$("#val1").val(), 
-                omaValue:$("#val2").val(),                                                                    
-			}, 
+                id:data.id,
+                trValue:$("#val1").val(),
+                omaValue:$("#val2").val(),
+			},
 		}).then(function (data) {
-                if (data.code == 0) {                            
+                if (data.code == 0) {
                     layer.msg('修改成功');
-                    table.reload('idTest',{});                        
+                    table.reload('idTest',{});
                 }
             },function(err){
 				console.log(err);
@@ -714,7 +723,7 @@ table.on('tool(demo)', function(obj) {
         btn: ['确认', '取消'],
         type: 1,
         content: '',
-        yes: function (index, layero) {               
+        yes: function (index, layero) {
             layer.close(index)
             http.ajax({
                 url: "/bloodAuduting/resultsApprove",
@@ -725,12 +734,12 @@ table.on('tool(demo)', function(obj) {
                     XMLHttpRequest.setRequestHeader('Authorization', token);
                 },
                 data: {
-                    id:data.id,                                                                                                                 
-				}, 
+                    id:data.id,
+				},
 			}).then(function (data) {
-                    if (data.code == 0) {                            
+                    if (data.code == 0) {
                         layer.msg('已提交');
-                        table.reload('idTest',{});                        
+                        table.reload('idTest',{});
                     }
                 },function(err){
                     console.log(err);

@@ -1,70 +1,99 @@
-.wrap{
-  width: 100%;
-  height: 100%;
+.bg(){
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#dbdee6+0,ffffff+56,ffffff+100,dbdee6+100 */
+  background: #dbdee6; /* Old browsers */
+  background: -moz-linear-gradient(top, #dbdee6 0%, #ffffff 56%, #ffffff 100%, #dbdee6 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #dbdee6 0%,#ffffff 56%,#ffffff 100%,#dbdee6 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #dbdee6 0%,#ffffff 56%,#ffffff 100%,#dbdee6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbdee6', endColorstr='#dbdee6',GradientType=0 ); /* IE6-9 */
+}
+.wrap {
+  //width: 100%;
+  //height: 100%;
   background: url("../img/beijing.png") center center no-repeat;
-  min-width: 1366px;
-  max-width: 1920px;
-  min-height: 768px;
+  //min-width: 1366px;
+  //max-width: 1920px;
+  //min-height: 768px;
   position: relative;
-  background-size: cover;
-  .box{
+  //background-size: cover;
+  .box {
     width: 25%;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translateX(-1%) translateY(-36%);
     padding: 21px;
-    .title{
+    .title {
       text-align: center;
       font-size: 25px;
       padding: 27px 0;
     }
-    .input01{
+    .input01 {
       margin: 0 auto;
-      width: 342px;
-      height: 50px;
-      background:url("../img/zhanghao_01.png") center center no-repeat;
+      //background: url("../img/zhanghao_01.png") center center no-repeat;
+      width: 316px;
+      height: 40px;
+      background-color: #f5f5fa;
       background-size: cover;
-      input{
-        margin-left: 69px;
+      border-radius: 6px;
+      border: 1px solid #eaeaed;
+      margin-bottom: 30px;
+      .iconfont{
+        float: left;
+        font-size: 21px;
+        margin-top: 8px;
+        margin-left: 20px;
+        color: #c0c0c5;
+      }
+      input {
+        margin-left: 14px;
         width: 249px;
         height: 30px;
-        margin-top: 10px;
+        margin-top: 5px;
         padding-left: 5px;
         border: none;
         outline: none;
-        background: #f5f5fa;
+        background: #f5f5fa
       }
     }
-    .input03{
+    .input03 {
       margin: 0 auto;
       width: 342px;
       height: 50px;
     }
-    .input02{
-      margin: 15px auto;
-      width: 342px;
-      height: 50px;
-      background:url("../img/mima_01.png") center center no-repeat;
+    .input02 {
+      margin: 0 auto;
+      //background: url("../img/zhanghao_01.png") center center no-repeat;
+      width: 316px;
+      height: 40px;
+      background-color: #f5f5fa;
       background-size: cover;
-      input{
-        margin-left: 69px;
+      border-radius: 6px;
+      border: 1px solid #eaeaed;
+      .iconfont{
+        float: left;
+        font-size: 21px;
+        margin-top: 8px;
+        margin-left: 20px;
+        color: #c0c0c5;
+      }
+      input {
+        margin-left: 14px;
         width: 249px;
         height: 30px;
-        margin-top: 10px;
+        margin-top: 5px;
         padding-left: 5px;
         border: none;
         outline: none;
-        background: #f5f5fa;
+        background: #f5f5fa
       }
     }
-    .layui-input-inline{
+    .layui-input-inline {
       width: 322px;
     }
-    .layui-inline{
+    .layui-inline {
       margin-left: 10px;
     }
-    .btn{
+    .btn {
       margin: 15px auto;
       width: 322px;
       height: 39px;
@@ -73,7 +102,7 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    .btm{
+    .btm {
       margin: 74px auto 15px;
       width: 322px;
       height: 39px;
@@ -82,5 +111,254 @@
       border-radius: 5px;
       cursor: pointer;
     }
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+  .wrap {
+    background: url("../img/beijing.png") center center no-repeat;;
+  }
+}
+@media only screen and (min-width: 1366px) {
+ body{
+    .bg(){
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#dbdee6+0,ffffff+56,ffffff+100,dbdee6+100 */
+      background: #dbdee6; /* Old browsers */
+      background: -moz-linear-gradient(top, #dbdee6 0%, #ffffff 56%, #ffffff 100%, #dbdee6 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, #dbdee6 0%,#ffffff 56%,#ffffff 100%,#dbdee6 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, #dbdee6 0%,#ffffff 56%,#ffffff 100%,#dbdee6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbdee6', endColorstr='#dbdee6',GradientType=0 ); /* IE6-9 */
+    }
+  }
+  .wrap {
+    width: 1113px;
+    min-height: 626px;
+    overflow-y: auto;
+    background: url("../img/1366x768.jpg") center center no-repeat;;
+    background-size:contain;
+    margin: auto;
+  }
+  .wrap .box .input01,.wrap .box .input02{
+    margin: 0 auto;
+    width: 196px;
+    height: 25px;
+    background-color: #f5f5fa;
+    background-size: cover;
+    border-radius: 6px;
+    border: 1px solid #eaeaed;
+    margin-bottom: 30px;
+    .iconfont{
+      float: left;
+      font-size: 18px;
+      margin-top: 1px;
+      margin-left: 15px;
+      color: #c0c0c5;
+    }
+    input{
+      margin-left: 22px;
+      width: 113px;
+      height: 16px;
+      margin-top: 5px;
+      padding-left: 5px;
+      border: none;
+      outline: none;
+      background: #f5f5fa;
+    }
+  }
+  .wrap .box .title {
+    text-align: center;
+    font-size: 19px;
+    padding: 27px 0;
+  }
+  .wrap .box .btn {
+    width: 197px;
+    height: 26px;
+  }
+  .log2 .layui-form{
+    font-size: 12px;
+    width: 190px!important;
+    margin-left: 38px!important;
+    margin-bottom: 27px!important;
+    .layui-form-select input{
+      height: 27px;
+    }
+    .layui-form-select .layui-anim-upbit{
+      height: 32px!important;
+      min-height: 100px;
+      overflow: auto;
+      zoom: 1;
+      dd{
+        height:20px!important;
+        line-height: 2;
+      }
+    }
+  }
+  .log2 h1{
+    font-size: 19px;
+  }
+  .btn2{
+    margin-left: 38px!important;
+    width: 190px!important;
+    height: 27px!important;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  body{
+    .bg(){
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#dbdee6+0,ffffff+56,ffffff+100,dbdee6+100 */
+      background: #dbdee6; /* Old browsers */
+      background: -moz-linear-gradient(top, #dbdee6 0%, #ffffff 56%, #ffffff 100%, #dbdee6 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, #dbdee6 0%,#ffffff 56%,#ffffff 100%,#dbdee6 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, #dbdee6 0%,#ffffff 56%,#ffffff 100%,#dbdee6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbdee6', endColorstr='#dbdee6',GradientType=0 ); /* IE6-9 */
+    }
+  }
+  .wrap {
+    width: 1400px;
+    background: url("../img/1440x1050.jpg") center center no-repeat;;
+    background-size: contain;
+  }
+  .wrap .box .input01,.wrap .box .input02{
+    margin: 0 auto;
+    width: 303px;
+    height: 31px;
+    background-color: #f5f5fa;
+    background-size: cover;
+    border-radius: 6px;
+    border: 1px solid #eaeaed;
+    margin-bottom: 30px;
+    .iconfont{
+      float: left;
+      font-size: 18px;
+      margin-top: 3px;
+      margin-left: 15px;
+      color: #c0c0c5;
+    }
+    input{
+      margin-left: 22px;
+      width: 214px;
+      height: 19px;
+      margin-top: 5px;
+      padding-left: 5px;
+      border: none;
+      outline: none;
+      background: #f5f5fa;
+    }
+  }
+  .wrap .box .title {
+    text-align: center;
+    font-size: 19px;
+    padding: 27px 0;
+  }
+  .wrap .box .btn {
+    width: 303px;
+    height: 31px;
+  }
+  .log2 .layui-form{
+    font-size: 12px;
+    width: 296px!important;
+    margin-left: 38px!important;
+    margin-bottom: 27px!important;
+    .layui-form-select input{
+      height: 27px;
+    }
+    .layui-form-select .layui-anim-upbit{
+      height: 32px!important;
+      min-height: 100px;
+      overflow: auto;
+      zoom: 1;
+      dd{
+        height:20px!important;
+        line-height: 2;
+      }
+    }
+  }
+  .log2 h1{
+    font-size: 19px;
+  }
+  .btn2{
+    margin-left: 38px!important;
+    width: 303px!important;
+    height: 27px!important;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  body{
+    .bg(){
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#dbdee6+0,ffffff+56,ffffff+100,dbdee6+100 */
+      background: #dbdee6; /* Old browsers */
+      background: -moz-linear-gradient(top, #dbdee6 0%, #ffffff 56%, #ffffff 100%, #dbdee6 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, #dbdee6 0%,#ffffff 56%,#ffffff 100%,#dbdee6 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, #dbdee6 0%,#ffffff 56%,#ffffff 100%,#dbdee6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbdee6', endColorstr='#dbdee6',GradientType=0 ); /* IE6-9 */
+    }
+  }
+  .wrap {
+    width: 1400px;
+    background: url("../img/1440x1050.jpg") center center no-repeat;;
+    background-size: contain;
+  }
+  .wrap .box .input01,.wrap .box .input02{
+    margin: 0 auto;
+      width: 270px;
+    height: 31px;
+    background-color: #f5f5fa;
+    background-size: cover;
+    border-radius: 6px;
+    border: 1px solid #eaeaed;
+    margin-bottom: 30px;
+    .iconfont{
+      float: left;
+      font-size: 18px;
+      margin-top: 3px;
+      margin-left: 15px;
+      color: #c0c0c5;
+    }
+    input{
+      margin-left: 22px;
+      width: 202px;
+      height: 19px;
+      margin-top: 5px;
+      padding-left: 5px;
+      border: none;
+      outline: none;
+      background: #f5f5fa;
+    }
+  }
+  .wrap .box .title {
+    text-align: center;
+    font-size: 19px;
+    padding: 27px 0;
+  }
+  .wrap .box .btn {
+    width: 270px;
+    height: 31px;
+  }
+  .log2 .layui-form{
+    font-size: 12px;
+    width: 269px!important;
+    margin-left: 38px!important;
+    margin-bottom: 27px!important;
+    .layui-form-select input{
+      height: 27px;
+    }
+    .layui-form-select .layui-anim-upbit{
+      height: 32px!important;
+      min-height: 100px;
+      overflow: auto;
+      zoom: 1;
+      dd{
+        height:20px!important;
+        line-height: 2;
+      }
+    }
+  }
+  .log2 h1{
+    font-size: 19px;
+  }
+  .btn2{
+    margin-left: 38px!important;
+    width: 270px!important;
+    height: 27px!important;
   }
 }

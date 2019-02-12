@@ -8,7 +8,16 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="layui/css/layui.css">
     <link rel="icon" href="./img/logo2.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1027851_qlfygwsodv.css">
     <style>
+        body{
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#dbdee7+0,f2f3f7+20,ffffff+42,ffffff+63,f2f3f7+84,dde0e9+100 */
+            background: #dbdee7; /* Old browsers */
+            background: -moz-linear-gradient(top, #dbdee7 0%, #f2f3f7 20%, #ffffff 42%, #ffffff 63%, #f2f3f7 84%, #dde0e9 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #dbdee7 0%,#f2f3f7 20%,#ffffff 42%,#ffffff 63%,#f2f3f7 84%,#dde0e9 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, #dbdee7 0%,#f2f3f7 20%,#ffffff 42%,#ffffff 63%,#f2f3f7 84%,#dde0e9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbdee7', endColorstr='#dde0e9',GradientType=0 ); /* IE6-9 */
+        }
         .btn2{
             margin: 15px auto;
             width: 322px;
@@ -28,22 +37,24 @@
                请输入登录信息
            </div>
            <div class="input01">
+               <div class="iconfont icon-geren"></div>
                <input type="text" placeholder="用户名" name='username' value="" id="username">
            </div>
            <div class="input02">
+               <div class="iconfont icon-suo"></div>
                <input type="password" placeholder="密码" name="password" value="" id="password">
            </div>
            <div class="btn"></div>
        </div>
        <div class="log2" style="display: none;">
            <h1 style="text-align: center;margin-bottom: 30px;">选择检验室</h1>
-           <form class="layui-form" action=""  style="width: 321px;margin-bottom: 70px">
+           <form class="layui-form" action=""  style="width: 321px;margin-bottom: 70px; margin-left: 70px;">
                <select name="modules" lay-verify="required" lay-search="" id="unit"
                        lay-filter="num">
                    <option value="">请选择</option>
                </select>
            </form>
-           <span class="layui-btn btn2" ></span>
+           <span class="layui-btn btn2" style="margin-left: 70px;" ></span>
        </div>
 
     </div>
@@ -51,7 +62,7 @@
 </div>
 <script src="js/jquery.js"></script>
 <script src="layui/layui.all.js"></script>
-
+<script src="js/base.js"></script>
 <script src="js/log.js"></script>
 
 </body>

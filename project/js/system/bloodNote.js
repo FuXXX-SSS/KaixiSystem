@@ -16,8 +16,15 @@ table.render({
             window.location.href = "../../log.html"
             console.log(res);
         }
-        if (res.code==0){
-            // console.log(res.data);
+        if (res.code == 9999 ) {
+            layer.msg(res.msg);
+        }
+        if(res.code == 0){
+            var data = res.data
+            if(data.total==0){
+                $(".layui-table-header").css("overflow","visible")
+                $(".layui-table-box").css("overflow","auto")
+            }
         }
         return {
             'code': res.code,
@@ -26,7 +33,7 @@ table.render({
             "data": res.data.rows,
 
         }
-      
+
     }
     , request: {
         limitName: 'rows'
@@ -61,18 +68,18 @@ var active={
         });
     },
 }
-table.on('row(demo)', function (obj) {
-    if (obj.tr.find("[type='checkbox']").attr('checked')) {
-        obj.tr.find("[type='checkbox']").attr('checked', false);
-        obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
-        obj.tr.removeClass('layui-table-click');
-    } else {
-        obj.tr.find("[type='checkbox']").attr('checked', 'checked')
-        obj.tr.find('.layui-unselect').addClass('layui-form-checked');
-        obj.tr.addClass('layui-table-click');
-    }
-
-});
+// table.on('row(demo)', function (obj) {
+//     if (obj.tr.find("[type='checkbox']").attr('checked')) {
+//         obj.tr.find("[type='checkbox']").attr('checked', false);
+//         obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
+//         obj.tr.removeClass('layui-table-click');
+//     } else {
+//         obj.tr.find("[type='checkbox']").attr('checked', 'checked')
+//         obj.tr.find('.layui-unselect').addClass('layui-form-checked');
+//         obj.tr.addClass('layui-table-click');
+//     }
+//
+// });
 //监听工具条
 table.on('tool(demo)', function (obj) {
     var data = obj.data;
@@ -114,6 +121,8 @@ table.on('tool(demo)', function (obj) {
         });
     } else if (obj.event === 'edit') {
         var id = data.id
+        $("#InspectionItemunitinp").val(data.bloodPreparation)
+        $("#InspectionItempreve").val(data.priorityIndex)
         layer.open({
             title: '修改检测项目',
             area: ['500px', '280px'],
@@ -164,12 +173,12 @@ table.on('tool(demo)', function (obj) {
 
                 }).then(function (data) {
                     if (data.code == 0) {
-                        layer.msg("修改检测项目成功")
+                        layer.msg("修改成功")
                         var timeout = setTimeout(function () {
                             window.location.reload()
                         }, 1000)
                     }else if (data.code == 9999){
-                        layer.msg("已存在重复的项目名称")
+                        layer.msg(data.msg)
                     }
                 })
 

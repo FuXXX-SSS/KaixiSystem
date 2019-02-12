@@ -50,6 +50,16 @@ table.render({
             window.location.href = "../../log.html"
             console.log(res);
         }
+        if (res.code == 9999 ) {
+            layer.msg(res.msg);
+        }
+        if(res.code == 0){
+            var data = res.data
+            if(data.total==0){
+                $(".layui-table-header").css("overflow","visible")
+                $(".layui-table-box").css("overflow","auto")
+            }
+        }
         return {
             'code': res.code,
             "msg": res.msg,
@@ -95,7 +105,7 @@ table.render({
         , {field: 'receiveTimes', title: '接收时间', align: 'center'}
         , {field: 'testTimes', title: '检验日期', align: 'center'}
         , {field: 'generateReportTimes', title: '出报告时间', align: 'center'}
-        , {field: 'checkagainTimeType', title: '复查', align: 'center'}
+        , {field: 'checkagainTimeType',title: '复查', align: 'center'}
         , {field: 'followupTimes', title: '随访时间', align: 'center'}
         , {field: 'courierNumber', title: '快递单号', align: 'center'}
         , {field: 'fsectionName', title: '科室', align: 'center'}
@@ -124,6 +134,7 @@ var active = {
         var batchNumber = $("#batchNumber").val();
         var outpatientNumber = $("#outpatientNumber").val();
         var admissionNumber = $("#admissionNumber").val();
+        var inspectionOfficeNumber = $("#inspectionOfficeNumber").val();
         //执行重载
         table.reload('idTest', {
             page: {
@@ -138,6 +149,7 @@ var active = {
                 batchNumber: batchNumber,
                 outpatientNumber: outpatientNumber,
                 admissionNumber: admissionNumber,
+                inspectionOfficeNumber: inspectionOfficeNumber,
                 testState: 0,
             }
         });
@@ -320,18 +332,18 @@ var active = {
         // })
     }
 };
-table.on('row(demo)', function (obj) {
-    if (obj.tr.find("[type='checkbox']").attr('checked')) {
-        obj.tr.find("[type='checkbox']").attr('checked', false);
-        obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
-        obj.tr.removeClass('layui-table-click');
-    } else {
-        obj.tr.find("[type='checkbox']").attr('checked', 'checked')
-        obj.tr.find('.layui-unselect').addClass('layui-form-checked');
-        obj.tr.addClass('layui-table-click');
-    }
-
-});
+// table.on('row(demo)', function (obj) {
+//     if (obj.tr.find("[type='checkbox']").attr('checked')) {
+//         obj.tr.find("[type='checkbox']").attr('checked', false);
+//         obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
+//         obj.tr.removeClass('layui-table-click');
+//     } else {
+//         obj.tr.find("[type='checkbox']").attr('checked', 'checked')
+//         obj.tr.find('.layui-unselect').addClass('layui-form-checked');
+//         obj.tr.addClass('layui-table-click');
+//     }
+//
+// });
 table.on('checkbox(demo)', function (obj) {//选中和批量选中
     if (obj.checked) {
         obj.tr.addClass('yellow');
@@ -396,3 +408,9 @@ $("#outSystemLog").click(function () {
     var type = $(this).data('type');
     active[type] ? active[type].call(this) : '';
 });
+$(document).keydown(function (ev) {
+    ev = window.event || e;
+    if (ev.keyCode == 13) {
+        $("#search").click()
+    }
+})

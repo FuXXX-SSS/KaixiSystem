@@ -25,8 +25,8 @@ $(function(){
             console.log(err);
             // 错误回调，err是错误回调参数
             // 这里不处理错误也可以，上面都有集中处理错误，会tips
-        })    
-        
+        })
+
 })
 
 
@@ -46,6 +46,16 @@ table.render({
     ,parseData:function(res){
         if(res.code==500){
             window.location.href="../../log.html"
+        }
+        if (res.code == 9999 ) {
+            layer.msg(res.msg);
+        }
+        if(res.code == 0){
+            var data = res.data
+            if(data.total==0){
+                $(".layui-table-header").css("overflow","visible")
+                $(".layui-table-box").css("overflow","auto")
+            }
         }
         return{
             'code':res.code,
@@ -79,7 +89,7 @@ table.render({
         ,{field:'fsendeeAccountName', title: '负责人',align:'center'}
         ,{field:'customerSource', title: '客户来源',align:'center'}
         ,{ title: '操作',align:'center',toolbar: '#barDemo',minWidth:250,fixed:'right'}
-    ]]    
+    ]]
     ,page: true //是否显示分页
     ,limit: 15
     ,limits:[15]
@@ -151,7 +161,7 @@ var active = {
                     console.log(err);
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
-                })                            
+                })
        }
     },
    allsubmit:function(){
@@ -192,13 +202,13 @@ var active = {
                 // 错误回调，err是错误回调参数
                 // 这里不处理错误也可以，上面都有集中处理错误，会tips
             })
-               
-          
+
+
        }
    },
    allout: function () {//批量导出
-    var finspectionUnitName = $("#unit").val();       
-    var testerName = $("#name").val();      
+    var finspectionUnitName = $("#unit").val();
+    var testerName = $("#name").val();
     var startTime = $("#start").val();
     var endTime = $("#end").val();
     var inspectionUnitNumber = $("#number").val();
@@ -206,7 +216,7 @@ var active = {
 
     var param = {}
     param.finspectionUnitName = finspectionUnitName
-    param.inspectionUnitNumber = inspectionUnitNumber   
+    param.inspectionUnitNumber = inspectionUnitNumber
     param.testerName = testerName
    // param.admissionNumber = admissionNumber
     //param.outpatientNumber = outpatientNumber
@@ -225,7 +235,7 @@ var active = {
         data:  JSON.stringify(param),
     }).then(function (data) {
             if (data.code == 0) {
-                var url=http.config.api 
+                var url=http.config.api
                 var url=url+"/"+data.data.filepath
                 console.log(url)
                 window.location.href = url;
@@ -237,8 +247,8 @@ var active = {
             // 错误回调，err是错误回调参数
             // 这里不处理错误也可以，上面都有集中处理错误，会tips
         })
-        
-    
+
+
 }
 };
 //监听复选框
@@ -274,7 +284,7 @@ $("#clear").click(function(){
 });
 //搜索
 $("#search").click(function(){
-    
+
     var type = $(this).data('type');
     active[type] ? active[type].call(this) : '';
 });
@@ -288,18 +298,18 @@ $("#allout").click(function(){
     var type = $(this).data('type');
     active[type] ? active[type].call(this) : '';
 });
-table.on('row(demo)', function(obj){
-    if(obj.tr.find("[type='checkbox']").attr('checked')){
-        obj.tr.find("[type='checkbox']").attr('checked',false);
-        obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
-        obj.tr.removeClass('layui-table-click');
-    }else{
-        obj.tr.find("[type='checkbox']").attr('checked','checked')
-        obj.tr.find('.layui-unselect').addClass('layui-form-checked');
-        obj.tr.addClass('layui-table-click');
-    }
-
-});
+// table.on('row(demo)', function(obj){
+//     if(obj.tr.find("[type='checkbox']").attr('checked')){
+//         obj.tr.find("[type='checkbox']").attr('checked',false);
+//         obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
+//         obj.tr.removeClass('layui-table-click');
+//     }else{
+//         obj.tr.find("[type='checkbox']").attr('checked','checked')
+//         obj.tr.find('.layui-unselect').addClass('layui-form-checked');
+//         obj.tr.addClass('layui-table-click');
+//     }
+//
+// });
  //监听工具条
  table.on('tool(demo)', function(obj){
     var data=obj.data;
@@ -330,8 +340,8 @@ table.on('row(demo)', function(obj){
                 })
                 layer.close(index);
             })
-            
-       
+
+
     } else if(obj.event === 'tongguo'){//重新提交
         layer.confirm('确定吗',{icon: 3, title:'提示'}, function(index){
             http.ajax({
@@ -356,8 +366,8 @@ table.on('row(demo)', function(obj){
                     console.log(err);
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
-                })                
-          
+                })
+
         });
     }
 });

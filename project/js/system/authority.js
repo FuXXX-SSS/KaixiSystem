@@ -70,7 +70,12 @@ $(function () {
         })
 
     })
+    // 用户更换
 
+    console.log($(".modal").is(":visible"));
+    if ($(".modal").is(":visible")){
+        console.log(123123);
+    }
 })
 table.render({
     elem: '#test'
@@ -85,6 +90,9 @@ table.render({
         if (res.states == 500) {
             window.location.href = "../../log.html"
             console.log(res);
+        }
+        if (res.code == 9999 ) {
+            layer.msg(res.msg);
         }
         return {
             'code': res.code,
@@ -132,13 +140,13 @@ var active = {
 }
 table.on('row(demo)', function (obj) {
     if (obj.tr.find("[type='checkbox']").attr('checked')) {
-        obj.tr.find("[type='checkbox']").attr('checked', false);
-        obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
-        obj.tr.removeClass('layui-table-click');
+        // obj.tr.find("[type='checkbox']").attr('checked', false);
+        // obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
+        // obj.tr.removeClass('layui-table-click');
     } else {
-        obj.tr.find("[type='checkbox']").attr('checked', 'checked')
-        obj.tr.find('.layui-unselect').addClass('layui-form-checked');
-        obj.tr.addClass('layui-table-click');
+        // obj.tr.find("[type='checkbox']").attr('checked', 'checked')
+        // obj.tr.find('.layui-unselect').addClass('layui-form-checked');
+        // obj.tr.addClass('layui-table-click');
     }
 
 });
@@ -160,16 +168,6 @@ table.on('tool(demo)', function (obj) {
                     XMLHttpRequest.setRequestHeader('Authorization', token);
                 },
                 data: {id: ids},
-                // success: function (data) {
-                //     if (data.code == 0) {
-                //         layer.msg('删除成功');
-                //         var timeout = setTimeout(function () {
-                //             table.reload('idTest', {});
-                //         }, 1000)
-                //     } else if (data.code == 500) {
-                //         window.location.href = '../home.html'
-                //     }
-                // }
             }).then(function (data) {
                 if (data.code == 0) {
                     layer.msg('删除成功');
@@ -182,8 +180,43 @@ table.on('tool(demo)', function (obj) {
             })
         });
     } else if (obj.event === 'edit') {
-        var obj = {}
 
+
+
+        var obj = {}
+        var ids = data.id
+        var checkedId =[]
+        $("#mima,#queren").hide()
+        form.render()
+        // 修改回填
+        // http.ajax({
+        //     url: "/authority/accountdetail",
+        //     type: "POST",
+        //     dataType: "JSON",
+        //     beforeSend: function (XMLHttpRequest) {
+        //         XMLHttpRequest.setRequestHeader('Authorization', token);
+        //     },
+        //     data: {id: ids},
+        // }).then(function (data) {
+        //     if (data.code == 0) {
+        //         console.log(data);
+        //         var data=data.data
+        //         $("#account").val(data.accountname)
+        //         // $("#password2").val(data.loginpassword)
+        //         $("#TrueName").val(data.accountrealname)
+        //         $("#permissiondescription").val(data.permissiondescription)
+        //         $("#unit").val(data.role)
+        //         // data.meun.forEach(function (item,index) {
+        //         //     if (item.checked=="checked"){
+        //         //         checkedId.push(item)
+        //         //     }
+        //         //
+        //         // })
+        //
+        //     } else if (data.code == 500) {
+        //         window.location.href = '../home.html'
+        //     }
+        // })
         layui.config({
             base: '../../layui/lay/mymodules/'
         }).use(['jquery', 'authtree', 'form', 'layer', 'laytpl'], function () {
@@ -191,76 +224,85 @@ table.on('tool(demo)', function (obj) {
             var authtree = layui.authtree;
             // 一般来说，权限数据是异步传递过来的
             http.ajax({
-                url: "/authority/querymeun",
+                url: "/authority/accountdetail",
                 type: "POST",
                 dataType: "JSON",
                 beforeSend: function (XMLHttpRequest) {
                     XMLHttpRequest.setRequestHeader('Authorization', token);
                 },
-                // success: function (data) {
-                //     authtree.render('#LAY-auth-tree-index', data, {
-                //         inputname: 'authids[]',
-                //         layfilter: 'lay-check-auth',
-                //         autowidth: true,
-                //     });
-                //     authtree.on('change(lay-check-auth)', function (data) {
-                //         // 获取所有已选中节点
-                //         var checked = authtree.getChecked('#LAY-auth-tree-index');
-                //         let test = "";
-                //         checked.forEach(function (item, index) {
-                //             if(index == 0){
-                //                 test +=item
-                //             }else{
-                //                 test += ","+item
-                //             }
-                //         })
-                //         obj.id = test;
-                //         console.log(obj);
-                //     });
-                // }
+                data: {id: ids},
             }).then(function (data) {
-                authtree.render('#LAY-auth-tree-index', data, {
-                    inputname: 'authids[]',
+                var data=data.data
+                $("#account").val(data.accountname)
+                // $("#password2").val(data.loginpassword)
+                $("#TrueName").val(data.accountrealname)
+                $("#permissiondescription").val(data.permissiondescription)
+                $("#unit").val(data.role)
+                authtree.render('#LAY-auth-tree-index', data.meun, {
+                    inputname: 'authids',
                     layfilter: 'lay-check-auth',
                     autowidth: true,
                 });
                 if ($(".auth-leaf").css("color", "transparent")) {
                     $(".auth-leaf").css("width", "16px")
                 }
+                var  obj2  ={}
+                var array = []
+                var test2 = "";
+                var val=$("input[name='authids']:checked")
+                for (var i=0;i<val.length;i++){
+                    // console.log(val[i].value);
+                    // array.push(val[i].value)
+                    array.push(val[i].value);
+                   test2 += val[i].value+ ","
+                }
+                obj.id = test2;
+
                 authtree.on('change(lay-check-auth)', function (data) {
                     // 获取所有已选中节点
+                    var test = "";
+
                     var checked = authtree.getChecked('#LAY-auth-tree-index');
-                    let test = "";
+
+                    array = []
                     checked.forEach(function (item, index) {
                         if (index == 0) {
                             test += item
                         } else {
                             test += "," + item
+                            array.push(item);
                         }
                     })
                     obj.id = test;
-                    console.log(obj);
+                    console.log(obj.id);
                 });
+
+                // var unitid =  array.join(",")
+
+                console.log(obj.id);
+
             })
 
-
         });
-        val07 = ""
+
+
+
+        val07 = $("#settings option:selected").val()
         form.on('select(settings)', function (data) {
             var settings = data.value
             console.log(settings);
             if (settings == 3) {
                 $("#role3").show();
                 val07 = data.value
-                console.log(val07);
             }
             if (settings == 1 || settings == 2) {
+                val07 = data.value
                 $("#role3").hide();
             }
         });
         layer.open({
             title: '权限设置',
-            area: ['500px', '350px'],
+            area: ['500px', '150px'],
             btn: ['确定', '取消'], //按钮
             type: 1,
             content: $('.officeadd'),
@@ -276,43 +318,57 @@ table.on('tool(demo)', function (obj) {
                     layer.msg("请输入账号")
                     return false
                 }
-                if ($("#unit").val()) {
-                    val08 = $("#unit").val()
-                    console.log(val08);
-                } else {
-                    layer.msg("请选择送检的单位")
-                    return false
-                }
-                if ($("#password2").val()) {
-                    val02 = $("#password2").val()
-                } else {
-                    layer.msg("请输入密码")
-                    return false
-                }
-                if ($("#Affirmpassword").val()) {
-                    val03 = $("#Affirmpassword").val()
-                    if (val02 != val03) {
-                        layer.msg("请确认密码一致")
+                if (val07>=3){
+                    if ($("#unit").val()) {
+                        val08 = $("#unit").val()
+                        console.log(val08);
                     } else {
-                        if ($("#TrueName").val()) {
-                            val05 = $("#TrueName").val()
-                        } else {
-                            layer.msg("请输入真实姓名")
-                            return false
-                        }
-                        if ($("#permissiondescription").val()) {
-                            val06 = $("#permissiondescription").val()
-                        } else {
-                            layer.msg("请输入权限描述")
-                            return false
-                        }
+                        layer.msg("请选择送检的单位")
+                        return false
                     }
-                } else {
-                    console.log(123);
-                    layer.msg("请输入密码")
-                    return false
                 }
-
+                // if ($("#password2").val()) {
+                //     val02 = $("#password2").val()
+                // } else {
+                //     layer.msg("请输入密码")
+                //     return false
+                // }
+                // if ($("#Affirmpassword").val()) {
+                //     val03 = $("#Affirmpassword").val()
+                //     if (val02 != val03) {
+                //         layer.msg("请确认密码一致")
+                //     } else {
+                //         if ($("#TrueName").val()) {
+                //             val05 = $("#TrueName").val()
+                //         } else {
+                //             layer.msg("请输入真实姓名")
+                //             return false
+                //         }
+                //         if ($("#permissiondescription").val()) {
+                //             val06 = $("#permissiondescription").val()
+                //         } else {
+                //             layer.msg("请输入权限描述")
+                //             return false
+                //         }
+                //     }
+                // } else {
+                //     console.log(123);
+                //     layer.msg("请输入密码")
+                //     return false
+                // }
+                if ($("#TrueName").val()) {
+                                val05 = $("#TrueName").val()
+                            } else {
+                                layer.msg("请输入真实姓名")
+                                return false
+                            }
+                val06 = $("#permissiondescription").val()
+                // if ($("#permissiondescription").val()) {
+                //                 val06 = $("#permissiondescription").val()
+                //             } else {
+                //                 layer.msg("请输入权限描述")
+                //                 return false
+                //             }
                 http.ajax({
                     url: "/authority/addPermissions",
                     type: "POST",
@@ -322,32 +378,17 @@ table.on('tool(demo)', function (obj) {
                     },
                     data: {
                         accountname: val01,
-                        loginpassword: val02,
+                        // loginpassword: val02,
                         accountrealname: val05,
                         permissiondescription: val06,
                         role: val07,
-                        united: val08,
-                        menu: obj.id
+                        unitid: val08,
+                        menu: obj.id,
+                        id: ids
                     },
-                    // success: function (data) {
-                    //     if (data.code == 0) {
-                    //         layer.msg("新增成功")
-                    //         window.location.reload()
-                    //     } else if (data.code == 9999) {
-                    //         layer.msg("已存在重复送检单位")
-                    //     }
-                    // },
-                    // error: function (xml, text) {
-                    //     if (xml.status == 500) {
-                    //         window.location.href = '../../log.html'
-                    //     }
-                    //     layer.msg(text)
-                    //     layer.close(index)
-                    // }
-
                 }).then(function (data) {
                     if (data.code == 0) {
-                        layer.msg("新增成功")
+                        layer.msg("修改成功")
                         var time = setTimeout(function () {
                             window.location.reload()
 
@@ -439,19 +480,25 @@ $("#unitAdd").click(function () {
 
 
     });
-    val07 = ""
+
+
+
+
+
+    val07 = $("#settings option:selected").val()
     form.on('select(settings)', function (data) {
         var settings = data.value
+        val07 = data.value
         console.log(settings);
         if (settings == 3) {
             $("#role3").show();
             val07 = data.value
-            console.log(val07);
         }
         if (settings == 1 || settings == 2) {
             $("#role3").hide();
         }
     });
+    console.log(val07);
     layer.open({
         title: '权限设置',
         area: ['500px', '150px'],
@@ -470,13 +517,16 @@ $("#unitAdd").click(function () {
                 layer.msg("请输入账号")
                 return false
             }
-            if ($("#unit").val()) {
-                val08 = $("#unit").val()
-                console.log(val08);
-            } else {
-                layer.msg("请选择送检的单位")
-                return false
+            if (val07>=3){
+                if ($("#unit").val()) {
+                    val08 = $("#unit").val()
+                    console.log(val08);
+                } else {
+                    layer.msg("请选择送检的单位")
+                    return false
+                }
             }
+
             if ($("#password2").val()) {
                 val02 = $("#password2").val()
             } else {
@@ -494,18 +544,19 @@ $("#unitAdd").click(function () {
                         layer.msg("请输入真实姓名")
                         return false
                     }
-                    if ($("#permissiondescription").val()) {
-                        val06 = $("#permissiondescription").val()
-                    } else {
-                        layer.msg("请输入权限描述")
-                        return false
-                    }
+                    val06 = $("#permissiondescription").val()
+                    // if ($("#permissiondescription").val()) {
+                    //     val06 = $("#permissiondescription").val()
+                    // } else {
+                    //     layer.msg("请输入权限描述")
+                    //     return false
+                    // }
                 }
             } else {
                 layer.msg("请输入密码")
                 return false
             }
-
+            console.log(val07);
             http.ajax({
                 url: "/authority/addPermissions",
                 type: "POST",
@@ -544,11 +595,11 @@ $("#unitAdd").click(function () {
 
                     layer.msg("新增成功")
                     var time = setTimeout(function () {
-                        // window.location.reload()
+                        window.location.reload()
 
                     }, 1000)
                 } else if (data.code == 9999) {
-                    layer.msg("已存在重复送检单位")
+                    layer.msg(data.msg)
                 }
             }, function (err) {
                 if (err.status == 500) {

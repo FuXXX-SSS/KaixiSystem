@@ -47,7 +47,7 @@
   cursor: pointer;
 }
 #allinsert {
- 
+
   overflow: hidden;
   position: relative;
 }
@@ -82,9 +82,9 @@
 }
 @media screen and (max-width: 1680px) {
   .layui-form-label {
-      font-size: 14px;
-      width: 60px;
-      padding:9px 10px;
+    font-size: 14px;
+    width: 90px;
+    padding: 9px 2px;
   }
   .layui-form-item .layui-input-inline{
     width: 100px;
@@ -92,5 +92,5 @@
   .layui-input, .layui-select, .layui-textarea{
     font-size: 14px;
   }
- 
+
 }

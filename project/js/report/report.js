@@ -187,9 +187,19 @@ table.render({
         isGenerateReport: 0,
     }
     , parseData: function (res) {
+        if (res.code == 9999 ) {
+            layer.msg(res.msg);
+        }
         if (res.code == 500) {
             window.location.href = "../../log.html"
             console.log(res);
+        }
+        if(res.code == 0){
+            var data = res.data
+            if(data.total==0){
+                $(".layui-table-header").css("overflow","visible")
+                $(".layui-table-box").css("overflow","auto")
+            }
         }
         // if (res.code==0){
         //     if (res.data.rows[0].isGenerateReport == 1) {
@@ -254,6 +264,12 @@ table.render({
         ,
     ]],
     // defaultToolbar: ['filter', 'print', 'exports']
+    done: function (data) {
+        console.log(data);
+    },
+    error: function (data) {
+        console.log(data);
+    }
 });
 var active = {
     reload: function () {
@@ -280,7 +296,7 @@ var active = {
             }
         });
     },
-    document:function(){
+    document: function () {
 
     },
     getCheckLength: function () { //批量删除
@@ -556,18 +572,18 @@ var active = {
     }
 }
 
-table.on('row(demo)', function (obj) {
-    if (obj.tr.find("[type='checkbox']").attr('checked')) {
-        obj.tr.find("[type='checkbox']").attr('checked', false);
-        obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
-        obj.tr.removeClass('layui-table-click');
-    } else {
-        obj.tr.find("[type='checkbox']").attr('checked', 'checked')
-        obj.tr.find('.layui-unselect').addClass('layui-form-checked');
-        obj.tr.addClass('layui-table-click');
-    }
-
-});
+// table.on('row(demo)', function (obj) {
+//     if (obj.tr.find("[type='checkbox']").attr('checked')) {
+//         obj.tr.find("[type='checkbox']").attr('checked', false);
+//         obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
+//         obj.tr.removeClass('layui-table-click');
+//     } else {
+//         obj.tr.find("[type='checkbox']").attr('checked', 'checked')
+//         obj.tr.find('.layui-unselect').addClass('layui-form-checked');
+//         obj.tr.addClass('layui-table-click');
+//     }
+//
+// });
 table.on('checkbox(demo)', function (obj) {//选中和批量选中
     if (obj.checked) {
         obj.tr.addClass('yellow');
@@ -659,7 +675,9 @@ table.on('tool(demo)', function (obj) {
         var ids = data.id
         // console.log(url);
         // console.log(url+"/bloodReport/downloadWord?id="+ids);
+        // console.log("http://192.168.31.212:9003/bloodReport/downloadWord?id=" + ids);
         window.location.href = "http://47.93.22.122:8104/SSM/bloodReport/downloadWord?id=" + ids
+        // window.location.href = "http://192.168.31.212:9003/bloodReport/downloadWord?id=" + ids
 
         // http.ajax({
         //     url:"/bloodReport/downloadWord",

@@ -28,8 +28,8 @@ $(function(){//下拉框
             console.log(err);
             // 错误回调，err是错误回调参数
             // 这里不处理错误也可以，上面都有集中处理错误，会tips
-        })        
-   
+        })
+
 })
 var laydate = layui.laydate;
 laydate.render({
@@ -50,6 +50,16 @@ table.render({//检验复测
         if(res.code==500){
             window.location.href="../../log.html"
         }
+        if (res.code == 9999 ) {
+            layer.msg(res.msg);
+        }
+        if(res.code == 0){
+            var data = res.data
+            if(data.total==0){
+                $(".layui-table-header").css("overflow","visible")
+                $(".layui-table-box").css("overflow","auto")
+            }
+        }
         return{
             'code':res.code,
             "msg":res.msg,
@@ -59,7 +69,7 @@ table.render({//检验复测
     }
     ,request:{
         limitName: 'rows'
-    }    
+    }
     ,headers:{Authorization:token}
     ,height:'full-250'
     ,cellMinWidth:100
@@ -114,13 +124,13 @@ table.render({//检验复测
                         omatr += "<hr/>";
                     }
                 }
-                return omatr;			        	  
+                return omatr;
             }
         },
             {title: '仪器型号',align:'center',
             templet : function (data){
                 var instrumentModel = '';
-                for(var i=0;i<data.testResult.length;i++){ 
+                for(var i=0;i<data.testResult.length;i++){
                     instrumentModel += data.testResult[i].instrumentModel;
                     if(data.testResult.length - i !=1){
                         instrumentModel += "<hr/>";
@@ -131,7 +141,7 @@ table.render({//检验复测
             { title: '检验日期',align:'center',
             templet : function (data){
                 var testTime = '';
-                for(var i=0;i<data.testResult.length;i++){ 
+                for(var i=0;i<data.testResult.length;i++){
                     testTime += data.testResult[i].testTime;
                     if(data.testResult.length - i !=1){
                         testTime += "<hr/>";
@@ -149,8 +159,8 @@ table.render({//检验复测
                     }
                     return testername;
             }},
-        ]       
-    ]    
+        ]
+    ]
     ,page: true //是否显示分页
     ,limit: 15
     ,limits:[15]
@@ -160,31 +170,31 @@ table.render({//检验复测
     }
 });
 
-table.on('row(demo)', function(obj){
-    if(obj.tr.find("[type='checkbox']").attr('checked')){
-        obj.tr.find("[type='checkbox']").attr('checked',false);
-        obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
-        obj.tr.removeClass('layui-table-click');
-    }else{
-        obj.tr.find("[type='checkbox']").attr('checked','checked')
-        obj.tr.find('.layui-unselect').addClass('layui-form-checked');
-        obj.tr.addClass('layui-table-click');
-    }
-
-});
+// table.on('row(demo)', function(obj){
+//     if(obj.tr.find("[type='checkbox']").attr('checked')){
+//         obj.tr.find("[type='checkbox']").attr('checked',false);
+//         obj.tr.find('.layui-unselect').removeClass('layui-form-checked');
+//         obj.tr.removeClass('layui-table-click');
+//     }else{
+//         obj.tr.find("[type='checkbox']").attr('checked','checked')
+//         obj.tr.find('.layui-unselect').addClass('layui-form-checked');
+//         obj.tr.addClass('layui-table-click');
+//     }
+//
+// });
 //监听工具条
 table.on('tool(demo)', function(obj){
-    var data = obj.data;    
+    var data = obj.data;
     if(obj.event === 'detail'){//添加检验结果
-        var id=data.id        
+        var id=data.id
         console.log(id);
         layer.open({
             title: '添加检验结果',
-            area: ['500px', '280px'],
+            area: ['500px', '298px'],
             btn: ['确认', '取消'],
             type: 1,
             content: $('.officeadd'),
-            yes: function (index, layero) {               
+            yes: function (index, layero) {
                 layer.close(index)
                 http.ajax({
                     url: "/bloodInspect/resultVerify",
@@ -198,19 +208,19 @@ table.on('tool(demo)', function(obj){
                         trValue: $("#val1").val(),
                         omaValue:$("#val2").val(),
                         instrumentModel:$("#val3").val(),
-                        testTimes:$("#start1").val(),                       
-                        bloodSampelTestId:data.id,                        
+                        // testTimes:$("#start1").val(),
+                        bloodSampelTestId:data.id,
                     },
                 }).then(function (data) {
-                        if (data.code == 0) {                            
+                        if (data.code == 0) {
                             layer.msg('添加成功');
-                            table.reload('idTest',{});                        
+                            table.reload('idTest',{});
                         }
                     },function(err){
                         console.log(err);
                         // 错误回调，err是错误回调参数
                         // 这里不处理错误也可以，上面都有集中处理错误，会tips
-                    }) 
+                    })
 
             },
             btn2: function(){
@@ -218,8 +228,8 @@ table.on('tool(demo)', function(obj){
         },
         });
     }else if(obj.event === 'xgnumber'){//修改检验所编号
-        //var id=data.id
-        var  inspectionOfficeNumber = data.inspectionOfficeNumber            
+        var id=data.id
+        var  id = id
         http.ajax({
             url: "/bloodInspect/findOfficeNumber",
             type: "POST",
@@ -228,23 +238,26 @@ table.on('tool(demo)', function(obj){
             beforeSend: function (XMLHttpRequest) {
                 XMLHttpRequest.setRequestHeader('Authorization', token);
             },
-            data: {id:id,inspectionOfficeNumber:data.inspectionOfficeNumber},
+            data: {
+                id:id,
+                // inspectionOfficeNumber:data.inspectionOfficeNumber
+            },
         }).then(function (data) {
-                $("#val4").val(inspectionOfficeNumber)
-                if (data.code == 0) {                                                                     
+                $("#val4").val(data.data)
+                if (data.code == 0) {
                 }
             },function(err){
                 console.log(err);
                 // 错误回调，err是错误回调参数
                 // 这里不处理错误也可以，上面都有集中处理错误，会tips
-            })                                                                                                                                                         
-        layer.open({            
+            })
+        layer.open({
             title: '修改检验所编号',
             area: ['500px', '280px'],
             btn: ['确认', '取消'],
             type: 1,
             content: $('.xgnumber'),
-            yes: function (index, layero) {               
+            yes: function (index, layero) {
                 layer.close(index)
                 http.ajax({
                     url: "/bloodInspect/updateOfficeNumber",
@@ -254,13 +267,13 @@ table.on('tool(demo)', function(obj){
                     beforeSend: function (XMLHttpRequest) {
                         XMLHttpRequest.setRequestHeader('Authorization', token);
                     },
-                    data: {                                          
-                        id:data.id,inspectionOfficeNumber:$("#val4").val(),                                               
-                    }, 
+                    data: {
+                        id:data.id,inspectionOfficeNumber:$("#val4").val(),
+                    },
                 }).then(function (data) {
-                        if (data.code == 0) {                            
+                        if (data.code == 0) {
                             layer.msg('修改成功');
-                            table.reload('idTest',{});                        
+                            table.reload('idTest',{});
                         }
                     },function(err){
                         console.log(err);
@@ -302,7 +315,7 @@ table.on('tool(demo)', function(obj){
                 // 这里不处理错误也可以，上面都有集中处理错误，会tips
             })
     }
-     
+
 });
 //批量
 var active = {
@@ -311,9 +324,9 @@ var active = {
         var endtime=$("#end").val();
         var name =$("#name").val();
         var unit =$("#unit").val();
-        var number =$("#number").val();        
-        var check =$("#check").val(); 
-               
+        var number =$("#number").val();
+        var check =$("#check").val();
+
 
         //执行重载
         table.reload('idTest', {
@@ -331,7 +344,7 @@ var active = {
             }
         });
     },
-    
+
    getCheckLength: function(){ //批量删除
         var checkStatus = table.checkStatus('idTest') ,data = checkStatus.data;
         if(data.length==0){
@@ -369,18 +382,18 @@ var active = {
                     console.log(err);
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
-                })                           
+                })
        }
     },
     allout: function () {//批量导出
-        var finspectionUnitName = $("#unit").val();       
-        var testerName = $("#name").val();      
+        var finspectionUnitName = $("#unit").val();
+        var testerName = $("#name").val();
         var startTime = $("#start").val();
         var endTime = $("#end").val();
-        var inspectionUnitNumber = $("#number").val();       
-        var isaddTestresult = $("#check").val();//选入状态      
-    
-    
+        var inspectionUnitNumber = $("#number").val();
+        var isaddTestresult = $("#check").val();//选入状态
+
+
         var param = {}
         param.finspectionUnitName = finspectionUnitName
         param.inspectionUnitNumber = inspectionUnitNumber
@@ -388,7 +401,7 @@ var active = {
        // param.admissionNumber = admissionNumber
         //param.outpatientNumber = outpatientNumber
         param.startTime = startTime
-        param.endTime = endTime        
+        param.endTime = endTime
         param.isaddTestresult = isaddTestresult
         //param.batchNumber = batchNumber
         //param.testState = 0
@@ -404,14 +417,14 @@ var active = {
             data:  JSON.stringify(param),
         }).then(function (data) {
                 if (data.code == 0) {
-                    var url=http.config.api                    
-                    var url= url+"/"+data.data.filepath 
+                    var url=http.config.api
+                    var url= url+"/"+data.data.filepath
                     window.location.href = url;
                 } else if (data.code == 500) {
                     window.location.href = "../home.html"
                 }
-            })       
-            
+            })
+
     },
     batchSubmit: function(){ //批量提交
         var checkStatus = table.checkStatus('idTest') ,data = checkStatus.data;
@@ -451,8 +464,8 @@ var active = {
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
                 })
-               
-            
+
+
        }
     },
     toTest: function(){ //标记已检验
@@ -492,7 +505,7 @@ var active = {
                     console.log(err);
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
-                })                            
+                })
        }
     },
     Unchecked: function(){ //标记未检验
@@ -532,12 +545,12 @@ var active = {
                     console.log(err);
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
-                })                
-           
+                })
+
        }
     },
-    omaTr: function(){ //导入omatr        
-        var checkStatus = table.checkStatus('idTest') ,data = checkStatus.data;       
+    omaTr: function(){ //导入omatr
+        var checkStatus = table.checkStatus('idTest') ,data = checkStatus.data;
         if(data.length==0){
             layer.open({
                 type:1,
@@ -548,7 +561,7 @@ var active = {
             })
             return false
         }else{
-            var str=[];            
+            var str=[];
             for(var i=0;i<data.length;i++){
                 str.push(data[i].id)
             }
@@ -574,9 +587,9 @@ var active = {
                     // 错误回调，err是错误回调参数
                     // 这里不处理错误也可以，上面都有集中处理错误，会tips
                 })
-                           
+
        }
-    },   
+    },
 };
 //清空
 $("#clear").click(function(){
@@ -588,7 +601,7 @@ $("#clear").click(function(){
     form.render()
 });
 //搜索
-$("#search").click(function(){    
+$("#search").click(function(){
     var type = $(this).data('type');
     active[type] ? active[type].call(this) : '';
 });
@@ -636,7 +649,7 @@ $("#allinput").change(function (e) {
     }
     http.ajax({
         url: "/bloodInspect/importOMATR",
-        type: "POST",        
+        type: "POST",
         mask: true,
         beforeSend: function (XMLHttpRequest) {
             XMLHttpRequest.setRequestHeader('Authorization', token);
@@ -654,26 +667,26 @@ $("#allinput").change(function (e) {
             console.log(err);
             // 错误回调，err是错误回调参数
             // 这里不处理错误也可以，上面都有集中处理错误，会tips
-        })           
+        })
 
 })
 
 
 //监听select值
 form.on('select(check)', function(data){
-    if(data.value == "0"){       
+    if(data.value == "0"){
         $("#toTest").css("display","inline-block")
         $("#Unchecked").css("display","none")
         $("#batchSubmit").css("display","none")
 
-                
+
     }else if(data.value == "1"){
-        $("#toTest").css("display","none") 
+        $("#toTest").css("display","none")
         $("#Unchecked").css("display","inline-block")
         $("#batchSubmit").css("display","inline-block")
 
     }
-   
+
 
 });
 
